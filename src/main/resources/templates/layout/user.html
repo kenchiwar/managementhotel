@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="mainContent(title,content,css,script)">
+
+<head>
+	<meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Alazea - Gardening &amp; Landscaping HTML Template</title>
+
+    <!-- Favicon -->
+    <link rel="icon" th:href="@{/assets/user/img/core-img/favicon.ico}">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" th:href="@{/assets/user/style.css}">
+
+
+
+</head>
+
+<body>
+	<div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img">
+            <img src="/assets/user/img/core-img/leaf.png" alt="">
+        </div>
+    </div>
+	<th:block  th:insert="header :: .header-area">
+
+	</th:block>
+
+	<th:block th:if="${css}">
+		<div th:replace="${css}"></div>
+	</th:block>
+				<!--Content-->
+	<div th:replace="${content}">
+	</div>
+	<th:block th:if="${script}">
+		<div th:replace="${script}"></div>
+	</th:block>
+	<th:block  th:insert="footer :: .footer-area"></th:block>
+
+	
+	 <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script th:src="@{/assets/user/js/jquery/jquery-2.2.4.min.js}"></script>
+    <!-- Popper js -->
+    <script th:src="@{/assets/user/js/bootstrap/popper.min.js}"></script>
+    <!-- Bootstrap js -->
+    <script th:src="@{/assets/user/js/bootstrap/bootstrap.min.js}"></script>
+    <!-- All Plugins js -->
+    <script th:src="@{/assets/user/js/plugins/plugins.js}"></script>
+    <!-- Active js -->
+    <script th:src="@{/assets/user/js/active.js}"></script>
+</body>
+
+</html>

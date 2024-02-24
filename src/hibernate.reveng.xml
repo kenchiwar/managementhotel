@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="managementhotel" match-name="account"/>
+  <table-filter match-catalog="managementhotel" match-name="bill"/>
+  <table-filter match-catalog="managementhotel" match-name="bill_detail"/>
+  <table-filter match-catalog="managementhotel" match-name="categoryimage"/>
+  <table-filter match-catalog="managementhotel" match-name="complain"/>
+  <table-filter match-catalog="managementhotel" match-name="evaluate"/>
+  <table-filter match-catalog="managementhotel" match-name="hotel"/>
+  <table-filter match-catalog="managementhotel" match-name="image"/>
+  <table-filter match-catalog="managementhotel" match-name="image_papers"/>
+  <table-filter match-catalog="managementhotel" match-name="payment"/>
+  <table-filter match-catalog="managementhotel" match-name="role"/>
+  <table-filter match-catalog="managementhotel" match-name="room"/>
+  <table-filter match-catalog="managementhotel" match-name="room_service_detail"/>
+  <table-filter match-catalog="managementhotel" match-name="service"/>
+</hibernate-reverse-engineering>
