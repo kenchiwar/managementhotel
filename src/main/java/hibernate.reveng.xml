@@ -3,4 +3,18 @@
 
 <hibernate-reverse-engineering>
   <table-filter match-schema="managementhotel" match-name=".*"/>
+  <table-filter match-catalog="managementhotel" match-name="account"/>
+  <table-filter match-catalog="managementhotel" match-name="bill"/>
+  <table-filter match-catalog="managementhotel" match-name="bill_detail"/>
+  <table-filter match-catalog="managementhotel" match-name="categoryimage"/>
+  <table-filter match-catalog="managementhotel" match-name="complain"/>
+  <table-filter match-catalog="managementhotel" match-name="evaluate"/>
+  <table-filter match-catalog="managementhotel" match-name="hotel"/>
+  <table-filter match-catalog="managementhotel" match-name="image"/>
+  <table-filter match-catalog="managementhotel" match-name="image_papers"/>
+  <table-filter match-catalog="managementhotel" match-name="payment"/>
+  <table-filter match-catalog="managementhotel" match-name="role"/>
+  <table-filter match-catalog="managementhotel" match-name="room"/>
+  <table-filter match-catalog="managementhotel" match-name="service"/>
+  <table-filter match-catalog="managementhotel" match-name="service_detail"/>
 </hibernate-reverse-engineering>
