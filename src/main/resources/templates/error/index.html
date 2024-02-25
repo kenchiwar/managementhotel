@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/user :: mainContent('INDEX HOTEL', ~{this :: .main-content},~{this:: #css},~{this :: #script})">
+
+<head>
+
+</head>
+
+<body>
+	<div id="css">
+		<style>
+			/*======================
+    404 page
+=======================*/
+
+			.header-area{
+				background-color: rgba(1,148,243,1.00);
+			}
+			.page_404 {	
+				padding: 40px 0;
+				background: #fff;
+				font-family: 'Arvo', serif;
+				height: 100vh;
+				display: flex;
+			}
+
+			.page_404 img {
+				width: 100%;
+			}
+
+			.four_zero_four_bg {
+
+				background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+				height: 400px;
+				background-position: center;
+			}
+
+
+			.four_zero_four_bg h1 {
+				font-size: 80px;
+			}
+
+			.four_zero_four_bg h3 {
+				font-size: 80px;
+			}
+
+			.link_404 {
+				color: #fff !important;
+				padding: 10px 20px;
+				background: #39ac31;
+				margin: 20px 0;
+				display: inline-block;
+			}
+
+			.contant_box_404 {
+				margin-top: -50px;
+			}
+			.box_error{
+				height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+			}
+		</style>
+	</div>
+	<div class="main-content">
+		
+		<section class="page_404">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 ">
+						<div class="col-sm-12 col-sm-offset-1  text-center">
+							<div class="box_error">
+								<div class="four_zero_four_bg">
+									<h1 class="text-center ">404</h1>
+	
+	
+								</div>
+	
+								<div class="contant_box_404">
+									<h3 class="h2">
+										Look like you're lost
+									</h3>
+	
+									<p>the page you are looking for not avaible!</p>
+	
+									<a href="/" class="link_404">Go to Home</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<div id="script">
+
+	</div>
+</body>
+
+</html>
