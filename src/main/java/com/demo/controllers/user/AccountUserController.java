@@ -30,7 +30,11 @@ public class AccountUserController {
 			
 	return "user/account/index";
 	}
-	
+	@RequestMapping(value= {"login"} ,method = RequestMethod.GET)
+	public String login(ModelMap modelMap, HttpSession session) {
+			
+	return "user/account/login";
+	}
 	@RequestMapping(value= {"create"} ,method = RequestMethod.GET)
 	public String create(ModelMap modelMap, HttpSession session) {
 			
