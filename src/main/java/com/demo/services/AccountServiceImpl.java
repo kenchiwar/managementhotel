@@ -39,7 +39,7 @@ public class AccountServiceImpl implements AccountService{
 		}else {
 			List<GrantedAuthority> role = new ArrayList<GrantedAuthority>();
 			role.add(new SimpleGrantedAuthority(account.getRole().getName()));
-			
+			System.out.println(account);
 			return new User(email,account.getPassword(),role);
 		}
 		
