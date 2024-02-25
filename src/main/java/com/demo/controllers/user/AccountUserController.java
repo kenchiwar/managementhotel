@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.demo.services.AccountSelectService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -22,12 +23,14 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping ("account")
 public class AccountUserController {
 	
-	
+	@Autowired
+	private AccountSelectService accountSelectService;
 	//Template
 	
 	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)
-	public String Index(ModelMap modelMap, HttpSession session) {
-			
+	public String Index(ModelMap modelMap, HttpSession session,Authentication authentication) {
+	modelMap.put("account", accountSelectService.getAccountLogin(authentication));
+		
 	return "user/account/index";
 	}
 	@RequestMapping(value= {"login"} ,method = RequestMethod.GET)
