@@ -29,14 +29,19 @@ public class AccountUserController {
 	
 	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session,Authentication authentication) {
+	if(authentication != null) {
 	modelMap.put("account", accountSelectService.getAccountLogin(authentication));
-		
+	}	
 	return "user/account/index";
 	}
 	@RequestMapping(value= {"login"} ,method = RequestMethod.GET)
-	public String login(ModelMap modelMap, HttpSession session) {
-			
+	public String login(ModelMap modelMap, HttpSession session,Authentication authentication) {
+	
+	if(authentication != null) {
+		return "redirect:/account";
+	}else {
 	return "user/account/login";
+	}
 	}
 	@RequestMapping(value= {"create"} ,method = RequestMethod.GET)
 	public String create(ModelMap modelMap, HttpSession session) {

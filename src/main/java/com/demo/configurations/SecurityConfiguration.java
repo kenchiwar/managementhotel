@@ -35,10 +35,10 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity.cors(cor -> cor.disable()).csrf(csf -> csf.disable()).authorizeHttpRequests(auth -> {
 					auth
-//					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN")
-//					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "BUSINESS")
-					.requestMatchers("/assets/**", "/account/login")
-					.permitAll().requestMatchers("/**").permitAll();
+					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN")
+					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "BUSINESS")
+					.requestMatchers("/assets/**", "/account/login").permitAll()
+					.requestMatchers("/**").permitAll();
 					})
 					.formLogin(formLogin -> {
 					formLogin.loginPage("/account/login")
@@ -54,7 +54,7 @@ public class SecurityConfiguration {
 							urls.put("ROLE_SUPPER_ADMIN", "/admin");
 							urls.put("ROLE_ADMIN", "/admin");
 							urls.put("ROLE_BUSINESS", "/admin");
-							urls.put("ROLE_USER", "/account/profile");
+							urls.put("ROLE_USER", "/account");
 							String url = "";
 							for (GrantedAuthority role : authentication.getAuthorities()) {
 								if (urls.containsKey(role.getAuthority())) {

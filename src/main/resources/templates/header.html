@@ -1,92 +1,95 @@
-	
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
 
-    <!-- ##### Header Area Start ##### -->
-    <header class="header-area">
+	<!-- ***** Top Header Area ***** -->
 
-        <!-- ***** Top Header Area ***** -->
-        
-       
 
-        <!-- ***** Navbar Area ***** -->
-        <div class="alazea-main-menu">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container">
-                    <!-- Menu -->
-                    <nav class="classy-navbar justify-content-between" id="alazeaNav">
 
-                        <!-- Nav Brand -->
-                        <a href="/" class="nav-brand"><img src="/assets/user/img/core-img/logo.png" alt=""></a>
+	<!-- ***** Navbar Area ***** -->
+	<div class="alazea-main-menu">
+		<div class="classy-nav-container breakpoint-off">
+			<div class="container">
+				<!-- Menu -->
+				<nav class="classy-navbar justify-content-between" id="alazeaNav">
 
-                        <!-- Navbar Toggler -->
-                        <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
+					<!-- Nav Brand -->
+					<a href="/" class="nav-brand"><img src="/assets/user/img/core-img/logo.png" alt=""></a>
 
-                        <!-- Menu -->
-                        <div class="classy-menu">
+					<!-- Navbar Toggler -->
+					<div class="classy-navbar-toggler">
+						<span class="navbarToggler"><span></span><span></span><span></span></span>
+					</div>
 
-                            <!-- Close Button -->
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                            </div>
+					<!-- Menu -->
+					<div class="classy-menu">
 
-                            <!-- Navbar Start -->
-                            <div class="classynav">
-                                <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="about.html">About</a></li>
-                                    <li><a href="#">Pages</a>
-                                        <ul class="dropdown">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about.html">About</a></li>
-                                            <li><a href="shop.html">Shop</a>
-                                                <ul class="dropdown">
-                                                    <li><a href="shop.html">Shop</a></li>
-                                                    <li><a href="shop-details.html">Shop Details</a></li>
-                                                    <li><a href="cart.html">Shopping Cart</a></li>
-                                                    <li><a href="checkout.html">Checkout</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="portfolio.html">Portfolio</a>
-                                                <ul class="dropdown">
-                                                    <li><a href="portfolio.html">Portfolio</a></li>
-                                                    <li><a href="single-portfolio.html">Portfolio Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="blog.html">Blog</a>
-                                                <ul class="dropdown">
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="single-post.html">Blog Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="shop.html">Shop</a></li>
-                                    <li><a href="portfolio.html">Portfolio</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
+						<!-- Close Button -->
+						<div class="classycloseIcon">
+							<div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+						</div>
 
-                                <!-- Search Icon -->
-                                <div id="searchIcon">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
+						<!-- Navbar Start -->
+						<div class="classynav">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li><a href="about.html">About</a></li>
+								<li><a href="#">Pages</a>
+									<ul class="dropdown">
+										<li><a href="index.html">Home</a></li>
+										<li><a href="about.html">About</a></li>
 
-                            </div>
-                            <!-- Navbar End -->
-                        </div>
-                    </nav>
+										<li><a href="contact.html">Contact</a></li>
+									</ul>
+								</li>
+								<li><a href="contact.html">Contact</a></li>
+								<th:block sec:authorize="isAuthenticated()">
+									<li class="menu-item">
+										<a th:href="@{/account/profile}">
+											<th:block sec:authentication="name"></th:block>
+										</a>
+										<ul class="dropdown">
+											<th:block sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_BUSINESS')">
+													<li><a th:href="@{/admin}">Dasboard</a></li>
+											</th:block>
+											<li><a th:href="@{/account}">Account</a></li>
+											<li><a th:href="@{/account/logout}">Logout</a></li>
+										</ul>
+									</li>
 
-                    <!-- Search Form -->
-                    <div class="search-form">
-                        <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type keywords &amp; press enter...">
-                            <button type="submit" class="d-none"></button>
-                        </form>
-                        <!-- Close Icon -->
-                        <div class="closeIcon"><i class="fa fa-times" aria-hidden="true"></i></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+									</li>
+								</th:block>
+
+								<th:block sec:authorize="!isAuthenticated()">
+									<li class="menu-item">
+										<a th:href="@{/account/login}">Login</a>
+
+
+									<li class="menu-item">
+										<a th:href="@{/account/register}">Register</a>
+									</li>
+								</th:block>
+							</ul>
+
+							<!-- Search Icon -->
+							<div id="searchIcon">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</div>
+
+						</div>
+						<!-- Navbar End -->
+					</div>
+				</nav>
+
+				<!-- Search Form -->
+				<div class="search-form">
+					<form action="#" method="get">
+						<input type="search" name="search" id="search" placeholder="Type keywords &amp; press enter...">
+						<button type="submit" class="d-none"></button>
+					</form>
+					<!-- Close Icon -->
+					<div class="closeIcon"><i class="fa fa-times" aria-hidden="true"></i></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
