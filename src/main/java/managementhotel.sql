@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 24, 2024 lúc 08:41 AM
+-- Thời gian đã tạo: Th2 25, 2024 lúc 08:40 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.4
 
@@ -39,6 +39,13 @@ CREATE TABLE `account` (
   `status` tinyint(1) DEFAULT NULL,
   `id_role` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `account`
+--
+
+INSERT INTO `account` (`id`, `first_name`, `last_name`, `email`, `password`, `phone`, `image`, `active`, `status`, `id_role`) VALUES
+(2, 'fdsfdsf', 'dsfsdfs', 'sdfsdfsf', NULL, 'sdfsfsfs', 'sdfsfsf', 'sdfsfsf', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -197,6 +204,14 @@ CREATE TABLE `role` (
   `name` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Đang đổ dữ liệu cho bảng `role`
+--
+
+INSERT INTO `role` (`id`, `name`) VALUES
+(1, 'fdsfsfsd'),
+(2, 'sdfsdfsdfdsdf');
+
 -- --------------------------------------------------------
 
 --
@@ -339,8 +354,8 @@ ALTER TABLE `service`
 -- Chỉ mục cho bảng `service_detail`
 --
 ALTER TABLE `service_detail`
-  ADD KEY `fk_service_room` (`id_room`),
-  ADD KEY `fk_room_service` (`id_service`);
+  ADD PRIMARY KEY (`id_room`,`id_service`),
+  ADD KEY `fk_serviceDetail_room` (`id_service`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -350,7 +365,7 @@ ALTER TABLE `service_detail`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `bill`
@@ -404,7 +419,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT cho bảng `role`
 --
 ALTER TABLE `role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `room`
@@ -426,7 +441,6 @@ ALTER TABLE `service`
 -- Các ràng buộc cho bảng `account`
 --
 ALTER TABLE `account`
-  ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`id`) REFERENCES `hotel` (`id_account`) ON DELETE NO ACTION,
   ADD CONSTRAINT `fk_account_role` FOREIGN KEY (`id_role`) REFERENCES `role` (`id`);
 
 --
@@ -463,6 +477,12 @@ ALTER TABLE `evaluate`
   ADD CONSTRAINT `fk_evulate_hotel` FOREIGN KEY (`idHotel`) REFERENCES `hotel` (`id_account`) ON DELETE CASCADE;
 
 --
+-- Các ràng buộc cho bảng `hotel`
+--
+ALTER TABLE `hotel`
+  ADD CONSTRAINT `fk_hotel_account` FOREIGN KEY (`id_account`) REFERENCES `account` (`id`);
+
+--
 -- Các ràng buộc cho bảng `image`
 --
 ALTER TABLE `image`
@@ -484,8 +504,8 @@ ALTER TABLE `room`
 -- Các ràng buộc cho bảng `service_detail`
 --
 ALTER TABLE `service_detail`
-  ADD CONSTRAINT `fk_room_service` FOREIGN KEY (`id_service`) REFERENCES `service` (`id`),
-  ADD CONSTRAINT `fk_service_room` FOREIGN KEY (`id_room`) REFERENCES `room` (`id`);
+  ADD CONSTRAINT `fk_serviceDetail_hotel` FOREIGN KEY (`id_room`) REFERENCES `room` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_serviceDetail_room` FOREIGN KEY (`id_service`) REFERENCES `service` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

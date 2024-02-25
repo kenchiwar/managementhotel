@@ -2,7 +2,7 @@ package com.demo.entities;
 
 import jakarta.persistence.*;
 
-// Generated Feb 24, 2024, 2:34:54 PM by Hibernate Tools 4.3.6.Final
+// Generated Feb 25, 2024, 2:30:44 PM by Hibernate Tools 4.3.6.Final
 
 
 
