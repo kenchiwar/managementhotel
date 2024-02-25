@@ -14,13 +14,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.demo.entities.Hotel;
+import com.demo.services.AccountSelectServiceImpl;
+import com.demo.staticHelper.AttributeHelper;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping ("admin/hotel")
 public class HotelAdminController {
+	private final String url = "admin/hotel";
+	@Autowired
+	AccountSelectServiceImpl accountSelectService ;
 	
 	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session) {
@@ -30,8 +35,18 @@ public class HotelAdminController {
 	
 	@RequestMapping(value= {"create"} ,method = RequestMethod.GET)
 	public String create(ModelMap modelMap, HttpSession session) {
-			
+	
+	modelMap.put(AttributeHelper.urlForm,"/"+url+"/add");
+	modelMap.put("hotel",new Hotel());
+	
+		
 	return "admin/hotel/create";
+	}
+	@RequestMapping(value= {"add"} ,method = RequestMethod.POST)
+	public String Add(ModelMap modelMap, HttpSession session) {
+			
+	
+		return "redirect:admin/hotel/create";
 	}
 	@RequestMapping(value= {"detail"} ,method = RequestMethod.GET)
 	public String detail(ModelMap modelMap, HttpSession session) {
@@ -44,11 +59,7 @@ public class HotelAdminController {
 	return "admin/hotel/edit";
 	}
 	////
-	@RequestMapping(value= {"add"} ,method = RequestMethod.POST)
-	public String Add(ModelMap modelMap, HttpSession session) {
-			
-	return "redirect:admin/hotel/create";
-	}
+	
 	@RequestMapping(value= {"update"} ,method = RequestMethod.PUT)
 	public String update(ModelMap modelMap, HttpSession session) {
 			
