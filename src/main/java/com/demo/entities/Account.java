@@ -31,6 +31,9 @@ public class Account implements java.io.Serializable {
 
 	public Account() {
 	}
+	public Account(Integer id ) {
+		this.id = id ;
+	}
 
 	public Account(Role role) {
 		this.role = role;

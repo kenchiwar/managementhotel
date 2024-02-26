@@ -1,10 +1,9 @@
 package com.demo.controllers.admin;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,63 +11,136 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.demo.entities.Account;
 import com.demo.entities.Hotel;
-import com.demo.services.AccountSelectServiceImpl;
+import com.demo.services.AccountSelectService;
+import com.demo.services.AccountService;
+import com.demo.services.HotelService;
 import com.demo.staticHelper.AttributeHelper;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping ("admin/hotel")
+@RequestMapping("admin/hotel")
 public class HotelAdminController {
 	private final String url = "admin/hotel";
+	private final String dataKey = "hotel";
 	@Autowired
-	AccountSelectServiceImpl accountSelectService ;
-	
-	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)
+	private AccountSelectService selectAccountService;
+	@Autowired AccountService serviceAccount ;
+	@Autowired
+	private HotelService serviceHotel;
+
+	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session) {
-			
-	return "admin/hotel/index";
+
+		return "admin/hotel/index";
+	}
+
+	@RequestMapping(value = { "create" }, method = RequestMethod.GET)
+	public String create(ModelMap modelMap) {
+
+		modelMap.put(AttributeHelper.urlForm, "/" + url + "/create");
+
+		modelMap.put(AttributeHelper.checkEdit, false);
+		if(!(modelMap.get(dataKey)!=null)) modelMap.put(dataKey, new Hotel());
+
+		return url + "/create";
 	}
 	
-	@RequestMapping(value= {"create"} ,method = RequestMethod.GET)
-	public String create(ModelMap modelMap, HttpSession session) {
+
+	 
 	
-	modelMap.put(AttributeHelper.urlForm,"/"+url+"/add");
-	modelMap.put("hotel",new Hotel());
+	@RequestMapping(value = { "create" }, method = RequestMethod.POST)   //nhìn thì biết rồi đó hoặc xài  @GetMapping({ "index2" })
+	  public String create(@ModelAttribute("hotel") Hotel data,
+			   @RequestParam("mainPhoto123") MultipartFile fileMain ,
+			   @RequestParam("secondaryPhoto123") MultipartFile fileSecondaryPhoto,
+			  RedirectAttributes redirect,ModelMap model,Authentication authentication) {	
+		  
+		   Account loginAccount = selectAccountService.
+		  getAccountLogin(authentication);	  
+		 if(serviceHotel.save(data,fileMain, fileSecondaryPhoto,loginAccount.getId())) {
+			 redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
+			//
+			 //
+			 return "redirect:/admin/hotel/index";
+		 }else{
+			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error"); 
+			redirect.addFlashAttribute(dataKey, data);
+		 };
+		  
+		//  System.out.println(loginAccount.getEmail());
 	
-		
-	return "admin/hotel/create";
-	}
-	@RequestMapping(value= {"add"} ,method = RequestMethod.POST)
-	public String Add(ModelMap modelMap, HttpSession session) {
-			
+		return "redirect:/"+url+"/create";
+	  }
 	
-		return "redirect:admin/hotel/create";
-	}
-	@RequestMapping(value= {"detail"} ,method = RequestMethod.GET)
+	
+
+	@RequestMapping(value = { "detail" }, method = RequestMethod.GET)
 	public String detail(ModelMap modelMap, HttpSession session) {
-			
-	return "admin/hotel/detail";
+
+		return "admin/hotel/detail";
 	}
-	@RequestMapping(value= {"edit"} ,method = RequestMethod.GET)
-	public String edit(ModelMap modelMap, HttpSession session) {
-			
-	return "admin/hotel/edit";
+	//Edit có id là edit admin ,edit ko id là edit account khách sạn của nó 
+	@RequestMapping(value = { "edit/{id}","edit" }, method = RequestMethod.GET)
+	public String edit(Authentication authentication
+			,@PathVariable(value = "id", required = false) Integer id
+			,ModelMap modelMap) {
+		
+		
+		
+		
+		  //Kiểm tra coi có dữ liệu flash chạy qua ko
+		  if(!(modelMap.get(dataKey)!=null)) { if(id!=null) { modelMap.put(dataKey,
+		  serviceHotel.find(id)); }else {
+		  
+		  modelMap.put(dataKey, selectAccountService
+		  .getAccountLogin(authentication).getHotel()); } }
+		 
+		//modelMap.put(dataKey,new Hotel());
+		
+		modelMap.put(AttributeHelper.urlForm, "/" + url + "/edit"+
+		((id!=null)?"/"+id.toString():""));
+
+		modelMap.put(AttributeHelper.checkEdit, true);
+		modelMap.put("urlInput", "admin\\hotel\\create");
+		modelMap.put("urlImagesHotelMain",AttributeHelper.urlImagesHotelMain);
+		modelMap.put("urlImagesHotelCategory",AttributeHelper.urlImagesHotelCategory);
+		
+		
+		
+		
+		
+		return "admin/hotel/edit";
 	}
 	////
-	
-	@RequestMapping(value= {"update"} ,method = RequestMethod.PUT)
-	public String update(ModelMap modelMap, HttpSession session) {
-			
-	return "redirect:/admin/hotel";
+
+	@RequestMapping(value = { "edit/{id}","edit" }, method = RequestMethod.POST)
+	public String edit(@ModelAttribute("hotel") Hotel data,
+			   @RequestParam("mainPhoto123") MultipartFile fileMain ,
+			   @RequestParam("secondaryPhoto123") MultipartFile fileSecondaryPhoto,			   
+			@PathVariable(value = "id", required = false) Integer id,
+			  RedirectAttributes redirect,ModelMap model,Authentication authentication) {
+
+		
+		 if(serviceHotel.save(data,fileMain, fileSecondaryPhoto,null)){
+			 redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
+		 }else{
+			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error"); 
+			redirect.addFlashAttribute(dataKey, data);
+		 };
+		
+		return "redirect:/"+url+"/edit"+(id!=null?"/"+id:"");
 	}
-	@RequestMapping(value= {"delete"} ,method = RequestMethod.DELETE)
+
+	@RequestMapping(value = { "delete" }, method = RequestMethod.DELETE)
 	public String delete(ModelMap modelMap, HttpSession session) {
-			
-	return "redirect:admin/hotel";
+
+		return "redirect:admin/hotel";
 	}
-	
+
 }

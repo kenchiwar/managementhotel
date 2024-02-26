@@ -7,13 +7,30 @@
 
 <body>
 	<div id="css">
-		
+		<th:block   th:insert="${urlInput}:: #css" ></th:block>
 	</div>
 	<div id="main-content">
-		<h4>Content</h4>
+		<h1 th:text="${hotel.name}"></h1>
+		Main images
+		<img  class="  img-fluid" 
+		th:src="${urlImagesHotelMain}+'/'+${hotel.mainPhoto}">
+		
+		Ảnh phụ 
+		<img class="  img-fluid float-end"
+		th:src="${urlImagesHotelMain}+'/'+${hotel.secondaryPhoto}">
+		
+		
+		<div id="formToBody" style=" padding: 3px; border: 2px solid #ccc;margin: 10px;">
+			
+			
+			
+			<div id="formToCreate"  th:insert="${urlInput}:: #formOutBody" ></div>
+		</div>
+		
 	</div>
 	<div id="script">
 		
+		<th:block   th:insert="${urlInput}:: #script" ></th:block>
 	</div>
 </body>
 

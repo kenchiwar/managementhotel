@@ -14,7 +14,7 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "hotel", catalog = "managementhotel")
 public class Hotel implements java.io.Serializable {
 
-	private int idAccount;
+	private Integer idAccount;
 	private Account account;
 	private String name;
 	private String cancellationPolicy;
@@ -68,11 +68,11 @@ public class Hotel implements java.io.Serializable {
 	@GeneratedValue(generator = "generator")
 
 	@Column(name = "id_account", unique = true, nullable = false)
-	public int getIdAccount() {
+	public Integer getIdAccount() {
 		return this.idAccount;
 	}
 
-	public void setIdAccount(int idAccount) {
+	public void setIdAccount(Integer idAccount) {
 		this.idAccount = idAccount;
 	}
 
