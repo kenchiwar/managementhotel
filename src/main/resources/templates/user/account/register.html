@@ -10,7 +10,7 @@
 	<div id="css">
 		<style>
 			/*! CSS Used from: https://colorlib.com/etc/lf/Login_v2/vendor/bootstrap/css/bootstrap.min.css */
-			
+
 
 			a {
 				color: #007bff;
@@ -186,14 +186,14 @@
 				justify-content: center;
 				align-items: center;
 				padding: 15px;
-				background-image:url(/assets/user/img/bg-img/footer-background.webp);
-				    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+				background-image: url(/assets/user/img/bg-img/footer-background.webp);
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: center;
 			}
 
 			.wrap-login100 {
-				width: 390px;
+				width: 500px;
 				background: #fff;
 				border-radius: 10px;
 				overflow: hidden;
@@ -386,55 +386,93 @@
 				left: 0;
 			}
 
+			@media (min-width: 768px) {
+				.inputs {
+					display: flex;
+					flex-wrap: wrap;
+					margin: 0 -20px;
+				}
+
+				.inputs .wrapper {
+					flex: 0 0 50%;
+					max-width: 50%;
+					padding: 0 20px;
+				}
+			}
+
 			@media (max-width:576px) {
 				.wrap-login100 {
 					padding: 77px 15px 33px;
 				}
+
 			}
 
 			.validate-input {
 				position: relative;
 			}
-
-			
 		</style>
 	</div>
 	<div class="main-content">
 		<div class="limiter">
 			<div class="container-login100">
 				<div class="wrap-login100">
-					<form class="login100-form validate-form" method="post" th:action="@{/account/process-login}">
+					<form class="login100-form validate-form" method="post" th:action="@{/account/add}">
 						<span class="login100-form-title p-b-26">
-							Login
+							Register
 						</span>
-						
-						<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
-							<input class="input100" type="text" name="email" placeholder="Email">
-							
+						<div class="inputs">
+							<div class="wrapper">
+								<div class="wrap-input100 validate-input">
+									<label>First Name</label>
+									<input class="input100" type="text" name="firstName" placeholder="Enter First Name"
+										th:field="${account.firstName}">
+
+								</div>
+							</div>
+							<div class="wrapper">
+								<div class="wrap-input100 validate-input">
+									<label>Last Name</label>
+									<input class="input100" type="text" name="lastName" placeholder="Enter Last Name"
+										th:field="${account.lastName}">
+								</div>
+							</div>
 						</div>
-						<div class="wrap-input100 validate-input" data-validate="Enter password" >
+						<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+							<label>Email</label>
+							<input class="input100" type="text" name="email" placeholder="Enter Email"
+								th:field="${account.email}">
+
+						</div>
+
+
+						<div class="wrap-input100 validate-input">
+							<label>Phone</label>
+							<input class="input100" type="text" name="phone" placeholder="Enter Phone"
+								th:field="${account.phone}">
+						</div>
+
+
+						<div class="wrap-input100 validate-input" data-validate="Enter password">
+							<label>Password</label>
 							<span class="btn-show-pass">
 								<i class="fa-solid fa-eye"></i>
 							</span>
-							<input class="input100 pass" type="password" name="password"  placeholder="Password">
-							
+							<input class="input100 pass" type="password" name="password" placeholder="Enter Password"
+								th:field="${account.password}">
 						</div>
+
+
+
+
 						<div class="container-login100-form-btn">
 							<div class="wrap-login100-form-btn">
 								<div class="login100-form-bgbtn"></div>
 								<button class="login100-form-btn">
-									Login
+									Register
 								</button>
 							</div>
 						</div>
-						<div class="text-center p-t-115">
-							<span class="txt1">
-								Don’t have an account?
-							</span>
-							<a class="txt2" th:href="@{/account/register}">
-								Sign Upp
-							</a>
-						</div>
+
 					</form>
 				</div>
 			</div>
@@ -442,14 +480,15 @@
 	</div>
 	<div id="script">
 		<script>
-			document.querySelector('.btn-show-pass').addEventListener('click',() =>{
-				
-				if(document.querySelector('input.pass').getAttribute('type') == 'password'){
-					document.querySelector('input.pass').setAttribute('type','text')		
-				}else{
-					document.querySelector('input.pass').setAttribute('type','password')
+			document.querySelector('.btn-show-pass').addEventListener('click', () => {
+
+				if (document.querySelector('input.pass').getAttribute('type') == 'password') {
+					document.querySelector('input.pass').setAttribute('type', 'text')
+				} else {
+					document.querySelector('input.pass').setAttribute('type', 'password')
 				}
 			});
+
 		</script>
 	</div>
 </body>

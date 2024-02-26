@@ -1,6 +1,7 @@
 package com.demo.controllers.admin;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.demo.entities.Account;
+import com.demo.services.AccountSelectService;
+import com.demo.services.AccountService;
+import com.demo.services.RoleService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -22,12 +26,20 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping ("admin/account")
 public class AccountAdminController {
 	
-	
+	@Autowired
+	private AccountSelectService accountSelectService;
+	@Autowired
+	private AccountService accountService;
+	@Autowired
+	private RoleService roleService;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	//Template
 	
 	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session) {
-			
+		modelMap.put("accounts", accountService.findAll());
+		
 	return "admin/account/index";
 	}
 	

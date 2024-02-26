@@ -44,7 +44,7 @@
 								<li><a href="contact.html">Contact</a></li>
 								<th:block sec:authorize="isAuthenticated()">
 									<li class="menu-item">
-										<a th:href="@{/account/profile}">
+										<a th:href="@{/account}">
 											<th:block sec:authentication="name"></th:block>
 										</a>
 										<ul class="dropdown">

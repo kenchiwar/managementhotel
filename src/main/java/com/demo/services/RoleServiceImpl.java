@@ -1,5 +1,6 @@
 package com.demo.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demo.entities.Role;
@@ -7,7 +8,8 @@ import com.demo.repositories.RoleRepository;
 
 @Service
 public class RoleServiceImpl implements RoleService{
-private RoleRepository RoleRepository;
+	   @Autowired
+	   private RoleRepository RoleRepository;
 
     @Override
     public boolean delete(int id) {
