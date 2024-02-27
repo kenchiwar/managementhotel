@@ -72,6 +72,14 @@ public class AccountUserController {
 
 		return "user/account/register";
 	}
+	@RequestMapping(value = { "registerbusiness" }, method = RequestMethod.GET)
+	public String registerbussiness(ModelMap modelMap, HttpSession session) {
+		Account account = new Account();
+
+		modelMap.put("account", account);
+
+		return "user/account/registerbusiness";
+	}
 
 	@RequestMapping(value = { "detail" }, method = RequestMethod.GET)
 	public String detail(ModelMap modelMap, HttpSession session) {
@@ -107,6 +115,26 @@ public class AccountUserController {
 
 	}
 
+	@RequestMapping(value = { "addbusiness" }, method = RequestMethod.POST)
+	public String addbussines(ModelMap modelMap, HttpSession session, @ModelAttribute("account") Account account,
+		RedirectAttributes redirectAttributes) {
+		Role role = new Role();
+		role = roleService.find(3);
+		account.setStatus(true);
+		account.setActive("Online");
+		account.setImage("user.png");
+		account.setRole(role);
+		account.setPassword(encoder.encode(account.getPassword()));
+
+		if (accountService.save(account)) {
+			redirectAttributes.addFlashAttribute("msg", "Success");
+			return "redirect:/account/login";
+		} else {
+			redirectAttributes.addFlashAttribute("msg", "Failed");
+			return "redirect:/account/reisterbussiness";
+		}
+
+	}
 	@RequestMapping(value = { "update" }, method = RequestMethod.POST)
 	public String update(ModelMap modelMap, HttpSession session,@ModelAttribute("account")Account account,Authentication authentication,RedirectAttributes redirectAttributes) {
 		Account accountU= accountSelectService.getAccountLogin(authentication);

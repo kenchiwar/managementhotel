@@ -33,8 +33,20 @@
 	object-fit: cover;
 	margin-bottom: 20px;
 }
-
-.box {}
+.box-info-detail img{
+	width: 100%;
+	margin-bottom: 20px;
+}
+.box-info-detail{
+	text-align: center;
+}
+.box-info-detail .list-button a{
+	color:#fff;
+	font-size: 18px;
+	padding: 10px 20px;
+	background: #0092ff;
+	border-radius: 5px;
+}
 
 .box .wrapper {
 	position: relative;
@@ -73,3 +85,58 @@
 .box-image .close i {
 	color: #000000;
 }
+.box-info .list-button{
+	text-align: center;
+}
+
+.box-info .list-button a{
+	color:#fff;
+	font-size: 18px;
+	padding: 10px 20px;
+	background: #0092ff;
+	border-radius: 5px;
+}
+.box-update form{
+	display: flex;
+	flex-wrap: wrap;
+	margin:0 -20px;
+	justify-content: center;
+}
+.box-update form .field{
+	flex : 0 0 50%;
+	max-width: 50%;
+	padding: 0 20px;
+	margin-bottom: 20px;
+} 
+.box-update form .field label,
+.box-update form .field input{
+	display: block;
+	width: 100%;
+}
+.box-update form .field input{
+	height: 40px;
+	color:#000000;
+	padding: 0 10px;
+	border-radius: 5px;
+	border: 1px solid !important;
+}
+.box-update .submit{
+	width: 100%;
+}
+button.btn-submit {
+    border: none;
+    background: rgba(1,148,243,1);
+    height: 50px;
+    width: 100px;
+    line-height: 50px;
+    display: block;
+    margin: auto;
+    font-size: 22px;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+
+

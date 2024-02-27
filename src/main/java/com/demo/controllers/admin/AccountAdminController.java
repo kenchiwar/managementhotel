@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -49,9 +50,10 @@ public class AccountAdminController {
 		return "admin/account/create";
 	}
 
-	@RequestMapping(value = { "detail" }, method = RequestMethod.GET)
-	public String detail(ModelMap modelMap, HttpSession session) {
-
+	@RequestMapping(value = { "detail/{id}" }, method = RequestMethod.GET)
+	public String detail(ModelMap modelMap, HttpSession session,@PathVariable("id") int id) {
+		Account account = accountService.find(id);
+		modelMap.put("account", account);
 		return "admin/account/detail";
 	}
 
@@ -109,5 +111,32 @@ public class AccountAdminController {
 			return "redirect:/admin/account/";
 		}
 	}
+	@RequestMapping(value = { "update/{id}" }, method = RequestMethod.POST)
+	public String update(ModelMap modelMap, HttpSession session,@PathVariable("id") int id,@ModelAttribute("account")Account account,Authentication authentication,RedirectAttributes redirectAttributes) {
+		Account accountU= accountService.find(id);
+		accountU.setFirstName(account.getFirstName());
+		accountU.setLastName(account.getLastName());
+		accountU.setPhone(account.getPhone());
+		if (accountService.save(accountU)) {
+			redirectAttributes.addFlashAttribute("msg", "Success");
+			return "redirect:/admin/account/detail/"+id;
+		} else {
+			redirectAttributes.addFlashAttribute("msg", "Error");
+			return "redirect:/admin/account/detail/"+id;
+		}
+	}
+	@RequestMapping(value = { "updatepass/{id}" }, method = RequestMethod.POST)
+	public String updatepass(ModelMap modelMap, HttpSession session,@PathVariable("id") int id,@RequestParam("password") String password ,Authentication authentication,RedirectAttributes redirectAttributes) {
+		Account accountU= accountService.find(id);
+		accountU.setPassword(encoder.encode(password));
+		if (accountService.save(accountU)) {
+			redirectAttributes.addFlashAttribute("msg", "Success");
+			return "redirect:/admin/account/detail/"+id;
+		} else {
+			redirectAttributes.addFlashAttribute("msg", "Error");
+			return "redirect:/admin/account/detail/"+id;
+		}
+	}
+
 
 }

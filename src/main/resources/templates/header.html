@@ -33,14 +33,7 @@
 							<ul>
 								<li><a href="index.html">Home</a></li>
 								<li><a href="about.html">About</a></li>
-								<li><a href="#">Pages</a>
-									<ul class="dropdown">
-										<li><a href="index.html">Home</a></li>
-										<li><a href="about.html">About</a></li>
-
-										<li><a href="contact.html">Contact</a></li>
-									</ul>
-								</li>
+								
 								<li><a href="contact.html">Contact</a></li>
 								<th:block sec:authorize="isAuthenticated()">
 									<li class="menu-item">
@@ -66,6 +59,9 @@
 
 									<li class="menu-item">
 										<a th:href="@{/account/register}">Register</a>
+									</li>
+									<li class="menu-item">
+										<a th:href="@{/account/registerbusiness}">Register Bussiness</a>
 									</li>
 								</th:block>
 							</ul>
