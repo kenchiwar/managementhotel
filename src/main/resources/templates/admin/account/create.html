@@ -7,10 +7,470 @@
 
 <body>
 	<div id="css">
-		
+		<style>
+			/*! CSS Used from: https://colorlib.com/etc/lf/Login_v2/vendor/bootstrap/css/bootstrap.min.css */
+
+
+			a {
+				color: #007bff;
+				text-decoration: none;
+				background-color: transparent;
+				
+			}
+
+			a:hover {
+				color: #0056b3;
+				text-decoration: underline;
+			}
+
+			a,
+			button,
+			input {
+				-ms-touch-action: manipulation;
+				touch-action: manipulation;
+			}
+
+			button:focus {
+				outline: 1px dotted;
+				outline: 5px auto -webkit-focus-ring-color;
+			}
+
+			button,
+			input {
+				margin: 0;
+				
+				font-size: inherit;
+				line-height: inherit;
+			}
+
+			button,
+			input {
+				overflow: visible;
+			}
+
+			button {
+				text-transform: none;
+			}
+
+			button {
+				-webkit-appearance: button;
+			}
+
+			.text-center {
+				text-align: center !important;
+			}
+
+			/*! CSS Used from: https://colorlib.com/etc/lf/Login_v2/fonts/iconic/css/material-design-iconic-font.min.css */
+			.zmdi {
+				display: inline-block;
+				font: normal normal normal 14px/1 'Material-Design-Iconic-Font';
+				font-size: inherit;
+				text-rendering: auto;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+
+			.zmdi-eye:before {
+				content: '\f15c';
+			}
+
+			.zmdi-font:before {
+				content: '\f16a';
+			}
+
+			.zmdi-eye:before {
+				content: '\f15c';
+			}
+
+			.zmdi-font:before {
+				content: '\f16a';
+			}
+
+			/*! CSS Used from: https://colorlib.com/etc/lf/Login_v2/css/util.css */
+			.p-t-115 {
+				padding-top: 115px;
+			}
+
+			.p-b-26 {
+				padding-bottom: 26px;
+			}
+
+			.p-b-48 {
+				padding-bottom: 48px;
+			}
+
+			.text-center {
+				text-align: center;
+			}
+
+			/*! CSS Used from: https://colorlib.com/etc/lf/Login_v2/css/main.css */
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			
+			a:focus {
+				outline: none !important;
+			}
+
+			a:hover {
+				text-decoration: none;
+				color: #6a7dfe;
+				color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+				color: -o-linear-gradient(left, #21d4fd, #b721ff);
+				color: -moz-linear-gradient(left, #21d4fd, #b721ff);
+				color: linear-gradient(left, #21d4fd, #b721ff);
+			}
+
+			input {
+				outline: none;
+				border: none;
+			}
+
+			input:focus {
+				border-color: transparent !important;
+			}
+
+			button {
+				outline: none !important;
+				border: none;
+				background: 0 0;
+			}
+
+			button:hover {
+				cursor: pointer;
+			}
+
+			.txt1 {
+				font-family: Poppins-Regular;
+				font-size: 13px;
+				color: #666;
+				line-height: 1.5;
+			}
+
+			.txt2 {
+				font-family: Poppins-Regular;
+				font-size: 13px;
+				color: #333;
+				line-height: 1.5;
+			}
+
+			.limiter {
+				width: 100%;
+				margin: 0 auto;
+			}
+
+			.container-login100 {
+				width: 100%;
+				
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -moz-box;
+				display: -ms-flexbox;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				align-items: center;
+				padding: 15px;
+				
+			}
+
+			.wrap-login100 {
+				width: 500px;
+				background: #fff;
+				border-radius: 10px;
+				overflow: hidden;
+				padding: 77px 55px 33px;
+				box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+				-moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+				-webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+				-o-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+				-ms-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+			}
+
+			.login100-form {
+				width: 100%;
+			}
+
+			.login100-form-title {
+				display: block;
+				font-family: Poppins-Bold;
+				font-size: 30px;
+				color: #333;
+				line-height: 1.2;
+				text-align: center;
+			}
+
+			.login100-form-title i {
+				font-size: 60px;
+			}
+
+			.wrap-input100 {
+				width: 100%;
+				position: relative;
+				border-bottom: 2px solid #adadad;
+				margin-bottom: 37px;
+			}
+
+			.input100 {
+				font-family: Poppins-Regular;
+				font-size: 15px;
+				color: #555;
+				line-height: 1.2;
+				display: block;
+				width: 100%;
+				height: 45px;
+				background: 0 0;
+				padding: 0 5px;
+			}
+
+			.focus-input100 {
+				position: absolute;
+				display: block;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				pointer-events: none;
+			}
+
+			.focus-input100::before {
+				content: "";
+				display: block;
+				position: absolute;
+				bottom: -2px;
+				left: 0;
+				width: 0;
+				height: 2px;
+				-webkit-transition: all .4s;
+				-o-transition: all .4s;
+				-moz-transition: all .4s;
+				transition: all .4s;
+				background: #6a7dfe;
+				background: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+				background: -o-linear-gradient(left, #21d4fd, #b721ff);
+				background: -moz-linear-gradient(left, #21d4fd, #b721ff);
+				background: linear-gradient(left, #21d4fd, #b721ff);
+			}
+
+			.focus-input100::after {
+				font-family: Poppins-Regular;
+				font-size: 15px;
+				color: #999;
+				line-height: 1.2;
+				content: attr(data-placeholder);
+				display: block;
+				width: 100%;
+				position: absolute;
+				top: 16px;
+				left: 0;
+				padding-left: 5px;
+				-webkit-transition: all .4s;
+				-o-transition: all .4s;
+				-moz-transition: all .4s;
+				transition: all .4s;
+			}
+
+			.input100:focus+.focus-input100::after {
+				top: -15px;
+			}
+
+			.input100:focus+.focus-input100::before {
+				width: 100%;
+			}
+
+			.btn-show-pass {
+				font-size: 15px;
+				color: #999;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -moz-box;
+				display: -ms-flexbox;
+				display: flex;
+				align-items: center;
+				position: absolute;
+				height: 100%;
+				top: 0;
+				right: 0;
+				padding-right: 5px;
+				cursor: pointer;
+				-webkit-transition: all .4s;
+				-o-transition: all .4s;
+				-moz-transition: all .4s;
+				transition: all .4s;
+			}
+
+			.btn-show-pass:hover {
+				color: #6a7dfe;
+				color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+				color: -o-linear-gradient(left, #21d4fd, #b721ff);
+				color: -moz-linear-gradient(left, #21d4fd, #b721ff);
+				color: linear-gradient(left, #21d4fd, #b721ff);
+			}
+
+			.container-login100-form-btn {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -moz-box;
+				display: -ms-flexbox;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				padding-top: 13px;
+			}
+
+			.wrap-login100-form-btn {
+				width: 100%;
+				display: block;
+				position: relative;
+				z-index: 1;
+				border-radius: 25px;
+				overflow: hidden;
+				margin: 0 auto;
+			}
+
+			.login100-form-bgbtn {
+				position: absolute;
+				z-index: -1;
+				width: 300%;
+				height: 100%;
+				background: #a64bf4;
+				background: -webkit-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+				background: -o-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+				background: -moz-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+				background: linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+				top: 0;
+				left: -100%;
+				-webkit-transition: all .4s;
+				-o-transition: all .4s;
+				-moz-transition: all .4s;
+				transition: all .4s;
+			}
+
+			.login100-form-btn {
+				font-family: Poppins-Medium;
+				font-size: 15px;
+				color: #fff;
+				line-height: 1.2;
+				text-transform: uppercase;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -moz-box;
+				display: -ms-flexbox;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 0 20px;
+				width: 100%;
+				height: 50px;
+			}
+
+			.wrap-login100-form-btn:hover .login100-form-bgbtn {
+				left: 0;
+			}
+
+			@media (min-width: 768px) {
+				.inputs {
+					display: flex;
+					flex-wrap: wrap;
+					margin: 0 -20px;
+				}
+
+				.inputs .wrapper {
+					flex: 0 0 50%;
+					max-width: 50%;
+					padding: 0 20px;
+				}
+			}
+
+			@media (max-width:576px) {
+				.wrap-login100 {
+					padding: 77px 15px 33px;
+				}
+
+			}
+
+			.validate-input {
+				position: relative;
+			}
+		</style>
 	</div>
 	<div id="main-content">
-		<h4>Content</h4>
+		<div class="limiter">
+			<div class="container-login100">
+				<div class="wrap-login100">
+					<form class="login100-form validate-form" method="post" th:action="@{/admin/account/add}">
+						<span class="login100-form-title p-b-26">
+							Register
+						</span>
+						<div class="inputs">
+							<div class="wrapper">
+								<div class="wrap-input100 validate-input">
+									<label>First Name</label>
+									<input class="input100" type="text" name="firstName" placeholder="Enter First Name"
+										th:field="${account.firstName}">
+
+								</div>
+							</div>
+							<div class="wrapper">
+								<div class="wrap-input100 validate-input">
+									<label>Last Name</label>
+									<input class="input100" type="text" name="lastName" placeholder="Enter Last Name"
+										th:field="${account.lastName}">
+								</div>
+							</div>
+						</div>
+						<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+							<label>Email</label>
+							<input class="input100" type="text" name="email" placeholder="Enter Email"
+								th:field="${account.email}">
+
+						</div>
+
+
+						<div class="wrap-input100 validate-input">
+							<label>Phone</label>
+							<input class="input100" type="text" name="phone" placeholder="Enter Phone"
+								th:field="${account.phone}">
+						</div>
+
+
+						<div class="wrap-input100 validate-input" data-validate="Enter password">
+							<label>Password</label>
+							<span class="btn-show-pass">
+								<i class="fa-solid fa-eye"></i>
+							</span>
+							<input class="input100 pass" type="password" name="password" placeholder="Enter Password"
+								th:field="${account.password}">
+						</div>
+
+						<div class="wrap-input100 validate-input" >
+							<label>Role</label>
+							<select th:field="${account.role}">
+							<th:block th:each="role : ${roles}">
+								<option th:value="${role.id}" th:text="${role.name}"></option>
+							<th:block th:text="${role.name}"></th:block>
+							</select>
+						<br>
+					</th:block>
+						</div>
+
+
+						<div class="container-login100-form-btn">
+							<div class="wrap-login100-form-btn">
+								<div class="login100-form-bgbtn"></div>
+								<button class="login100-form-btn">
+									Register
+								</button>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="script">
 		

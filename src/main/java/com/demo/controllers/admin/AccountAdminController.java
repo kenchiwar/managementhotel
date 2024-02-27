@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.entities.Account;
+import com.demo.entities.Role;
 import com.demo.services.AccountSelectService;
 import com.demo.services.AccountService;
 import com.demo.services.RoleService;
@@ -40,13 +41,16 @@ public class AccountAdminController {
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session) {
 		modelMap.put("accounts", accountService.findAll());
-
+		
 		return "admin/account/index";
 	}
 
 	@RequestMapping(value = { "create" }, method = RequestMethod.GET)
 	public String create(ModelMap modelMap, HttpSession session) {
-
+		Account account = new Account();
+		Iterable<Role> role = roleService.findAll();
+		modelMap.put("account", account);
+		modelMap.put("roles", role);
 		return "admin/account/create";
 	}
 
@@ -65,9 +69,20 @@ public class AccountAdminController {
 
 	// Method
 	@RequestMapping(value = { "add" }, method = RequestMethod.POST)
-	public String Add(ModelMap modelMap, HttpSession session) {
-
-		return "redirect:admin/account";
+	public String Add(ModelMap modelMap, HttpSession session, @ModelAttribute("account") Account account,
+			RedirectAttributes redirectAttributes) {
+			
+			account.setStatus(true);
+			account.setActive("Online");
+			account.setImage("user.png");
+			account.setPassword(encoder.encode(account.getPassword()));
+			if (accountService.save(account)) {
+				redirectAttributes.addFlashAttribute("msg", "Success");
+				return "redirect:/admin/account";
+			} else {
+				redirectAttributes.addFlashAttribute("msg", "Failed");
+				return "redirect:/admin/account";
+			}
 	}
 
 	@RequestMapping(value = { "update" }, method = RequestMethod.PUT)

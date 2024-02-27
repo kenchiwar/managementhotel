@@ -12,6 +12,7 @@
 	flex: 0 0 33.33%;
 	max-width: 33.33%;
 	padding: 0 20px;
+	margin-bottom: 20px;
 
 }
 
@@ -31,6 +32,9 @@
 	width: 100px;
 	height: 100px;
 	object-fit: cover;
+	margin-bottom: 20px;
+}
+.box{
 	margin-bottom: 20px;
 }
 .box-info-detail img{
