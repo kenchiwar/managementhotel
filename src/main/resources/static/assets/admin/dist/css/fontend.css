@@ -1,30 +1,75 @@
-#main-content{
+#main-content {
 	padding: 50px 0;
 }
-.list-account{
+
+.list-account {
 	display: flex;
 	flex-wrap: wrap;
 	margin: 0 -20px;
 }
-.list-account .box-info{
-	flex:0 0  33.33%;
+
+.list-account .box-info {
+	flex: 0 0 33.33%;
 	max-width: 33.33%;
 	padding: 0 20px;
-	
+
 }
-.list-account .box-info .wrapper{
+
+.list-account .box-info .wrapper {
 	background: #fff;
-	box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+	box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 	padding: 20px;
 	border-radius: 20px;
 }
-.list-account .box-info .b-head{
+
+.list-account .box-info .b-head {
 	display: block;
 	text-align: center;
 }
-.list-account .box-info img{
+
+.list-account .box-info img {
 	width: 100px;
 	height: 100px;
 	object-fit: cover;
 	margin-bottom: 20px;
+}
+
+.box {}
+
+.box .wrapper {
+	position: relative;
+	background: #fff;
+	box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	border-radius: 20px;
+}
+
+.list-image {
+	display: flex;
+	margin: 0 -20px
+}
+
+.box-image {
+	flex: 0 0 33.33%;
+	max-width: 33.33%;
+	padding: 0 20px;
+}
+
+.box-image img {
+	width: 100%;
+	object-fit: cover;
+}
+
+.box-image .close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1;
+	opacity: 1 !important;
+
+
+}
+
+.box-image .close i {
+	color: #000000;
 }

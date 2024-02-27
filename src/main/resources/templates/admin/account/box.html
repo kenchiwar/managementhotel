@@ -1,5 +1,6 @@
- <div class="box-info ">
-	<div class="wrapper">
+
+<div class="box-info ">
+	<div class="wrapper" status="true">
 		<div class="b-head">
 			<div class="avatar">
 				<img th:src="@{'/assets/images/' + ${account.image}}">
@@ -7,15 +8,21 @@
 			<div class="info">
 				<p class="title"><strong th:text="${account.email}"></strong></p]>
 				<p th:text="${account.phone}"></p>
+				<th:block th:if="${account.status} == true">
+					<p id="status" style="color:green">Active</p>
+				</th:block>
+				<th:block th:if="${account.status} == false">
+					<p id="status" style="color:red">Block</p>
+				</th:block>
 			</div>
-			
+
 		</div>
 		<div class="b-body">
-			<div class="info-menu">
-				<ul>
-					
-				</ul>
+			<div class="list-button">
+				<a th:href="@{'/admin/account/delete/' + ${account.id}}">Delete</a>
+				<a th:href="@{'/admin/account/active/' + ${account.id}}">Active</a>
+				<a th:href="@{'/admin/account/block/' + ${account.id}}">Block</a>
 			</div>
 		</div>
 	</div>
- </div>
+</div>

@@ -23,9 +23,9 @@ import com.demo.services.RoleService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping ("admin/account")
+@RequestMapping("admin/account")
 public class AccountAdminController {
-	
+
 	@Autowired
 	private AccountSelectService accountSelectService;
 	@Autowired
@@ -34,47 +34,80 @@ public class AccountAdminController {
 	private RoleService roleService;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
-	//Template
-	
-	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)
+	// Template
+
+	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session) {
 		modelMap.put("accounts", accountService.findAll());
-		
-	return "admin/account/index";
+
+		return "admin/account/index";
 	}
-	
-	@RequestMapping(value= {"create"} ,method = RequestMethod.GET)
+
+	@RequestMapping(value = { "create" }, method = RequestMethod.GET)
 	public String create(ModelMap modelMap, HttpSession session) {
-			
-	return "admin/account/create";
+
+		return "admin/account/create";
 	}
-	@RequestMapping(value= {"detail"} ,method = RequestMethod.GET)
+
+	@RequestMapping(value = { "detail" }, method = RequestMethod.GET)
 	public String detail(ModelMap modelMap, HttpSession session) {
-			
-	return "admin/account/detail";
+
+		return "admin/account/detail";
 	}
-	@RequestMapping(value= {"edit"} ,method = RequestMethod.GET)
+
+	@RequestMapping(value = { "edit" }, method = RequestMethod.GET)
 	public String edit(ModelMap modelMap, HttpSession session) {
-			
-	return "admin/account/edit";
+
+		return "admin/account/edit";
 	}
-		
-	// Method 
-	@RequestMapping(value= {"add"} ,method = RequestMethod.POST)
+
+	// Method
+	@RequestMapping(value = { "add" }, method = RequestMethod.POST)
 	public String Add(ModelMap modelMap, HttpSession session) {
-			
-	return "redirect:admin/account";
+
+		return "redirect:admin/account";
 	}
-	
-	@RequestMapping(value= {"update"} ,method = RequestMethod.PUT)
+
+	@RequestMapping(value = { "update" }, method = RequestMethod.PUT)
 	public String update(ModelMap modelMap, HttpSession session) {
-			
-	return "redirect:/admin/account";
+
+		return "redirect:/admin/account";
 	}
-	@RequestMapping(value= {"delete"} ,method = RequestMethod.DELETE)
-	public String delete(ModelMap modelMap, HttpSession session) {
-			
-	return "redirect:admin/account";
+
+	@RequestMapping(value = { "delete/{id}" }, method = RequestMethod.GET)
+	public String delete(ModelMap modelMap, HttpSession session, @PathVariable("id") int id,
+			RedirectAttributes redirectAttributes) {
+		if (accountService.delete(id)) {
+			redirectAttributes.addFlashAttribute("msg", "Success");
+			return "redirect:/admin/account/";
+		} else {
+			redirectAttributes.addFlashAttribute("msg", "Success");
+			return "redirect:/admin/account/";
+		}
 	}
-	
+	@RequestMapping(value = { "block/{id}" }, method = RequestMethod.GET)
+	public String block(ModelMap modelMap, HttpSession session, @PathVariable("id") int id,RedirectAttributes redirectAttributes) {
+		Account account = accountService.find(id);
+		account.setStatus(false);
+		if (accountService.save(account)) {
+			redirectAttributes.addFlashAttribute("msg", "Success");
+			return "redirect:/admin/account/";
+		} else {
+			redirectAttributes.addFlashAttribute("msg", "Success");
+			return "redirect:/admin/account/";
+		}
+	}
+	@RequestMapping(value = { "active/{id}" }, method = RequestMethod.GET)
+	public String active(ModelMap modelMap, HttpSession session, @PathVariable("id") int id,RedirectAttributes redirectAttributes) {
+		Account account = accountService.find(id);
+		account.setStatus(true);
+		if (accountService.save(account)) {
+			redirectAttributes.addFlashAttribute("msg", "Success");
+			return "redirect:/admin/account/";
+		} else {
+			redirectAttributes.addFlashAttribute("msg", "Success");
+			return "redirect:/admin/account/";
+		}
+	}
+
 }

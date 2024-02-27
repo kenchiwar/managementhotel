@@ -50,9 +50,9 @@ public class Error2Controller implements ErrorController {
 
 
 	@RequestMapping("error")
-	public String handleError(HttpServletRequest request, HttpServletResponse response) {
+	public String handleError(ModelMap modelMap,HttpServletRequest request, HttpServletResponse response) {
 		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-		
+		modelMap.put("status",status.toString());
 		return "error/index";
 	}
 	

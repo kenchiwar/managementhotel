@@ -20,16 +20,7 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private AccountRepository accountRepository;
 
-	@Override
-	public boolean delete(int id) {
-		try {
-			accountRepository.delete(find(id));
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+	
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -74,6 +65,16 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public Account find(int id) {
 		return accountRepository.findById(id).get();
+	}
+	@Override
+	public boolean delete(int id) {
+		try {
+			accountRepository.delete(find(id));
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }
