@@ -1,0 +1,27 @@
+
+<div class="box-info ">
+	<div th:class="'wrapper status-'+${account.status}">
+		
+		<div class="b-head">
+			<div class="avatar">
+				<img th:src="@{'/assets/images/' + ${account.image}}">
+			</div>
+			<div class="info">
+				<a  th:href="@{'/admin/account/detail/'+${account.id}}" class="title"><strong th:text="${account.email}"></strong></a>
+				<p class="fs-18 fw-600" th:text="${account.phone}"></p>
+				<th:block th:if="${account.status} == true">
+					<p class="fs-18 fw-600" style="color:#0092ff" th:text="${account.role.name}">/p>
+				</th:block>
+				
+			</div>
+
+		</div>
+		<div class="b-body">
+			<div class="list-button">
+				<a th:href="@{'/admin/account/active/' + ${account.id}}">Active</a>
+				<a th:href="@{'/admin/account/block/' + ${account.id}}">Block</a>
+				<a th:href="@{'/admin/account/delete/' + ${account.id}}">Delete</a>
+			</div>
+		</div>
+	</div>
+</div>

@@ -14,14 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.demo.services.RoomService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping ("admin/evaluate")
 public class EvaluateAdminController {
-	
+	@Autowired
+	private RoomService roomService;
+	//
 	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session) {
 			
@@ -30,7 +32,7 @@ public class EvaluateAdminController {
 	
 	@RequestMapping(value= {"create"} ,method = RequestMethod.GET)
 	public String create(ModelMap modelMap, HttpSession session) {
-			
+	modelMap.put("rooms", roomService.findAll());
 	return "admin/evaluate/create";
 	}
 	@RequestMapping(value= {"detail"} ,method = RequestMethod.GET)

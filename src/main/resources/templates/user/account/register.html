@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/user :: mainContent('Login', ~{this :: .main-content},~{this:: #css},~{this :: #script})">
 
 <head>
-	
+
 </head>
 
 <body>
@@ -15,7 +16,7 @@
 				color: #007bff;
 				text-decoration: none;
 				background-color: transparent;
-				
+				-webkit-text-decoration-skip: objects;
 			}
 
 			a:hover {
@@ -38,7 +39,7 @@
 			button,
 			input {
 				margin: 0;
-				
+				font-family: inherit;
 				font-size: inherit;
 				line-height: inherit;
 			}
@@ -110,7 +111,18 @@
 				box-sizing: border-box;
 			}
 
-			
+			a {
+				font-family: Poppins-Regular;
+				font-size: 14px;
+				line-height: 1.7;
+				color: #666;
+				margin: 0;
+				transition: all .4s;
+				-webkit-transition: all .4s;
+				-o-transition: all .4s;
+				-moz-transition: all .4s;
+			}
+
 			a:focus {
 				outline: none !important;
 			}
@@ -164,7 +176,7 @@
 
 			.container-login100 {
 				width: 100%;
-				
+				min-height: 100vh;
 				display: -webkit-box;
 				display: -webkit-flex;
 				display: -moz-box;
@@ -174,7 +186,10 @@
 				justify-content: center;
 				align-items: center;
 				padding: 15px;
-				
+				background-image: url(/assets/user/img/bg-img/footer-background.webp);
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: center;
 			}
 
 			.wrap-login100 {
@@ -397,11 +412,11 @@
 			}
 		</style>
 	</div>
-	<div id="main-content">
+	<div class="main-content">
 		<div class="limiter">
 			<div class="container-login100">
 				<div class="wrap-login100">
-					<form class="login100-form validate-form" method="post" th:action="@{/admin/account/add}">
+					<form class="login100-form validate-form" method="post" th:action="@{/account/add}">
 						<span class="login100-form-title p-b-26">
 							Register
 						</span>
@@ -446,16 +461,7 @@
 								th:field="${account.password}">
 						</div>
 
-						<div class="wrap-input100 validate-input" >
-							<label>Role</label>
-							<select th:field="${account.role}">
-							<th:block th:each="role : ${roles}">
-								<option th:value="${role.id}" th:text="${role.name}"></option>
-							<th:block th:text="${role.name}"></th:block>
-							</select>
-						<br>
-					</th:block>
-						</div>
+
 
 
 						<div class="container-login100-form-btn">
@@ -473,7 +479,17 @@
 		</div>
 	</div>
 	<div id="script">
-		
+		<script>
+			document.querySelector('.btn-show-pass').addEventListener('click', () => {
+
+				if (document.querySelector('input.pass').getAttribute('type') == 'password') {
+					document.querySelector('input.pass').setAttribute('type', 'text')
+				} else {
+					document.querySelector('input.pass').setAttribute('type', 'password')
+				}
+			});
+
+		</script>
 	</div>
 </body>
 

@@ -10,7 +10,62 @@
 		
 	</div>
 	<div id="main-content">
-		<h4>Content</h4>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<th:block  th:insert="admin/account/boxinfodetail :: .box-info-detail"></th:block>
+				</div>
+				<div class="col-md-8">
+					<div class="box-update box">
+						<h2 class="fs-32 text-center fw-700">Account : <th:block th:text="${account.email}"></th:block> </h2>
+						<p th:text="${msg}" class="color-black fs-18 fw-500"></p>
+						<div class="wrapper">
+							<form method="post" th:action="@{'/admin/account/update/'+${account.id}}">
+								<div class="field">
+									<label>First Name</label>
+									<input type="text" th:field="${account.firstName}">
+								</div>
+								<div class="field">
+									<label>Last Name</label>
+									<input type="text" th:field="${account.lastName}" >
+								</div>
+								<div class="field">
+									<label>Role</label>
+									<select th:field="${account.role}">
+										<th:block th:each="role : ${roles}">
+											<option th:value="${role.id}" th:text="${role.name}"></option>
+										</th:block>
+									</select>
+								</div>
+								<div class="field">
+									<label>Phone</label>
+									<input type="text" th:field="${account.phone}">
+								</div>
+
+								<div class="submit text-center">
+									<button type="submit" class="btn-submit">Update</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="box-update box">
+						<h2 class="fs-32 text-center fw-700">Change password</h2>
+						<p th:text="${msg}" class="color-black fs-18 fw-500"></p>
+						<div class="wrapper">
+							<form method="post" th:action="@{'/admin/account/updatepass/'+${account.id}}">
+								<div class="field">
+									<label>Password</label>
+									<input type="text" name="password">
+								</div>
+								<div class="submit text-center">
+									<button type="submit" class="btn-submit">Update</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+		</div>
+		</div>
 	</div>
 	<div id="script">
 		

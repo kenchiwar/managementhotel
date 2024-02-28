@@ -42,19 +42,19 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class Error2Controller implements ErrorController {
 
+	@Autowired
+	private Environment enviroment;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
-	/*
-	 * @Autowired private Environment enviroment;
-	 * 
-	 * @Autowired private BCryptPasswordEncoder encoder;
-	 * 
-	 * 
-	 * @RequestMapping("error") public String handleError(HttpServletRequest
-	 * request, HttpServletResponse response) { Object status =
-	 * request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-	 * 
-	 * return "error/index"; }
-	 */
+
+	@RequestMapping("error")
+	public String handleError(ModelMap modelMap,HttpServletRequest request, HttpServletResponse response) {
+		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+		modelMap.put("status",status.toString());
+		return "error/index";
+	}
+
 	
 
 }

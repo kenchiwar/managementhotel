@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping ("admin/index")
+@RequestMapping ("admin")
 public class IndexAdminController {
 	
 	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)

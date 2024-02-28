@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/user :: mainContent('INDEX HOTEL', ~{this :: .main-content},~{this:: #css},~{this :: #script})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/user :: mainContent('INDEX HOTEL', ~{this :: .main-content},~{this:: #css},~{this :: #script})">
 
 <head>
-	
+
 </head>
 
 <body>
 	<div id="css">
-		
+
 	</div>
 	<div class="main-content">
 		<div class="breadcrumb-area">
 			<!-- Top Breadcrumb Area -->
 			<div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 				style="background-image: url(/assets/user/img/bg-img/24.jpg);">
-				<h2>Shop</h2>
+				<h2>Account Edit</h2>
 			</div>
 
 			<div class="container">
@@ -33,7 +34,36 @@
 		<h4>Content</h4>
 	</div>
 	<div id="script">
-		
+		<div class="box-register">
+			<div class="wrapper">
+				<form method="post" th:action="@{/account/add}">
+					<div class="field">
+						<label>First Name</label>
+						<input type="text" th:field="${account.firstName}">
+					</div>
+					<div class="field">
+						<label>Last Name</label>
+						<input type="text" th:field="${account.lastName}">
+					</div>
+					<div class="field">
+						<label>Email</label>
+						<input type="text" th:field="${account.email}">
+					</div>
+					<div class="field">
+						<label>Password</label>
+						<input type="password" th:field="${account.password}">
+					</div>
+					<div class="field">
+						<label>Phone</label>
+						<input type="text" th:field="${account.phone}">
+					</div>
+
+					<div class="submit">
+						<button type="submit">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 
