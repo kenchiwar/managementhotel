@@ -11,19 +11,32 @@
 
 	</div>
 	<div id="main-content">
-		<div class="container">
-			<div class="rooms">
-				<div class="row">
-					<th:block th:each="room : ${rooms}">
-						<div class="col-md-4">
+		<section class="sec-rooms">
+			<div class="container">
+				<div class="rooms">
 
-							<th:block th:insert="admin/evaluate/boxroom :: .box-room"></th:block>
-						</div>
+					<th:block th:each="room : ${rooms}">
+
+						<th:block th:insert="admin/evaluate/boxroom :: .box-room"></th:block>
+
 					</th:block>
 
 				</div>
 			</div>
-		</div>
+		</section>
+		<section class="sec-rooms-scroll">
+			<div class="container">
+				<div class="rooms rooms-scroll">
+					<th:block th:each="room : ${rooms}">
+
+						<th:block th:insert="admin/evaluate/boxroom :: .box-room"></th:block>
+
+					</th:block>
+
+				</div>
+			</div>
+		</section>
+	</div>
 	</div>
 	<div id="script">
 
