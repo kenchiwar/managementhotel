@@ -25,10 +25,13 @@
 	<!-- Theme style -->
 	<link rel="stylesheet" th:href="@{/assets/admin/dist/css/adminlte.min.css}">
 	<link rel="stylesheet" th:href="@{/assets/admin/dist/css/fontend.css}">
+		<link rel="stylesheet" th:href="@{/assets/admin/dist/fancybox/fancybox.css}">
+
 	<!-- overlayScrollbars -->
 	<link rel="stylesheet" th:href="@{/assets/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}">
 	<!-- Daterange picker -->
 	<link rel="stylesheet" th:href="@{/assets/admin/plugins/daterangepicker/daterangepicker.css}">
+	
 	<!-- summernote -->
 	<link rel="stylesheet" th:href="@{/assets/admin/plugins/summernote/summernote-bs4.min.css}">
 </head>
@@ -482,6 +485,7 @@
 	<script th:src="@{/assets/admin/dist/js/demo.js}"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script th:src="@{/assets/admin/dist/js/pages/dashboard.js}"></script>
+	<script th:src="@{/assets/admin/dist/fancybox/fancybox.js}"></script>
 	<th:block th:if="${script}">
 		<div th:replace="${script}"></div>
 	</th:block>

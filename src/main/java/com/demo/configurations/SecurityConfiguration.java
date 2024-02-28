@@ -36,8 +36,8 @@ public class SecurityConfiguration {
 		return httpSecurity.cors(cor -> cor.disable()).csrf(csf -> csf.disable()).authorizeHttpRequests(auth -> {
 					auth
 //					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN")
-					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "BUSINESS")
-					.requestMatchers("/assets/**", "/account/login").permitAll()
+//					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "BUSINESS")
+//					.requestMatchers("/assets/**", "/account/login").permitAll()
 					.requestMatchers("/**").permitAll();
 					})
 					.formLogin(formLogin -> {
