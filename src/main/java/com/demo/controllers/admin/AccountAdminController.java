@@ -58,6 +58,7 @@ public class AccountAdminController {
 	public String detail(ModelMap modelMap, HttpSession session,@PathVariable("id") int id) {
 		Account account = accountService.find(id);
 		modelMap.put("account", account);
+		modelMap.put("roles", roleService.findAll());
 		return "admin/account/detail";
 	}
 
@@ -132,6 +133,7 @@ public class AccountAdminController {
 		accountU.setFirstName(account.getFirstName());
 		accountU.setLastName(account.getLastName());
 		accountU.setPhone(account.getPhone());
+		accountU.setRole(account.getRole());
 		if (accountService.save(accountU)) {
 			redirectAttributes.addFlashAttribute("msg", "Success");
 			return "redirect:/admin/account/detail/"+id;

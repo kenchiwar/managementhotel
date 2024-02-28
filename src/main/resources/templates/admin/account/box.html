@@ -1,6 +1,6 @@
 
 <div class="box-info ">
-	<div class="wrapper" status="true">
+	<div th:class="'wrapper status-'+${account.status}">
 		
 		<div class="b-head">
 			<div class="avatar">
@@ -8,16 +8,11 @@
 			</div>
 			<div class="info">
 				<a  th:href="@{'/admin/account/detail/'+${account.id}}" class="title"><strong th:text="${account.email}"></strong></a>
-				<p th:text="${account.phone}"></p>
+				<p class="fs-18 fw-600" th:text="${account.phone}"></p>
 				<th:block th:if="${account.status} == true">
-					<p  style="color:blue" th:text="${account.role.name}">/p>
+					<p class="fs-18 fw-600" style="color:#0092ff" th:text="${account.role.name}">/p>
 				</th:block>
-				<th:block th:if="${account.status} == true">
-					<p id="status" style="color:green">Active</p>
-				</th:block>
-				<th:block th:if="${account.status} == false">
-					<p id="status" style="color:red">Block</p>
-				</th:block>
+				
 			</div>
 
 		</div>

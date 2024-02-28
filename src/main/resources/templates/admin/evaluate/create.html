@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
 
 <head>
-	
+
 </head>
 
 <body>
 	<div id="css">
-		
+
 	</div>
 	<div id="main-content">
-		<h4>Content</h4>
+		<div class="container">
+			<div class="rooms">
+				<div class="row">
+					<th:block th:each="room : ${rooms}">
+						<div class="col-md-4">
+
+							<th:block th:insert="admin/evaluate/boxroom :: .box-room"></th:block>
+						</div>
+					</th:block>
+
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="script">
-		
+
 	</div>
 </body>
 

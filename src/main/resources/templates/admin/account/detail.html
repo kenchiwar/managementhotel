@@ -30,8 +30,12 @@
 									<input type="text" th:field="${account.lastName}" >
 								</div>
 								<div class="field">
-									<label>Email</label>
-									<input type="text" th:field="${account.email}" readonly>
+									<label>Role</label>
+									<select th:field="${account.role}">
+										<th:block th:each="role : ${roles}">
+											<option th:value="${role.id}" th:text="${role.name}"></option>
+										</th:block>
+									</select>
 								</div>
 								<div class="field">
 									<label>Phone</label>

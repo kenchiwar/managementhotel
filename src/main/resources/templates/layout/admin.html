@@ -447,9 +447,7 @@
 		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
-	<th:block th:if="${script}">
-		<div th:replace="${script}"></div>
-	</th:block>
+	
 	<!-- jQuery -->
 	<script th:src="@{/assets/admin/plugins/jquery/jquery.min.js}"></script>
 	<!-- jQuery UI 1.11.4 -->
@@ -484,6 +482,9 @@
 	<script th:src="@{/assets/admin/dist/js/demo.js}"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script th:src="@{/assets/admin/dist/js/pages/dashboard.js}"></script>
+	<th:block th:if="${script}">
+		<div th:replace="${script}"></div>
+	</th:block>
 </body>
 
 </html>
