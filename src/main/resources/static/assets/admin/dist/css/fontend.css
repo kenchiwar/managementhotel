@@ -318,6 +318,11 @@ button.btn-submit {
 }
 .box-room .title h2{
 	font-size: 26px;
+	overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+           line-clamp: 2; 
+   -webkit-box-orient: vertical;
 }
 
 .box-room  .description{
