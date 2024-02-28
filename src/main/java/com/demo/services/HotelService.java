@@ -1,8 +1,11 @@
 package com.demo.services;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.demo.entities.Categoryimage;
 import com.demo.entities.Hotel;
 
 public interface HotelService {
@@ -13,6 +16,7 @@ public interface HotelService {
     public boolean save(Hotel hotelDetail);
     public boolean delete(int id);
     public Hotel find(int id);
+    public boolean save(Hotel hotel,MultipartFile[] filArrayAdd,List<Integer> idDeleteArray);
     public boolean authenticationEdit(Hotel hotel ,
     		Authentication authentication) ;
 }

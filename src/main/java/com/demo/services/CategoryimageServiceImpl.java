@@ -29,6 +29,28 @@ public class CategoryimageServiceImpl implements CategoryimageService {
 	@Override
 	public boolean delete(int id) {
 		try {
+			try {
+				Categoryimage dataDelete = CategoryimageRepository.findById(id).get();
+				File folderImage = new File(new ClassPathResource(".").getFile().getPath() + AttributeHelper.staticUrl
+						+ AttributeHelper.urlImagesHotelCategory);
+				if (!folderImage.exists()) {
+					folderImage.mkdirs();
+				}
+
+				for (Image fileDelete : dataDelete.getImages()) {
+					try {
+						Path path = Paths.get(folderImage.getAbsolutePath() + File.separator + fileDelete.getName());
+						Files.delete(path);
+						// tạo
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 			CategoryimageRepository.delete(find(id));
 			return true;
 		} catch (Exception e) {

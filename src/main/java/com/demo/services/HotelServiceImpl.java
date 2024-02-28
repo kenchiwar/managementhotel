@@ -5,6 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.*;
+
+
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,15 +18,18 @@ import org.springframework.stereotype.Service;
 
 import com.demo.entities.Account;
 import com.demo.entities.Hotel;
+import com.demo.entities.ImagePapers;
 import com.demo.helpers.FileHelper;
 import com.demo.repositories.HotelRepository;
+import com.demo.repositories.ImagePapersRepository;
+import com.demo.repositories.ImageRepository;
 import com.demo.staticHelper.AttributeHelper;
 
 @Service
 public class HotelServiceImpl implements HotelService {
 	@Autowired
 	private HotelRepository HotelRepository;
-	
+	@Autowired private ImagePapersRepository repositoryImagePaper ;
 	@Override
 	public boolean delete(int id) {
 		try {
@@ -127,6 +133,69 @@ public class HotelServiceImpl implements HotelService {
 	public boolean authenticationEdit(Hotel hotel ,
     		Authentication authentication) {
 		return true ;
+	}
+
+	@Override
+	public boolean save(Hotel hotel, MultipartFile[] filArrayAdd, List<Integer> idDeleteArray) {
+		try {
+			if ((filArrayAdd != null && filArrayAdd.length > 0) || idDeleteArray != null) {
+
+				File folderImage = new File(new ClassPathResource(".").getFile().getPath() + AttributeHelper.staticUrl
+						+ AttributeHelper.urlImagesHotelCategory);
+				if (!folderImage.exists()) {
+					folderImage.mkdirs();
+				}
+				if (filArrayAdd != null) {
+					List<ImagePapers> dataImport = new ArrayList<ImagePapers>();
+					Hotel dataCategory = new Hotel(hotel.getIdAccount());
+					for (MultipartFile fileAdd : filArrayAdd) {
+						try {
+							String fileName = FileHelper.generateFileName(fileAdd.getOriginalFilename());
+							// tạo name
+
+							Path path = Paths.get(folderImage.getAbsolutePath() + File.separator + fileName); // tạo
+																												// path
+							Files.copy(fileAdd.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);// chỉnh
+																											// cách
+																											// copy vậy
+																											// thôi
+							System.out.println(folderImage.getAbsolutePath() + File.separator + fileName);
+
+							dataImport.add(new ImagePapers( dataCategory,fileName));
+
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+
+						repositoryImagePaper.saveAll(dataImport);
+					}
+				}
+				if (idDeleteArray != null) {
+					try {
+						Iterable<ImagePapers> dataDelete = repositoryImagePaper.findAllById(idDeleteArray);
+						for (ImagePapers fileDelete : dataDelete) {
+							try {
+								Path path = Paths
+										.get(folderImage.getAbsolutePath() + File.separator + fileDelete.getName());
+								Files.delete(path);
+								// tạo
+							} catch (Exception e) {
+								// TODO: handle exception
+							}
+
+						}
+						repositoryImagePaper.deleteAllById(idDeleteArray);
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+
+				}
+
+			}
+			return true;
+		} catch (Exception e) {
+			return false ;
+		}
 	}
 	
 

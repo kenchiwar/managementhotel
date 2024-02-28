@@ -84,7 +84,7 @@ public class RoomAdminController {
 		modelMap.put(AttributeHelper.checkEdit, true);
 				return templateCreate ;
 	}
-
+	
 	// Method
 	@RequestMapping(value = { "create/{idHotel}" }, method = RequestMethod.POST)
 	public String Add(@PathVariable("idHotel") Integer idHotel, @ModelAttribute(dataKey) Room data, 
@@ -113,7 +113,8 @@ public class RoomAdminController {
 	}
 
 	@RequestMapping(value = { "edit/{idHotel}/{idRoom}" }, method = RequestMethod.POST)
-	public String update(@PathVariable("idHotel") Integer idHotel,
+	public String update(
+			@PathVariable("idHotel") Integer idHotel,
 			@PathVariable("idRoom") Integer idRoom,
 			@ModelAttribute(dataKey) Room data,
 			RedirectAttributes redirect,
@@ -122,10 +123,45 @@ public class RoomAdminController {
 		return "redirect:/"+url+"/edit/"+idHotel+"/"+idRoom;
 	}
 
-	@RequestMapping(value = { "delete" }, method = RequestMethod.DELETE)
-	public String delete(ModelMap modelMap, HttpSession session) {
+	@RequestMapping(value = { "edit/{idHotel}/{idRoom}/delete" }, method = RequestMethod.POST)
+	public String delete(
+			@PathVariable("idHotel") Integer idHotel,
+			@PathVariable("idRoom") Integer idRoom,
+			RedirectAttributes redirect,
+			ModelMap modelMap, HttpSession session) {
+		
+		
+		if(serviceRoom.delete(idRoom)) {
+			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success Delete");
+			return "redirect:/"+UrlHelper.adminHotel+"/edit/"+idHotel ;
+		}else {
+			
+			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error Delete");
+			return "redirect:/"+url+"/edit/"+idHotel+"/"+idRoom ;
 
-		return "redirect:admin/room";
+		}
+		
+		
+		
 	}
+	@RequestMapping(value = { "edit/{idHotel}/{idRoom}/status" }, method = RequestMethod.POST)
+	public String updateStatus(@RequestParam("status") Boolean status ,
+			@PathVariable("idHotel") Integer idHotel,
+			@PathVariable("idRoom") Integer idRoom,
+			
+			ModelMap modelMap, HttpSession session) {
+		try {
+			
+			Room hay =  serviceRoom.find(idRoom);
+			hay.setStatus(status);
+			serviceRoom.save(hay);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		return "redirect:/"+url+"/edit/"+idHotel+"/"+idRoom;
+	}
+	
 
 }

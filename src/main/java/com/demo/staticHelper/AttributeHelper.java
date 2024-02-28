@@ -13,5 +13,6 @@ public class AttributeHelper {
 	public static final String urlImagesHotelMain = urlImages+"/hotel/main";
 	public static final String urlImagesHotelCategory=urlImages+"/hotel/categoryImage";
 	public static final String errorPage = "error/index";
+	public static final String urlReturn = "urlReturn";
 
 }

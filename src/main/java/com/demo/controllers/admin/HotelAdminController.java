@@ -1,6 +1,7 @@
 package com.demo.controllers.admin;
 
 import java.io.*;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -78,11 +79,6 @@ public class HotelAdminController {
 		return "redirect:/" + url + "/create";
 	}
 
-	@RequestMapping(value = { "detail" }, method = RequestMethod.GET)
-	public String detail(ModelMap modelMap, HttpSession session) {
-
-		return "admin/hotel/detail";
-	}
 
 	// Edit có id là edit admin ,edit ko id là edit account khách sạn của nó
 	@RequestMapping(value = { "edit/{id}", "edit" }, method = RequestMethod.GET)
@@ -114,6 +110,38 @@ public class HotelAdminController {
 
 		return "admin/hotel/edit";
 	}
+	@RequestMapping(value = { "editPaper/{id}", "editPaper" }, method = RequestMethod.GET)
+	public String editPaper(Authentication authentication,
+			@PathVariable(value = "id", required = false) Integer id,
+			ModelMap modelMap) {
+
+		Hotel dataAuthentica;
+		// Kiểm tra coi có dữ liệu flash chạy qua ko
+
+		if (id != null) {
+			dataAuthentica = serviceHotel.find(id);
+		} else {
+
+			dataAuthentica = selectAccountService.getAccountLogin(authentication).getHotel();
+		}
+		
+		if (!serviceHotel.authenticationEdit(dataAuthentica, authentication))
+			return AttributeHelper.errorPage;
+		modelMap.put(dataKey, dataAuthentica);
+
+		// modelMap.put(dataKey,new Hotel());
+
+		modelMap.put(AttributeHelper.urlForm, "/" + url + "/editPaper" + ((id != null) ? "/" + id.toString() : ""));
+
+		modelMap.put(AttributeHelper.checkEdit, true);
+	
+		modelMap.put("urlImagesHotelCategory", AttributeHelper.urlImagesHotelCategory);
+		modelMap.put(AttributeHelper.urlReturn, "/" + url + "/edit" + ((id != null) ? "/" + id.toString() : ""));
+
+		return template+"/createPaper";
+	}
+	
+	
 	////
 
 	@RequestMapping(value = { "edit/{id}", "edit" }, method = RequestMethod.POST)
@@ -132,6 +160,34 @@ public class HotelAdminController {
 
 		return "redirect:/" + url + "/edit" + (id != null ? "/" + id : "");
 	}
+	@RequestMapping(value = { "editPaper/{id}", "editPaper" }, method = RequestMethod.POST)
+	public String updatePaper(@RequestParam("fileArrayAdd") MultipartFile[] filArrayAdd,
+			@RequestParam(name = "iddeletearray", required = false)  List<Integer> idDeleteArray,
+			@PathVariable(value = "id", required = false) Integer id, RedirectAttributes redirect, ModelMap model,
+			Authentication authentication) {
+		
+		Hotel data;
+		if (id != null) {
+			data = serviceHotel.find(id);
+		} else {
+
+			data = selectAccountService.getAccountLogin(authentication).getHotel();
+		}
+		if (!serviceHotel.authenticationEdit(data, authentication))
+			return AttributeHelper.errorPage;
+		System.out.println("dfsfsdfsfsfdsfsfsf");
+		if (serviceHotel.save(data,filArrayAdd,idDeleteArray)) {
+			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
+		} else {
+			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error");
+			
+			
+		}
+		;
+
+		return "redirect:/" + url + "/editPaper" + (id != null ? "/" + id : "");
+	}
+
 
 	@RequestMapping(value = { "edit/status", "edit/{id}/status" }, method = RequestMethod.POST)
 	public String editStatus(@RequestParam boolean status

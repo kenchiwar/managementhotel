@@ -28,17 +28,26 @@
 	<div id="main-content">
 		<h4>Content</h4>
 		<h1>Ở đây có phần tử ẩn chỉ vô edit thấy được thôi</h1>
-		<div th:if="checkEdit==true">
-			<form id="formDelete" method="post" th:action="@{${urlForm}}">
-					<button onlick="confirm('are your sure want to delete!')" type="submit">Delete</button>
+		<div th:if="${checkEdit==true}">
+			<form id="formDelete1"  onsubmit="return confirm('are your sure want to delete!')" method="post" th:action="@{${urlForm}+'/delete'}">
+					<button  class="btn btn-danger" type="submit">Delete</button>
 			</form>
+			
 			//////////
 			<h1>Có phần tử ẩn nữa </h1>
+			<form id="formDelete" onsubmit="return confirm('are your sure want to do Action!')" method="post" th:action="@{${urlForm}+'/status'}">
+					
+					<input type="text" style="display: none;"
+					 th:value="${roomData.status==true?'false':'true'}" name="status"  >
+					<button class="btn btn-primary"
+					th:text="${roomData.status==true?'Unactive':'Active'}"
+					 type="submit"></button>
+			</form>
 			
 		</div>
 		<h1>/////</h1>
 		<form id="formSubmit" method="post" th:action="@{${urlForm}}">
-			<input type="text" th:field="${roomData.hotel}" >
+			<input type="text"   style="display: none;" th:field="${roomData.hotel}" >
 			<input type="text" th:field="${roomData.id}" style="display: none;">
 			<input type="text" th:field="${roomData.status}" style="display: none;">
 			<div class="row">

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+
+<head>
+
+</head>
+
+<body>
+	<div id="css">
+
+	</div>
+	<div id="main-content">
+		<h4>Content 123</h4>
+		<a th:href="@{${urlReturn}}"><button class="btn btn-primary">Return</button></a>
+		<form id="formSubmit" method="post" th:action="@{${urlForm}}" enctype="multipart/form-data">
+			
+			
+			<label>Add File:</label>
+			<input id="mainPhotoInput" name="fileArrayAdd" multiple accept=".jpg,.png,.gif" type="file">
+			<br>
+			<button type="submit">Submit</button>
+
+			<button type="reset">Reset</button>
+			<div class="card"  id="imageArray">
+				<div class="card-body">
+					<div class="row">
+						<div th:each="image : ${hotel.imagePaperses}"
+							class="card d-flex h-auto w-auto col-lg-4 col-md-4 col-sm-4 col-xs-6 ">
+							<div class="card-body">
+								<input type="checkbox" th:value="${image.id}" name="iddeletearray">
+								<img th:src="${urlImagesHotelCategory}+'/'+${image.name}" class="img-fluid h-100">
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+			
+
+
+		</form>
+	</div>
+	<div id="script">
+
+	</div>
+</body>
+
+</html>
