@@ -19,6 +19,9 @@ public class Categoryimage implements java.io.Serializable {
 
 	public Categoryimage() {
 	}
+	public Categoryimage(Integer id) {
+		this.id = id;
+	}
 
 	public Categoryimage(Hotel hotel, String name) {
 		this.hotel = hotel;

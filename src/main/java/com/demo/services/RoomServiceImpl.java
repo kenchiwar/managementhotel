@@ -1,5 +1,6 @@
 package com.demo.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demo.entities.Room;
@@ -7,13 +8,13 @@ import com.demo.repositories.RoomRepository;
 
 @Service
 public class RoomServiceImpl implements RoomService{
-
-    private RoomRepository RoomRepository;
-
+	@Autowired
+    private RoomRepository repositoryRoom;
+    
     @Override
     public boolean delete(int id) {
         try {
-            RoomRepository.delete(find(id));
+        	repositoryRoom.delete(find(id));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -23,13 +24,22 @@ public class RoomServiceImpl implements RoomService{
 
     @Override
     public Iterable<Room> findAll() {
-        return RoomRepository.findAll();
+        return repositoryRoom.findAll();
     }
 
     @Override
     public boolean save(Room Room) {
         try {
-            RoomRepository.save(Room);
+        	if (!(Room.getPrice() >= 0 && 
+        		    Room.getPriceDiscount() >= 0 && 
+        		    Room.getRoomMax() >= 0 && 
+        		    Room.getRoomNow() >= 0 && 
+        		    Room.getPeopleMin() >= 0 && 
+        		    Room.getPeopleMax() >= 0)) 
+        		
+        	System.out.println("mệt mỏi ghê") ;
+        	
+        	repositoryRoom.save(Room);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,6 +49,6 @@ public class RoomServiceImpl implements RoomService{
 
     @Override
     public Room find(int id) {
-        return RoomRepository.findById(id).get();
+        return repositoryRoom.findById(id).get();
     }
 }

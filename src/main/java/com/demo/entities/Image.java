@@ -16,6 +16,13 @@ public class Image implements java.io.Serializable {
 
 	public Image() {
 	}
+	public Image(String name) {
+		this.name = name;
+	}
+	public Image(String name,Categoryimage categoryimage) {
+		this.name = name;
+		this.categoryimage = categoryimage;
+	}
 
 	public Image(Categoryimage categoryimage) {
 		this.categoryimage = categoryimage;

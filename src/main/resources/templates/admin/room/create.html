@@ -1,19 +1,118 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
 
 <head>
-	
+
 </head>
 
 <body>
 	<div id="css">
-		
+		<style>
+			.typeNumber-text {
+				-webkit-appearance: textfield;
+				-moz-appearance: textfield;
+				appearance: textfield;
+			}
+
+			.typeNumber-text::-webkit-inner-spin-button,
+			.typeNumber-text::-webkit-outer-spin-button {
+				-webkit-appearance: none;
+			}
+
+			.typeNumber-text {
+				-moz-appearance: textfield;
+			}
+		</style>
 	</div>
 	<div id="main-content">
 		<h4>Content</h4>
+		<h1>Ở đây có phần tử ẩn chỉ vô edit thấy được thôi</h1>
+		<div th:if="checkEdit==true">
+			<form id="formDelete" method="post" th:action="@{${urlForm}}">
+					<button onlick="confirm('are your sure want to delete!')" type="submit">Delete</button>
+			</form>
+			//////////
+			<h1>Có phần tử ẩn nữa </h1>
+			
+		</div>
+		<h1>/////</h1>
+		<form id="formSubmit" method="post" th:action="@{${urlForm}}">
+			<input type="text" th:field="${roomData.hotel}" >
+			<input type="text" th:field="${roomData.id}" style="display: none;">
+			<input type="text" th:field="${roomData.status}" style="display: none;">
+			<div class="row">
+				<div class="col-xl-6  col-md-12 form-group">
+					<label for="email">Name</label>
+					<textarea rows="1" class="form-control" th:field="${roomData.name}" id="name"></textarea>
+				</div>
+				<div class="col-xl-6  col-md-12"></div>
+
+				<div class="col-xl-4  col-md-12 form-group">
+					<label for="price">Price</label>
+					<input type="text" step="0.01" class="form-control typeNumber-text" th:field="${roomData.price}"
+						id="price">
+				</div>
+
+				<div class="col-xl-4 col-md-12 form-group">
+					<label for="priceDiscount">Price Discount</label>
+					<input type="number" step="0.01" min="0" class="form-control typeNumber-text"
+						th:field="${roomData.priceDiscount}" id="priceDiscount">
+				</div>
+				<div class="col"></div>
+
+				<div class="col-xl-6  col-md-12  form-group">
+					<label for="reasonDiscount">Reason Discount</label>
+
+					<input type="text" class="form-control" th:field="${roomData.reasonDiscount}" id="reasonDiscount">
+				</div>
+				<div class="col-xl-12"></div>
+
+				<div class="col-xl-4  col-md-12 form-group">
+					<label for="roomMax">Room Max</label>
+					<input type="number" value="0" min="0" class="form-control typeNumber-text"
+						th:field="${roomData.roomMax}" id="roomMax">
+				</div>
+
+				<div class="col-xl-4  col-md-12 form-group">
+					<label for="roomNow">Room Now</label>
+					<input type="text" class="form-control 
+					 typeNumber-text" th:field="${roomData.roomNow}" id="roomNow">
+				</div>
+				<div class="col-xl-4"></div>
+
+				<div class="col-xl-4  col-md-12 form-group">
+					<label for="peopleMin">People Min</label>
+					<input type="text" value="0" min="0" class="form-control" th:field="${roomData.peopleMin}"
+						id="peopleMin">
+				</div>
+
+				<div class="col-xl-4  col-md-12 form-group">
+					<label for="peopleMax">People Max</label>
+					<input type="number" min="0" class="form-control" th:field="${roomData.peopleMax}" id="peopleMax">
+				</div>
+				<div class="col-12 form-group">
+					<label for="reasonDiscount">Describes</label>
+					<textarea th:field="${roomData.describes}" class="form-control" id="describes" rows="3"></textarea>
+
+				</div>
+
+
+			</div>
+
+
+			<button type="submit" class="btn btn-primary">
+				Submit
+			</button>
+
+		</form>
+
+
+
+
 	</div>
 	<div id="script">
-		
+
 	</div>
 </body>
 

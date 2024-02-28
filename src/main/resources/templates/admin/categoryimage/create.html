@@ -1,19 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
 
 <head>
-	
+
 </head>
 
 <body>
 	<div id="css">
-		
+
 	</div>
 	<div id="main-content">
 		<h4>Content</h4>
+		<div th:if="${checkEdit==true}">
+			<form method="post" th:action="@{${urlForm+'/delete'}}">
+				<button onclick=" confirm('Are you sure want to delete?')" type="submit">Delete</button>
+				<h2>fsdfdfdsf</h2>
+			</form>
+
+
+		</div>
+		<form id="formSubmit" method="post" th:action="@{${urlForm}}" enctype="multipart/form-data">
+			<input id="idPrimary" readonly style="display: none;" type="text" th:field="${categoryImage.id}">
+			<input id="idPrimary" readonly style="display: none;" type="text"
+				th:field="${categoryImage.hotel.idAccount}">
+			<label>Name:</label>
+			<input id="nameHotel" type="text" th:field="${categoryImage.name}">
+			<label>Add File:</label>
+			<input id="mainPhotoInput" name="fileArrayAdd" multiple accept=".jpg,.png,.gif" type="file">
+
+			<h1>Cái này có nút button delete vô edit để thấy </h1>
+
+
+
+			<div class="card" th:if="${checkEdit==true}" id="imageArray">
+				<div class="card-body">
+					<div class="row">
+						<div th:each="image : ${categoryImage.images}"
+							class="card d-flex h-auto w-auto col-lg-4 col-md-4 col-sm-4 col-xs-6 ">
+							<div class="card-body">
+								<input type="checkbox" th:value="${image.id}" name="iddeletearray">
+								<img th:src="${urlImagesHotelCategory}+'/'+${image.name}" class="img-fluid h-100">
+							</div>
+
+						</div>
+
+
+
+					</div>
+				</div>
+
+			</div>
+			<button type="submit">Submit</button>
+
+			<button type="reset">Reset</button>
+
+
+		</form>
 	</div>
 	<div id="script">
-		
+
 	</div>
 </body>
 

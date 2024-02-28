@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import com.demo.staticHelper.AttributeHelper;
 public class HotelServiceImpl implements HotelService {
 	@Autowired
 	private HotelRepository HotelRepository;
-
+	
 	@Override
 	public boolean delete(int id) {
 		try {
@@ -52,7 +53,7 @@ public class HotelServiceImpl implements HotelService {
 				if (!folderImage.exists()) {
 					folderImage.mkdirs();
 				}
-				if (!fileMain.isEmpty()) {
+				if (fileMain!=null && !fileMain.isEmpty()) {
 					try {
 
 						String fileName = (idAccount != null)
@@ -108,9 +109,25 @@ public class HotelServiceImpl implements HotelService {
 			return false;
 		}
 	}
-
+	public boolean save(Hotel hotelDetail) {
+		try {
+			hotelDetail.setAccount(new Account(hotelDetail.getIdAccount()));
+			HotelRepository.save(hotelDetail);
+			return true;
+		} catch (Exception e) {
+			return false ;
+		}
+		
+	}
 	@Override
 	public Hotel find(int id) {
 		return HotelRepository.findById(id).get();
 	}
+	@Override 
+	public boolean authenticationEdit(Hotel hotel ,
+    		Authentication authentication) {
+		return true ;
+	}
+	
+
 }

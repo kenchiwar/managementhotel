@@ -15,13 +15,13 @@ public class Room implements java.io.Serializable {
 	private Hotel hotel;
 	private String name;
 	private Boolean status;
-	private Double price;
-	private Double priceDiscount;
+	private Double price=0.0;
+	private Double priceDiscount=0.0;
 	private String reasonDiscount;
-	private Integer roomMax;
-	private Integer roomNow;
-	private Integer peopleMin;
-	private Integer peopleMax;
+	private Integer roomMax=0;
+	private Integer roomNow=0;
+	private Integer peopleMin=0;
+	private Integer peopleMax=0;
 	private String describes;
 	private Set<BillDetail> billDetails = new HashSet<BillDetail>(0);
 

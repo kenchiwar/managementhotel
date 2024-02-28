@@ -39,6 +39,9 @@ public class Hotel implements java.io.Serializable {
 	public Hotel(Account account) {
 		this.account = account;
 	}
+	public Hotel(Integer idAccount) {
+		this.idAccount = idAccount;
+	}
 
 	public Hotel(Account account, String name, String cancellationPolicy, String description, Integer rating,
 			String manager, Boolean status, String mainPhoto, String secondaryPhoto, String papers, String regulation,

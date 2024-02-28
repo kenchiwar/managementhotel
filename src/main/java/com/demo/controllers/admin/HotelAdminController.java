@@ -28,10 +28,12 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("admin/hotel")
 public class HotelAdminController {
 	private final String url = "admin/hotel";
+	private final String template = "admin/hotel";
 	private final String dataKey = "hotel";
 	@Autowired
 	private AccountSelectService selectAccountService;
-	@Autowired AccountService serviceAccount ;
+	@Autowired
+	AccountService serviceAccount;
 	@Autowired
 	private HotelService serviceHotel;
 
@@ -47,94 +49,116 @@ public class HotelAdminController {
 		modelMap.put(AttributeHelper.urlForm, "/" + url + "/create");
 
 		modelMap.put(AttributeHelper.checkEdit, false);
-		if(!(modelMap.get(dataKey)!=null)) modelMap.put(dataKey, new Hotel());
+		if (!(modelMap.get(dataKey) != null))
+			modelMap.put(dataKey, new Hotel());
 
-		return url + "/create";
+		return template + "/create";
 	}
-	
 
-	 
-	
-	@RequestMapping(value = { "create" }, method = RequestMethod.POST)   //nhìn thì biết rồi đó hoặc xài  @GetMapping({ "index2" })
-	  public String create(@ModelAttribute("hotel") Hotel data,
-			   @RequestParam("mainPhoto123") MultipartFile fileMain ,
-			   @RequestParam("secondaryPhoto123") MultipartFile fileSecondaryPhoto,
-			  RedirectAttributes redirect,ModelMap model,Authentication authentication) {	
-		  
-		   Account loginAccount = selectAccountService.
-		  getAccountLogin(authentication);	  
-		 if(serviceHotel.save(data,fileMain, fileSecondaryPhoto,loginAccount.getId())) {
-			 redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
+	@RequestMapping(value = { "create" }, method = RequestMethod.POST) // nhìn thì biết rồi đó hoặc xài @GetMapping({
+																		// "index2" })
+	public String create(@ModelAttribute("hotel") Hotel data, @RequestParam("mainPhoto123") MultipartFile fileMain,
+			@RequestParam("secondaryPhoto123") MultipartFile fileSecondaryPhoto, RedirectAttributes redirect,
+			ModelMap model, Authentication authentication) {
+
+		Account loginAccount = selectAccountService.getAccountLogin(authentication);
+		if (serviceHotel.save(data, fileMain, fileSecondaryPhoto, loginAccount.getId())) {
+			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
 			//
-			 //
-			 return "redirect:/admin/hotel/index";
-		 }else{
-			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error"); 
+			//
+			return "redirect:/admin/hotel/index";
+		} else {
+			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error");
 			redirect.addFlashAttribute(dataKey, data);
-		 };
-		  
-		//  System.out.println(loginAccount.getEmail());
-	
-		return "redirect:/"+url+"/create";
-	  }
-	
-	
+		}
+		;
+
+		// System.out.println(loginAccount.getEmail());
+
+		return "redirect:/" + url + "/create";
+	}
 
 	@RequestMapping(value = { "detail" }, method = RequestMethod.GET)
 	public String detail(ModelMap modelMap, HttpSession session) {
 
 		return "admin/hotel/detail";
 	}
-	//Edit có id là edit admin ,edit ko id là edit account khách sạn của nó 
-	@RequestMapping(value = { "edit/{id}","edit" }, method = RequestMethod.GET)
-	public String edit(Authentication authentication
-			,@PathVariable(value = "id", required = false) Integer id
-			,ModelMap modelMap) {
+
+	// Edit có id là edit admin ,edit ko id là edit account khách sạn của nó
+	@RequestMapping(value = { "edit/{id}", "edit" }, method = RequestMethod.GET)
+	public String edit(Authentication authentication, @PathVariable(value = "id", required = false) Integer id,
+			ModelMap modelMap) {
+
+		Hotel dataAuthentica;
+		// Kiểm tra coi có dữ liệu flash chạy qua ko
+
+		if (id != null) {
+			dataAuthentica = serviceHotel.find(id);
+		} else {
+
+			dataAuthentica = selectAccountService.getAccountLogin(authentication).getHotel();
+		}
 		
-		
-		
-		
-		  //Kiểm tra coi có dữ liệu flash chạy qua ko
-		  if(!(modelMap.get(dataKey)!=null)) { if(id!=null) { modelMap.put(dataKey,
-		  serviceHotel.find(id)); }else {
-		  
-		  modelMap.put(dataKey, selectAccountService
-		  .getAccountLogin(authentication).getHotel()); } }
-		 
-		//modelMap.put(dataKey,new Hotel());
-		
-		modelMap.put(AttributeHelper.urlForm, "/" + url + "/edit"+
-		((id!=null)?"/"+id.toString():""));
+		if (!serviceHotel.authenticationEdit(dataAuthentica, authentication))
+			return AttributeHelper.errorPage;
+		modelMap.put(dataKey, dataAuthentica);
+
+		// modelMap.put(dataKey,new Hotel());
+
+		modelMap.put(AttributeHelper.urlForm, "/" + url + "/edit" + ((id != null) ? "/" + id.toString() : ""));
 
 		modelMap.put(AttributeHelper.checkEdit, true);
 		modelMap.put("urlInput", "admin\\hotel\\create");
-		modelMap.put("urlImagesHotelMain",AttributeHelper.urlImagesHotelMain);
-		modelMap.put("urlImagesHotelCategory",AttributeHelper.urlImagesHotelCategory);
-		
-		
-		
-		
-		
+		modelMap.put("urlImagesHotelMain", AttributeHelper.urlImagesHotelMain);
+		modelMap.put("urlImagesHotelCategory", AttributeHelper.urlImagesHotelCategory);
+
 		return "admin/hotel/edit";
 	}
 	////
 
-	@RequestMapping(value = { "edit/{id}","edit" }, method = RequestMethod.POST)
-	public String edit(@ModelAttribute("hotel") Hotel data,
-			   @RequestParam("mainPhoto123") MultipartFile fileMain ,
-			   @RequestParam("secondaryPhoto123") MultipartFile fileSecondaryPhoto,			   
-			@PathVariable(value = "id", required = false) Integer id,
-			  RedirectAttributes redirect,ModelMap model,Authentication authentication) {
-
+	@RequestMapping(value = { "edit/{id}", "edit" }, method = RequestMethod.POST)
+	public String edit(@ModelAttribute("hotel") Hotel data, @RequestParam("mainPhoto123") MultipartFile fileMain,
+			@RequestParam("secondaryPhoto123") MultipartFile fileSecondaryPhoto,
+			@PathVariable(value = "id", required = false) Integer id, RedirectAttributes redirect, ModelMap model,
+			Authentication authentication) {
 		
-		 if(serviceHotel.save(data,fileMain, fileSecondaryPhoto,null)){
-			 redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
-		 }else{
-			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error"); 
+		if (serviceHotel.save(data, fileMain, fileSecondaryPhoto, null)) {
+			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
+		} else {
+			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error");
 			redirect.addFlashAttribute(dataKey, data);
-		 };
-		
-		return "redirect:/"+url+"/edit"+(id!=null?"/"+id:"");
+		}
+		;
+
+		return "redirect:/" + url + "/edit" + (id != null ? "/" + id : "");
+	}
+
+	@RequestMapping(value = { "edit/status", "edit/{id}/status" }, method = RequestMethod.POST)
+	public String editStatus(@RequestParam boolean status
+			, @PathVariable(value = "id", required = false) Integer id,
+			RedirectAttributes redirect, ModelMap modelMap, Authentication authentication) {
+		// Kiểm tra coi có dữ liệu flash chạy qua ko
+
+		Hotel data;
+		if (id != null) {
+			data = serviceHotel.find(id);
+		} else {
+
+			data = selectAccountService.getAccountLogin(authentication).getHotel();
+		}
+		if (!serviceHotel.authenticationEdit(data, authentication))
+			return AttributeHelper.errorPage;
+		data.setStatus(status);
+		if (serviceHotel.save(data)) {
+			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
+		} else {
+			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error");
+			
+			
+		}
+		;
+
+		return "redirect:/" + url + "/edit" + (id != null ? "/" + id : "");
 	}
 
 	@RequestMapping(value = { "delete" }, method = RequestMethod.DELETE)

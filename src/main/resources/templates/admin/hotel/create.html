@@ -22,6 +22,7 @@
 			<input id="status"  readonly style="display: none;" type="text" th:field="${hotel.status}">
 			<input id="secondaryPhoto" readonly style="display: none;" type="text" th:field="${hotel.secondaryPhoto}">
 			<input id="idPrimary" readonly style="display: none;" type="text" th:field="${hotel.idAccount}">
+			<input id="idHandler" readonly style="display: none;" type="text" th:field="${hotel.idHandler}">
 			<h1>Nhớ sắp xếp lại vị trí đi </h1>
 			
 			<label>Name:</label>
@@ -159,6 +160,7 @@
 					// nó sẽ kiểm tra coi có chọn phần tử city chưa
 					if(
 						!(/^\d+$/.test(cityValue.val()))){
+							e.preventDefault();
 						return ;
 					}else {
 						if(
