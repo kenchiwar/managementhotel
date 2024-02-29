@@ -1,7 +1,9 @@
 package com.demo.controllers.admin;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,10 +20,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.entities.Account;
 import com.demo.entities.Hotel;
+import com.demo.entities.Room;
 import com.demo.helpers.UrlHelper;
 import com.demo.services.AccountSelectService;
 import com.demo.services.AccountService;
 import com.demo.services.HotelService;
+import com.demo.services.RoomService;
 import com.demo.staticHelper.AttributeHelper;
 
 import jakarta.servlet.http.HttpSession;
@@ -38,10 +42,17 @@ public class HotelAdminController {
 	AccountService serviceAccount;
 	@Autowired
 	private HotelService serviceHotel;
+	@Autowired
+	private RoomService serviceRoom;
 
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
-	public String Index(ModelMap modelMap, HttpSession session) {
-
+	public String Index(ModelMap modelMap,
+			Authentication authentication
+			) {
+		//tùy điều kiện lấy hotel 
+		modelMap.put("urlImagesHotelMain", AttributeHelper.urlImagesHotelMain);
+		modelMap.put("adminHotel", "/" + UrlHelper.adminHotel);
+		modelMap.put(dataKey+"s", serviceHotel.findAll());
 		return "admin/hotel/index";
 	}
 
@@ -80,7 +91,6 @@ public class HotelAdminController {
 		return "redirect:/" + url + "/create";
 	}
 
-
 	// Edit có id là edit admin ,edit ko id là edit account khách sạn của nó
 	@RequestMapping(value = { "edit/{id}", "edit" }, method = RequestMethod.GET)
 	public String edit(Authentication authentication, @PathVariable(value = "id", required = false) Integer id,
@@ -95,30 +105,28 @@ public class HotelAdminController {
 
 			dataAuthentica = selectAccountService.getAccountLogin(authentication).getHotel();
 		}
-		
+
 		if (!serviceHotel.authenticationEdit(dataAuthentica, authentication))
 			return AttributeHelper.errorPage;
 		modelMap.put(dataKey, dataAuthentica);
 
 		// modelMap.put(dataKey,new Hotel());
 
-		
-
 		modelMap.put(AttributeHelper.checkEdit, true);
-		//các url xử lý 
-		
+		// các url xử lý
+
 		modelMap.put(AttributeHelper.urlForm, "/" + url + "/edit" + ((id != null) ? "/" + id.toString() : ""));
 		modelMap.put("urlInput", "admin\\hotel\\create");
 		modelMap.put("urlImagesHotelMain", AttributeHelper.urlImagesHotelMain);
 		modelMap.put("urlImagesHotelCategory", AttributeHelper.urlImagesHotelCategory);
-		modelMap.put("adminCategoryImage", "/"+UrlHelper.adminCategoryImage);
-		modelMap.put("adminHotel", "/"+UrlHelper.adminHotel);
-		modelMap.put("adminRoom", "/"+UrlHelper.adminRoom);
+		modelMap.put("adminCategoryImage", "/" + UrlHelper.adminCategoryImage);
+		modelMap.put("adminHotel", "/" + UrlHelper.adminHotel);
+		modelMap.put("adminRoom", "/" + UrlHelper.adminRoom);
 		return "admin/hotel/edit";
 	}
+
 	@RequestMapping(value = { "editPaper/{id}", "editPaper" }, method = RequestMethod.GET)
-	public String editPaper(Authentication authentication,
-			@PathVariable(value = "id", required = false) Integer id,
+	public String editPaper(Authentication authentication, @PathVariable(value = "id", required = false) Integer id,
 			ModelMap modelMap) {
 
 		Hotel dataAuthentica;
@@ -130,26 +138,23 @@ public class HotelAdminController {
 
 			dataAuthentica = selectAccountService.getAccountLogin(authentication).getHotel();
 		}
-		
+
 		if (!serviceHotel.authenticationEdit(dataAuthentica, authentication))
 			return AttributeHelper.errorPage;
 		modelMap.put(dataKey, dataAuthentica);
 
 		// modelMap.put(dataKey,new Hotel());
 
-		
-
 		modelMap.put(AttributeHelper.checkEdit, true);
-		
+
 		modelMap.put(AttributeHelper.urlForm, "/" + url + "/editPaper" + ((id != null) ? "/" + id.toString() : ""));
 		modelMap.put("urlImagesHotelCategory", AttributeHelper.urlImagesHotelCategory);
-	
+
 		modelMap.put(AttributeHelper.urlReturn, "/" + url + "/edit" + ((id != null) ? "/" + id.toString() : ""));
 
-		return template+"/createPaper";
+		return template + "/createPaper";
 	}
-	
-	
+
 	////
 
 	@RequestMapping(value = { "edit/{id}", "edit" }, method = RequestMethod.POST)
@@ -157,7 +162,7 @@ public class HotelAdminController {
 			@RequestParam("secondaryPhoto123") MultipartFile fileSecondaryPhoto,
 			@PathVariable(value = "id", required = false) Integer id, RedirectAttributes redirect, ModelMap model,
 			Authentication authentication) {
-		
+
 		if (serviceHotel.save(data, fileMain, fileSecondaryPhoto, null)) {
 			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
 		} else {
@@ -168,12 +173,13 @@ public class HotelAdminController {
 
 		return "redirect:/" + url + "/edit" + (id != null ? "/" + id : "");
 	}
+
 	@RequestMapping(value = { "editPaper/{id}", "editPaper" }, method = RequestMethod.POST)
 	public String updatePaper(@RequestParam("fileArrayAdd") MultipartFile[] filArrayAdd,
-			@RequestParam(name = "iddeletearray", required = false)  List<Integer> idDeleteArray,
+			@RequestParam(name = "iddeletearray", required = false) List<Integer> idDeleteArray,
 			@PathVariable(value = "id", required = false) Integer id, RedirectAttributes redirect, ModelMap model,
 			Authentication authentication) {
-		
+
 		Hotel data;
 		if (id != null) {
 			data = serviceHotel.find(id);
@@ -184,24 +190,20 @@ public class HotelAdminController {
 		if (!serviceHotel.authenticationEdit(data, authentication))
 			return AttributeHelper.errorPage;
 		System.out.println("dfsfsdfsfsfdsfsfsf");
-		if (serviceHotel.save(data,filArrayAdd,idDeleteArray)) {
+		if (serviceHotel.save(data, filArrayAdd, idDeleteArray)) {
 			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
 		} else {
 			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error");
-			
-			
+
 		}
 		;
 
 		return "redirect:/" + url + "/editPaper" + (id != null ? "/" + id : "");
 	}
 
-
 	@RequestMapping(value = { "edit/status", "edit/{id}/status" }, method = RequestMethod.POST)
-	public String editStatus(@RequestParam boolean status
-			, @PathVariable(value = "id", required = false) Integer id,
+	public String editStatus(@RequestParam("status") boolean status, @PathVariable(value = "id", required = false) Integer id,
 			RedirectAttributes redirect, ModelMap modelMap, Authentication authentication) {
-		// Kiểm tra coi có dữ liệu flash chạy qua ko
 
 		Hotel data;
 		if (id != null) {
@@ -217,8 +219,46 @@ public class HotelAdminController {
 			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
 		} else {
 			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error");
-			
-			
+
+		}
+		;
+
+		return "redirect:/" + url + "/edit" + (id != null ? "/" + id : "");
+	}
+
+	@RequestMapping(value = { "edit/allRoom", "edit/{id}/allRoom" }, method = RequestMethod.POST)
+	public String updateAllRoom(
+			@RequestParam("reasonDiscountAll") String reasonDiscountAll,
+			@RequestParam("scaleDiscountAll") Integer scaleDiscountAll,
+			@PathVariable(value = "id", required = false) Integer id,
+			RedirectAttributes redirect, ModelMap modelMap, Authentication authentication) {
+
+		Hotel data;
+		
+		if (id != null) {
+			data = serviceHotel.find(id);
+		} else {
+
+			data = selectAccountService.getAccountLogin(authentication).getHotel();
+		}
+		
+		data.getRooms().forEach(x->{
+			if(reasonDiscountAll!=null&&reasonDiscountAll!="") 
+				x.setReasonDiscount(reasonDiscountAll);
+			if(scaleDiscountAll !=null && (0<scaleDiscountAll && scaleDiscountAll<100) ) 
+				x.setPriceDiscount(x.getPrice()*(100-scaleDiscountAll)/100);
+		});	
+		
+		
+		
+		if (!serviceRoom.saveAll((new ArrayList<Room>(data.getRooms()))))
+			return AttributeHelper.errorPage;
+		
+		if (serviceHotel.save(data)) {
+			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
+		} else {
+			redirect.addFlashAttribute(AttributeHelper.errorAlert, "Error");
+
 		}
 		;
 

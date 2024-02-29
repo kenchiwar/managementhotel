@@ -1,5 +1,7 @@
 package com.demo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +47,19 @@ public class RoomServiceImpl implements RoomService {
 	@Override
 	public Room find(int id) {
 		return repositoryRoom.findById(id).get();
+	}
+
+	@Override
+	public boolean saveAll(List<Room> rooms) {
+		try {
+			
+
+			repositoryRoom.saveAll(rooms);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 }

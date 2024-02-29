@@ -44,7 +44,7 @@ public class ImageCategoryAdminController {
 	public String create(@PathVariable("idHotel") Integer idHotel,
 			ModelMap modelMap) {
 		modelMap.put(AttributeHelper.urlForm, "/" + url + "/create/" + idHotel);
-
+		modelMap.put(AttributeHelper.urlReturn, "/" + UrlHelper.adminHotel + "/edit/" + idHotel);
 		modelMap.put(AttributeHelper.checkEdit, false);
 		if (!(modelMap.get(dataKey) != null)) {
 			Categoryimage dataOutput = new Categoryimage();

@@ -27,6 +27,7 @@
 	</div>
 	<div id="main-content">
 		<h4>Content</h4>
+		<a th:href="@{${urlReturn}}"><button class="btn btn-primary"> return </button></a>
 		<h1>Ở đây có phần tử ẩn chỉ vô edit thấy được thôi</h1>
 		<div th:if="${checkEdit==true}">
 			<form id="formDelete1"  onsubmit="return confirm('are your sure want to delete!')" method="post" th:action="@{${urlForm}+'/delete'}">

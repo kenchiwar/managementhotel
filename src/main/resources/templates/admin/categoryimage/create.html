@@ -12,6 +12,7 @@
 	</div>
 	<div id="main-content">
 		<h4>Content</h4>
+		<a th:href="@{${urlReturn}}"><button class="btn btn-primary"> return </button></a>
 		<div th:if="${checkEdit==true}">
 			<form method="post" th:action="@{${urlForm+'/delete'}}">
 				<button onclick=" confirm('Are you sure want to delete?')" type="submit">Delete</button>
