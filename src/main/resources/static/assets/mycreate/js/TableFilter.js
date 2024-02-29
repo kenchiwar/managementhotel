@@ -1,24 +1,26 @@
-$(document).ready(function () {
 
-				$(".filter-button").click(function () {
-					var value = $(this).attr('data-filter');
+$(document).ready(function() {
 
-					if (value == "all") {
+	$(".filter-button").click(function() {
+		var value = $(this).attr('data-filter');
 
-						$('.filter').show('1000');
-					}
-					else {
+		if (value == "all") {
 
-						$(".filter").not('.' + value).hide('3000');
-						$('.filter').filter('.' + value).show('3000');
+			$('.filter').show('1000');
+			$('.filter.edit').hide();
+		}
+		else {
 
-					}
-					if ($(".filter-button").removeClass("active")) {
-						$(this).removeClass("active");
-					}
-					$(this).addClass("active");
+			$(".filter").not('.' + value).hide('3000');
+			$('.filter').filter('.' + value).show('3000');
 
-				});
+		}
+		if ($(".filter-button").removeClass("active")) {
+			$(this).removeClass("active");
+		}
+		$(this).addClass("active");
+
+	});
 
 
-			});
+});

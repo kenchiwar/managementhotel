@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+
+<head>
+
+</head>
+
+<body>
+	<div id="css">
+
+	</div>
+	<div id="main-content">
+		<section class="sec-rooms-scroll">
+			<div class="card">
+				<div class="card-header">
+					<form id="formUrl">
+						<input type="text" name="reasonDiscount" maxlength="50">
+						<input value="0" min="0" max="99" price="scale" type="number">
+					</form>
+					<button class="btn btn-primary">Add +</button>
+				</div>
+				<div class="card-body p-2 rooms  rooms-scroll">
+					<th:block th:each="room :${hotel.rooms}">
+						<div class="box-room">
+							<div th:class="wrapper">
+								<!--<div class="image">
+									<img
+										src="https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10028130-1000x667-FIT_AND_TRIM-db5321e53d5b92f0a47f01fd84a920fb.jpeg?_src=imagekit&tr=dpr-2,c-at_max,h-144,q-40,w-287">
+								</div>-->
+								<div class="content">
+									<div class="title">
+
+										<h2 class="fz-24 color-black">
+
+											<span th:if="${room.reasonDiscount !=null && room.reasonDiscount != ''}"
+												class="sale" th:text="${room.reasonDiscount}"></span>
+
+											<th:block th:text="${room.name}"></th:block>
+										</h2>
+									</div>
+									<p th:text="${room.describes}" class="description"></p>
+									<p class="sub-title">Automation</p>
+									<p class="price-sale"><span>₫ <th:block th:text="${#numbers.formatDecimal(room.priceDiscount, 0, 'COMMA', 2, 'POINT')}"></th:block>
+										</span></p>
+									
+									<p class="price "><span>₫<th:block th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 2, 'POINT')}"></th:block></span> 
+									-<th:block th:text="${#strings.substringBefore((100 - (room.priceDiscount / room.price) * 100), '.')}"></th:block>%
+									</p>
+									
+
+
+									<div class="evaluate">
+										<!--<div class="row">
+											<div class="col-md-6">
+												<div class="box-rating" style="--percent: 90%">
+													<div class="rating">
+														<div class="star yellow">
+															<i class="fa-solid fa-star"></i>
+															<i class="fa-solid fa-star"></i>
+															<i class="fa-solid fa-star"></i>
+															<i class="fa-solid fa-star"></i>
+															<i class="fa-solid fa-star"></i>
+														</div>
+													</div>
+													<div class="star grey">
+														<i class="fa-solid fa-star"></i>
+														<i class="fa-solid fa-star"></i>
+														<i class="fa-solid fa-star"></i>
+														<i class="fa-solid fa-star"></i>
+														<i class="fa-solid fa-star"></i>
+													</div>
+												</div>
+
+											</div>
+											<div class="col-md-6">
+
+											</div>
+										</div>-->
+										<div class="buttons">
+											<a th:href="@{${adminRoom+'/edit/'+hotel.idAccount+'/'+room.id}}" class="btn btn-booknow">Edit</a>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</th:block>
+				</div>
+			</div>
+		</section>
+
+	</div>
+	<div id="script">
+
+	</div>
+</body>
+
+</html>

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.entities.Account;
 import com.demo.entities.Hotel;
+import com.demo.helpers.UrlHelper;
 import com.demo.services.AccountSelectService;
 import com.demo.services.AccountService;
 import com.demo.services.HotelService;
@@ -101,13 +102,18 @@ public class HotelAdminController {
 
 		// modelMap.put(dataKey,new Hotel());
 
-		modelMap.put(AttributeHelper.urlForm, "/" + url + "/edit" + ((id != null) ? "/" + id.toString() : ""));
+		
 
 		modelMap.put(AttributeHelper.checkEdit, true);
+		//các url xử lý 
+		
+		modelMap.put(AttributeHelper.urlForm, "/" + url + "/edit" + ((id != null) ? "/" + id.toString() : ""));
 		modelMap.put("urlInput", "admin\\hotel\\create");
 		modelMap.put("urlImagesHotelMain", AttributeHelper.urlImagesHotelMain);
 		modelMap.put("urlImagesHotelCategory", AttributeHelper.urlImagesHotelCategory);
-
+		modelMap.put("adminCategoryImage", "/"+UrlHelper.adminCategoryImage);
+		modelMap.put("adminHotel", "/"+UrlHelper.adminHotel);
+		modelMap.put("adminRoom", "/"+UrlHelper.adminRoom);
 		return "admin/hotel/edit";
 	}
 	@RequestMapping(value = { "editPaper/{id}", "editPaper" }, method = RequestMethod.GET)
@@ -131,11 +137,13 @@ public class HotelAdminController {
 
 		// modelMap.put(dataKey,new Hotel());
 
-		modelMap.put(AttributeHelper.urlForm, "/" + url + "/editPaper" + ((id != null) ? "/" + id.toString() : ""));
+		
 
 		modelMap.put(AttributeHelper.checkEdit, true);
-	
+		
+		modelMap.put(AttributeHelper.urlForm, "/" + url + "/editPaper" + ((id != null) ? "/" + id.toString() : ""));
 		modelMap.put("urlImagesHotelCategory", AttributeHelper.urlImagesHotelCategory);
+	
 		modelMap.put(AttributeHelper.urlReturn, "/" + url + "/edit" + ((id != null) ? "/" + id.toString() : ""));
 
 		return template+"/createPaper";

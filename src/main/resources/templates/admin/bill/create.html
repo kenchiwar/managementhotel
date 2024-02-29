@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})}">
 
 <head>
 	
@@ -10,10 +10,60 @@
 		
 	</div>
 	<div id="main-content">
-		<h4>Content</h4>
+		<div class="container">
+			<h5 th:text="${msg}"></h5>
+		<h4>Create bill</h4>
+		<form th:action="@{/admin/bill/create}" method="post">
+			<label for="idSender">Sender ID:</label><br>
+			<input type="number" th:field="${bill.account.id}"><br>
+	
+			<label for="service">Service:</label><br>
+			<input type="text" th:field="${bill.service}"><br>
+	
+			<label for="check_in_from">Check-in From:</label><br>
+			<input type="text" th:field="${bill.checkInFrom}"><br>
+	
+			<label for="check_in_until">Check-in Until:</label><br>
+			<input type="text" th:field="${bill.checkInUntil}"><br>
+	
+			<label for="check_out_from">Check-out From:</label><br>
+			<input type="text" th:field="${bill.checkOutFrom}"><br>
+	
+			<label for="check_out_until">Check-out Until:</label><br>
+			<input type="text" th:field="${bill.checkOutUntil}"><br>
+	
+			<label for="main_guest">Main Guest:</label><br>
+			<input type="text" th:field="${bill.mainGuest}"><br>
+	
+			<label for="status">Status:</label><br>
+			<input type="text" th:field="${bill.status}"><br>
+	
+			<label for="name">Name:</label><br>
+			<input type="text" th:field="${bill.name}"><br>
+	
+			<label for="email">Email:</label><br>
+			<input type="email" th:field="${bill.email}"><br>
+	
+			<label for="phone">Phone:</label><br>
+			<input type="tel" th:field="${bill.phone}"><br>
+	
+			<label for="id_payment">Payment ID:</label><br>
+			<input type="number" th:field="${bill.payment.id}"><br>
+	
+			<label for="note">Note:</label><br>
+			<textarea th:field="${bill.note}"></textarea><br>
+	
+			<label for="security_code">Security Code:</label><br>
+			<input type="text" th:field="${bill.securityCode}"><br>
+	
+			<label for="total">Total:</label><br>
+			<input type="number" th:field="${bill.total}"><br><br>
+	
+			<input type="submit" value="Submit">
+		</form>
+		</div>
 	</div>
 	<div id="script">
-		
 	</div>
 </body>
 
