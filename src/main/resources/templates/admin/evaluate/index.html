@@ -69,6 +69,33 @@
 				color: #fff;
 				border-color: #333;
 			}
+
+			.gallery_product {
+				text-align: center;
+			}
+
+			.filter.edit .box-edit {
+				background: #fff;
+				box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+				width: 300px;
+				height: 300px;
+				border-radius: 20px;
+				margin: auto;
+
+			}
+
+			.filter.edit a {
+				line-height: 300px;
+				font-size: 20px;
+				color: #000000;
+				font-weight: 700;
+			}
+
+			.gallery_product img {
+				width: 300px;
+				height: 300px;
+				object-fit: cover;
+			}
 		</style>
 	</div>
 	<div id="main-content">
@@ -91,11 +118,17 @@
 
 						<div class="card-body p-0">
 							<div class="row">
-
+								<div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter edit ">
+									<div class="box-edit">
+										<a href="#"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
+									</div>
+								</div>
 								<div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe"><a href="">
 										<img src=https://res.cloudinary.com/dxfq3iotg/image/upload/v1564033828/Restaurant/img-1.jpg
 											class="img-responsive"></a>
 								</div>
+
+
 
 								<div class="img-fluid
 							gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter sprinkle">
@@ -170,6 +203,7 @@
 					if (value == "all") {
 
 						$('.filter').show('1000');
+						$('.filter.edit').hide('100');
 					}
 					else {
 

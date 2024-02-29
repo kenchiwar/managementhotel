@@ -161,12 +161,13 @@
 
 .list-image {
 	display: flex;
-	margin: 0 -20px
+	margin: 0 -20p;
+	flex-wrap: wrap;
 }
 
 .box-image {
-	flex: 0 0 33.33%;
-	max-width: 33.33%;
+	flex: 0 0 25%;
+	max-width: 25%;
 	padding: 0 20px;
 }
 
@@ -175,18 +176,19 @@
 	object-fit: cover;
 }
 
-.box-image .close {
+.box-image .checkbox {
 	position: absolute;
 	top: 0;
 	right: 0;
 	z-index: 1;
 	opacity: 1 !important;
-
-
+	
 }
 
-.box-image .close i {
-	color: #000000;
+.box-image .checkbox input {
+	width: 40px;
+	height: 40px;
+	border: 1px solid #0092ff;
 }
 .box-info .list-button{
 	text-align: center;
