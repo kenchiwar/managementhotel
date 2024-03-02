@@ -62,9 +62,9 @@ public class HotelServiceImpl implements HotelService {
 				if (fileMain!=null && !fileMain.isEmpty()) {
 					try {
 
-						String fileName = (idAccount != null)
-								? FileHelper.generateFileName(fileMain.getOriginalFilename())
-								: hotelDetail.getMainPhoto(); // tạo name
+						String fileName = 
+								 FileHelper.generateFileName(fileMain.getOriginalFilename());
+								
 					
 						Path path = Paths.get(folderImage.getAbsolutePath() + File.separator + fileName); // tạo path
 						Files.copy(fileMain.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);// chỉnh cách
@@ -80,9 +80,9 @@ public class HotelServiceImpl implements HotelService {
 				if (!fileSecondaryPhoto.isEmpty()) {
 					try {
 
-						String fileName = (idAccount != null)
-								? FileHelper.generateFileName(fileSecondaryPhoto.getOriginalFilename())
-								: hotelDetail.getSecondaryPhoto(); // tạo name
+						String fileName = 
+								 FileHelper.generateFileName(fileSecondaryPhoto.getOriginalFilename());
+								
 						
 						Path path = Paths.get(folderImage.getAbsolutePath() + File.separator + fileName); // tạo path
 						Files.copy(fileSecondaryPhoto.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);// chỉnh
