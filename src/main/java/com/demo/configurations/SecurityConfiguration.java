@@ -35,9 +35,9 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity.cors(cor -> cor.disable()).csrf(csf -> csf.disable()).authorizeHttpRequests(auth -> {
 					auth
-//					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN")
-//					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "BUSINESS")
-//					.requestMatchers("/assets/**", "/account/login").permitAll()
+					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN")
+					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "BUSINESS")
+					.requestMatchers("/assets/**", "/account/login").permitAll()
 					.requestMatchers("/**").permitAll();
 					})
 					.formLogin(formLogin -> {
@@ -51,7 +51,7 @@ public class SecurityConfiguration {
 						public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 								Authentication authentication) throws IOException, ServletException {
 							Map<String, String> urls = new HashMap<String, String>();
-							urls.put("ROLE_SUPPER_ADMIN", "/admin");
+							urls.put("ROLE_SUPER_ADMIN", "/admin");
 							urls.put("ROLE_ADMIN", "/admin");
 							urls.put("ROLE_BUSINESS", "/admin");
 							urls.put("ROLE_USER", "/account");
