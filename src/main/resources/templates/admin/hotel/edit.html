@@ -101,169 +101,115 @@
 	</div>
 	<div id="main-content">
 
+		<div class="container ">
+			<div class="row ">
+				<div class="col-2 d-flex">
 
-		<div class="row ">
-			<div class="col-2 d-flex">
+					<div class="card">
 
-				<div class="card">
-
-					<div class="card-header">
-						Header
-					</div>
-
-					<div class="card-body p-0">
-						<img class="img-fluid h-100" th:src="${urlImagesHotelMain}+'/'+${hotel.mainPhoto}">
-					</div>
-
-					<div class="card-footer">
-						Footer
-					</div>
-
-				</div>
-			</div>
-
-			<div class="col-2 d-flex">
-				<div class="card ">
-
-					<div class="card-header">
-						Ảnh phụ
-					</div>
-
-					<div class="card-body p-0">
-						<img class="img-fluid h-100" th:src="${urlImagesHotelMain}+'/'+${hotel.secondaryPhoto}">
-					</div>
-
-					<div class="card-footer">
-						Footer
-					</div>
-
-				</div>
-
-
-
-				<div class="card">
-
-
-				</div>
-			</div>
-			<a th:href="${adminHotel+'/'+'editPaper/'+hotel.idAccount}" class="col-2 d-flex">
-				<div class="card w-100 ">
-
-					<div class="card-header">
-						Papẻr
-					</div>
-
-					<div class="card-body d-flex justify-content-center align-items-center  p-0">
-						<div class="box-edit">
-
-							<i class="fa-solid fa-image"></i>Paper
-						</div>
-					</div>
-
-					<div class="card-footer">
-						Footer
-					</div>
-
-				</div>
-
-
-
-				<div class="card">
-
-
-				</div>
-			</a>
-
-		</div>
-
-
-
-
-
-
-
-		<div id="formToBody" class="">
-			<div class="card">
-
-				<div class="card-header">
-					<div class="row">
-						<div class="col-3">
+						<div class="card-header">
 							Header
 						</div>
-						<div class="col">
-							<form th:if="${hotel.status==true}" method="post" th:action="@{${urlForm+'/status'}}">
-								<input name="status" style="display: none;" type="text" value="false">
-								<button type="submit">Unactive Activity</button>
-							</form>
 
-							<h3>Cái acctivity này phân quyền admin với super admin được thôi </h3>
+						<div class="card-body p-0">
+							<img class="img-fluid h-100" th:src="${urlImagesHotelMain}+'/'+${hotel.mainPhoto}">
+						</div>
 
-							<form th:if="${hotel.status==false}" method="post" th:action="@{${urlForm+'/status'}}">
-								<input name="status" style="display: none;" type="text" value="true">
-								<button type="submit">Active Activity</button>
-							</form>
+						<div class="card-footer">
+							Footer
+						</div>
+
+					</div>
+				</div>
+
+				<div class="col-2 d-flex">
+					<div class="card ">
+
+						<div class="card-header">
+							Ảnh phụ
+						</div>
+
+						<div class="card-body p-0">
+							<img class="img-fluid h-100" th:src="${urlImagesHotelMain}+'/'+${hotel.secondaryPhoto}">
+						</div>
+
+						<div class="card-footer">
+							Footer
 						</div>
 
 					</div>
 
-				</div>
 
-				<div class="card-body p-0">
-					<div id="formToCreate" th:insert="${urlInput}:: #formOutBody"></div>
-				</div>
 
-				<div class="card-footer">
-					Footer
+					<div class="card">
+
+
+					</div>
 				</div>
+				<a th:href="${adminHotel+'/'+'editPaper/'+hotel.idAccount}" class="col-2 d-flex">
+					<div class="card w-100 ">
+
+						<div class="card-header">
+							Papẻr
+						</div>
+
+						<div class="card-body d-flex justify-content-center align-items-center  p-0">
+							<div class="box-edit">
+
+								<i class="fa-solid fa-image"></i>Paper
+							</div>
+						</div>
+
+						<div class="card-footer">
+							Footer
+						</div>
+
+					</div>
+
+
+
+					<div class="card">
+
+
+					</div>
+				</a>
 
 			</div>
 
 
 
-		</div>
-		<br>
-		<!--Show category image hotel-->
-		<div id="showImage">
-			<div class="">
-				<h1>Category Images </h1>
+
+
+
+
+			<div id="formToBody" class="">
 				<div class="card">
 
 					<div class="card-header">
-						<button class="btn btn-default filter-button active" data-filter="all">All</button>
-						<th:block th:each="Categoryimage : ${hotel.categoryimages}">
-							<button th:attr=" data-filter=${Categoryimage.id+'categoryImage'}"
-								th:text="${Categoryimage.name}" class="btn btn-default filter-button"></button>
-						</th:block>
+						<div class="row">
+							<div class="col-3">
+								Header
+							</div>
+							<div class="col">
+								<form th:if="${hotel.status==true}" method="post" th:action="@{${urlForm+'/status'}}">
+									<input name="status" style="display: none;" type="text" value="false">
+									<button type="submit">Unactive Activity</button>
+								</form>
 
-						<a th:href="@{${adminCategoryImage +'/create/'+hotel.idAccount}}">
-							<button class="btn btn-default ">+</button></a>
+								<h3>Cái acctivity này phân quyền admin với super admin được thôi </h3>
+
+								<form th:if="${hotel.status==false}" method="post" th:action="@{${urlForm+'/status'}}">
+									<input name="status" style="display: none;" type="text" value="true">
+									<button type="submit">Active Activity</button>
+								</form>
+							</div>
+
+						</div>
 
 					</div>
 
-					<div class="card-body p-0" style="max-height: 650px;
-    overflow: scroll;
-    background: #fff;">
-						<div class="row">
-							<th:block th:each="Categoryimage : ${hotel.categoryimages}">
-
-								<a th:href="@{${adminCategoryImage +'/edit/'+hotel.idAccount+'/'+Categoryimage.id }}"
-									style="display: none;"
-									th:class="${Categoryimage.id+'categoryImage'+' gallery_product col-lg-4 col-md-6 col-sm-6 col-xs-12  filter edit'}">
-
-									<div class="box-edit">
-										<i class="fa-solid fa-pen-to-square"></i>Edit
-									</div>
-
-								</a>
-								<!--Vòng lập thứ hai mệt ghê đó-->
-								<th:block th:each="image : ${Categoryimage.images}">
-									<div
-										th:class="${Categoryimage.id+'categoryImage'+' gallery_product col-lg-4 col-md-6 col-sm-6 col-xs-12 filter'}">
-										<img th:src="${urlImagesHotelCategory +'/'+image.name}" class="img-responsive">
-									</div>
-								</th:block>
-							</th:block>
-						</div>
+					<div class="card-body p-0">
+						<div id="formToCreate" th:insert="${urlInput}:: #formOutBody"></div>
 					</div>
 
 					<div class="card-footer">
@@ -272,20 +218,74 @@
 
 				</div>
 
+
+
+			</div>
+			<br>
+			<!--Show category image hotel-->
+			<div id="showImage">
+				<div class="">
+					<h1>Category Images </h1>
+					<div class="card">
+
+						<div class="card-header">
+							<button class="btn btn-default filter-button active" data-filter="all">All</button>
+							<th:block th:each="Categoryimage : ${hotel.categoryimages}">
+								<button th:attr=" data-filter=${Categoryimage.id+'categoryImage'}"
+									th:text="${Categoryimage.name}" class="btn btn-default filter-button"></button>
+							</th:block>
+
+							<a th:href="@{${adminCategoryImage +'/create/'+hotel.idAccount}}">
+								<button class="btn btn-default ">+</button></a>
+
+						</div>
+
+						<div class="card-body p-0" style="max-height: 650px;
+    overflow: scroll;
+    background: #fff;">
+							<div class="row">
+								<th:block th:each="Categoryimage : ${hotel.categoryimages}">
+
+									<a th:href="@{${adminCategoryImage +'/edit/'+hotel.idAccount+'/'+Categoryimage.id }}"
+										style="display: none;"
+										th:class="${Categoryimage.id+'categoryImage'+' gallery_product col-lg-4 col-md-6 col-sm-6 col-xs-12  filter edit'}">
+
+										<div class="box-edit">
+											<i class="fa-solid fa-pen-to-square"></i>Edit
+										</div>
+
+									</a>
+									<!--Vòng lập thứ hai mệt ghê đó-->
+									<th:block th:each="image : ${Categoryimage.images}">
+										<div
+											th:class="${Categoryimage.id+'categoryImage'+' gallery_product col-lg-4 col-md-6 col-sm-6 col-xs-12 filter'}">
+											<img th:src="${urlImagesHotelCategory +'/'+image.name}"
+												class="img-responsive">
+										</div>
+									</th:block>
+								</th:block>
+							</div>
+						</div>
+
+						
+
+					</div>
+
+				</div>
+
+			</div>
+			<!--Show category image hotel end-->
+			<br>
+
+			<div id="room" class="p-1">
+				<th:block th:insert="admin/hotel/tam :: .sec-rooms-scroll"></th:block>
 			</div>
 
+
+
+
+
 		</div>
-		<!--Show category image hotel end-->
-		<br>
-
-		<div id="room" class="p-1">
-			<th:block th:insert="admin/hotel/tam :: .sec-rooms-scroll"></th:block>
-		</div>
-
-
-
-
-
 	</div>
 	<div id="script">
 
@@ -293,6 +293,7 @@
 		<!--<script th:src="@{/assets/admin/dist/js/pages/dashboard.js}"></script>-->
 		<script th:src="@{/assets/mycreate/js/TableFilter.js}"></script>
 	</div>
+
 </body>
 
 </html>
