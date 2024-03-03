@@ -52,7 +52,14 @@
 													<img class="img-fluid h-100"
 														th:src="${urlImagesHotelMain}+'/'+${hotel.secondaryPhoto}">
 												</td>
-												<td><a th:href="@{${adminHotel+'/edit/'+hotel.id}}"><button class="btn btn-primary">Edit</button></a
+												<td>
+													<a th:href="@{${adminHotel+'/edit'+hotel.idAccount}}">
+													<button>
+														Edit
+													</button>
+													</a>
+													
+												</td>
 												<td>
 													<img class="img-fluid h-100"
 														th:src="${urlImagesHotelMain}+'/'+${hotel.mainPhoto}">

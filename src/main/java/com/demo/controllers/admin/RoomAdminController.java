@@ -40,7 +40,9 @@ public class RoomAdminController {
 
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session) {
-
+//	 System.out.println(serviceRoom.showRoomIndex().size()+" f");
+//	 System.out.println(serviceRoom.showRoomIndex().get(0).getName()+"name f");
+		modelMap.put("rooms", serviceRoom.showRoomIndex(null));
 		return "admin/room/index";
 	}
 

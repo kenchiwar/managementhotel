@@ -10,7 +10,12 @@
 		
 	</div>
 	<div id="main-content">
-		<h4>Content</h4>
+		<th:block th:each="room :${rooms}">
+			<br>
+			<h3 th:text="${room.hotelName}"></h3>
+			<h3 th:text="${room.totalevalate}"></h3>
+			<h3 th:text="${room.totalrating}"></h3>
+		</th:block>
 	</div>
 	<div id="script">
 		

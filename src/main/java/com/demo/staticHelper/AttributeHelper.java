@@ -1,5 +1,9 @@
 package com.demo.staticHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class AttributeHelper {
 	//địa chỉ form submit
 	public static final String urlForm = "urlForm";
@@ -14,5 +18,5 @@ public class AttributeHelper {
 	public static final String urlImagesHotelCategory=urlImages+"/hotel/categoryImage";
 	public static final String errorPage = "error/index";
 	public static final String urlReturn = "urlReturn";
-
+	
 }

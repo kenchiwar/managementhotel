@@ -1,9 +1,14 @@
 package com.demo.entities;
 // Generated Feb 25, 2024, 2:30:44 PM by Hibernate Tools 4.3.6.Final
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Selection;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -16,6 +21,8 @@ public class Hotel implements java.io.Serializable {
 
 	private Integer idAccount;
 	private Account account;
+
+	
 	private String name;
 	private String cancellationPolicy;
 	private String description;
@@ -39,6 +46,7 @@ public class Hotel implements java.io.Serializable {
 	public Hotel(Account account) {
 		this.account = account;
 	}
+
 	public Hotel(Integer idAccount) {
 		this.idAccount = idAccount;
 	}
@@ -231,6 +239,25 @@ public class Hotel implements java.io.Serializable {
 
 	public void setImagePaperses(Set<ImagePapers> imagePaperses) {
 		this.imagePaperses = imagePaperses;
+	}
+
+	public static List<Selection<?>> selection(Root<Hotel> root) {
+
+		List<Selection<?>> selection = new ArrayList<>();
+		selection.add(root.get("idAccount").alias("idAccount"));
+		selection.add(root.get("name").alias("name"));
+		selection.add(root.get("cancellationPolicy").alias("cancellationPolicy"));
+		selection.add(root.get("description").alias("description"));
+		selection.add(root.get("rating").alias("rating"));
+		selection.add(root.get("manager").alias("manager"));
+		selection.add(root.get("status").alias("status"));
+		selection.add(root.get("mainPhoto").alias("mainPhoto"));
+		selection.add(root.get("secondaryPhoto").alias("secondaryPhoto"));
+		selection.add(root.get("papers").alias("papers"));
+		selection.add(root.get("regulation").alias("regulation"));
+		selection.add(root.get("idHandler").alias("idHandler"));
+		selection.add(root.get("address").alias("address"));
+		return selection;
 	}
 
 }

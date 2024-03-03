@@ -160,8 +160,10 @@
 					// nó sẽ kiểm tra coi có chọn phần tử city chưa
 					if(
 						!(/^\d+$/.test(cityValue.val()))){
-							e.preventDefault();
-						return ;
+							
+							
+							return
+						
 					}else {
 						if(
 						!(/^\d+$/.test(wardValue.val()))){
@@ -175,7 +177,7 @@
 				
 				
 				var addressHomeValue = $('#chanAdress').val();
-
+				alert("Address is End moi full !");
 				var addressValue = cityValue.text() + " - " + districtValue.text() + " - " + wardValue.text() + " - " + addressHomeValue +";";
 				addressValue += "city:"+cityValue.val()
 				+";district:"+districtValue.val()+";ward"+wardValue.val()+";"

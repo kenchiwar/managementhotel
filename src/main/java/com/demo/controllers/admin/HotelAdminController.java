@@ -20,7 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.entities.Account;
 import com.demo.entities.Hotel;
+import com.demo.entities.HotelDetail;
 import com.demo.entities.Room;
+import com.demo.helpers.SelectAccountHelper;
 import com.demo.helpers.UrlHelper;
 import com.demo.services.AccountSelectService;
 import com.demo.services.AccountService;
@@ -53,8 +55,47 @@ public class HotelAdminController {
 		modelMap.put("urlImagesHotelMain", AttributeHelper.urlImagesHotelMain);
 		modelMap.put("adminHotel", "/" + UrlHelper.adminHotel);
 		modelMap.put(dataKey+"s", serviceHotel.findAll());
+		
+		serviceHotel.hotelDetail(null, null);
 		return "admin/hotel/index";
 	}
+	@RequestMapping(value = { "detail" }, method = RequestMethod.GET)
+	public String detail(ModelMap modelMap,
+			Authentication authentication
+			) {
+		//tùy điều kiện lấy hotel 
+		modelMap.put("urlImagesHotelMain", AttributeHelper.urlImagesHotelMain);
+		modelMap.put("adminHotel", "/" + UrlHelper.adminHotel);
+		modelMap.put(dataKey+"s", serviceHotel.findAll());
+		
+		//
+		modelMap.put(AttributeHelper.urlForm, "/" + url + "/editHandler");
+
+		modelMap.put(AttributeHelper.checkEdit, false);
+		//admin đủ quyền mới thấy 
+		SelectAccountHelper selectHelper = new SelectAccountHelper();
+		selectHelper.setRoleMax(1);
+		selectHelper.setRoleMin(2);
+		modelMap.put("admins",serviceHotel.selectAccount(null, null) );
+		serviceHotel.hotelDetail(null, null);
+		return "admin/hotel/detail";
+	}
+	@RequestMapping(value = { "editHandler" }, method = RequestMethod.POST)
+	public String updateHandler(ModelMap modelMap,
+			Authentication authentication,
+			@RequestParam("idHotel") Integer idHotel,
+			@RequestParam("idAccount") Integer idAccount
+			) {
+		
+		Hotel hotel = serviceHotel.find(idHotel);
+		hotel.setIdHandler(idAccount);
+		serviceAccount.find(idAccount);
+		System.out.println("fdsfsdf");
+		//tùy điều kiện lấy hotel 
+		
+		return "redirect:/" + url + "/detail" ;
+	}
+	
 
 	@RequestMapping(value = { "create" }, method = RequestMethod.GET)
 	public String create(ModelMap modelMap) {
