@@ -1,6 +1,8 @@
 package com.demo.controllers.user;
 
 import java.text.SimpleDateFormat;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,7 @@ import com.demo.services.AccountSelectService;
 import com.demo.services.AccountService;
 import com.demo.services.RoleService;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -61,6 +64,12 @@ public class AccountUserController {
 	if(authentication != null) {
 		return "redirect:/account";
 	}else {
+		try {
+			
+		}catch (UsernameNotFoundException e) {
+			 String errorMessage = e.getMessage();
+			System.out.println("eror : "+errorMessage);
+		}
 	return "user/account/login";
 	}
 	}

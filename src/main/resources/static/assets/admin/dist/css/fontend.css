@@ -397,4 +397,9 @@ button.btn-submit {
     padding: 20px;
     -webkit-overflow-scrolling: touch;
 }
-
+.table .tbody{
+	color:#fff;
+}
+.table .status-f{
+	background: #db231d;
+}

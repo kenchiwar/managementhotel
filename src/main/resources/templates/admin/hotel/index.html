@@ -41,7 +41,7 @@
 									</thead>
 									<tbody>
 										<th:block th:each="hotel :${hotels}">
-											<tr>
+											<tr th:class="${hotel.status==true?'status-t':'status-f'}">
 												<td th:text="${hotel.name}"></td>
 												<td th:text="${hotel.rating}"></td>
 												<td th:text="${#strings.substringBefore(hotel.address, ';')}"></td>
@@ -52,14 +52,7 @@
 													<img class="img-fluid h-100"
 														th:src="${urlImagesHotelMain}+'/'+${hotel.secondaryPhoto}">
 												</td>
-												<td>
-													<a th:href="@{${adminHotel+'/edit'+hotel.idAccount}}">
-													<button>
-														Edit
-													</button>
-													</a>
-													
-												</td>
+												<td><a th:href="@{${adminHotel+'/edit/'+hotel.idAccount}}"><button class="btn btn-primary">Edit</button></a>
 												<td>
 													<img class="img-fluid h-100"
 														th:src="${urlImagesHotelMain}+'/'+${hotel.mainPhoto}">
