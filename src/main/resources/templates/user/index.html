@@ -296,7 +296,7 @@
 				<div class="row alazea-portfolio">
 
 					<!-- Single Portfolio Area -->
-					<th:block th:each="room  : ${hotels}">
+					<th:block th:each="room , index : ${hotels}">
 						<div th:if="${room.address != null}"
 							th:class="'col-12 col-sm-6 col-lg-3 single_portfolio_item wow fadeInUp ' +${#strings.substringBefore(room.address, '-').replace(' ', '')}"
 							data-wow-delay="100ms">

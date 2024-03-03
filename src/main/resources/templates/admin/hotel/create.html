@@ -11,96 +11,113 @@
 
 	</div>
 	<div id="main-content">
-		<h4>Content</h4>
+		
 		<!-- thằng này ko cần chỉnh csss-->
 		<div id="formOutBody">
 			<input type="checkbox" style="display: none;" readonly th:checked="${checkEdit}" id="checkEdit">
-		<!---->
-		<form id="formSubmit" method="post" th:action="@{${urlForm}}" enctype="multipart/form-data">
-			
-			<input id="mainPhoto" readonly style="display: none;" type="text" th:field="${hotel.mainPhoto}">
-			<input id="status"  readonly style="display: none;" type="text" th:field="${hotel.status}">
-			<input id="secondaryPhoto" readonly style="display: none;" type="text" th:field="${hotel.secondaryPhoto}">
-			<input id="idPrimary" readonly style="display: none;" type="text" th:field="${hotel.idAccount}">
-			<input id="idHandler" readonly style="display: none;" type="text" th:field="${hotel.idHandler}">
-			<h1>Nhớ sắp xếp lại vị trí đi </h1>
-			
-			<label>Name:</label>
-			<input id="nameHotel" type="text" th:field="${hotel.name}">
-			<br>
-			<label>Cancellation Policy:</label>
-			<textarea id="cancellationPolicy"  
-			th:field="${hotel.cancellationPolicy}"></textarea>
-			<br>
-			
-			<label>Description:</label>
-			<textarea id="description"  th:field="${hotel.description}"></textarea>
-			<br>
-			<label>Rating:</label>
-			<input id="rating" type="number" min="0" max="5" th:field="${hotel.rating}">
-			<br>
-			<label>Manager:</label>
-			<input id="manager" type="text" th:field="${hotel.manager}">
-			<br>
+			<!---->
+			<form id="formSubmit" method="post" th:action="@{${urlForm}}" enctype="multipart/form-data"
+				class="box-form">
 
-			<label>Main Photo:</label>
-			<input id="mainPhotoInput" name="mainPhoto123" accept=".jpg,.png,.gif,.webp" type="file" >
-			<br>
-			<label>Secondary Photo:</label>
-			<input id="secondaryPhotoInput" name="secondaryPhoto123" accept=".jpg,.png,.gif,.webp" type="file" >
+				<input id="mainPhoto" readonly style="display: none;" type="text" th:field="${hotel.mainPhoto}">
+				<input id="status" readonly style="display: none;" type="text" th:field="${hotel.status}">
+				<input id="secondaryPhoto" readonly style="display: none;" type="text"
+					th:field="${hotel.secondaryPhoto}">
+				<input id="idPrimary" readonly style="display: none;" type="text" th:field="${hotel.idAccount}">
+				<input id="idHandler" readonly style="display: none;" type="text" th:field="${hotel.idHandler}">
 
-			<br>
-			<label>Regulation:</label>
-			<textarea id="regulation" 
-			th:field="${hotel.regulation}"></textarea>
-			
-			<th:block
-			th:if="${checkEdit==true}"><h1>Edit
-				
-			</h1></th:block>
-			<input id="address" style="display: none;" type="text" th:field="${hotel.address}">		
-			<th:block th:if="${checkEdit==true}">
-			<br>
-			<label>Address:</label>
-			<h1>//cái này dài hết cỡ cho tao </h1>
-				<input class="w-100" readonly th:value="
+				<div class="field">
+					<label>Name:</label>
+					<input id="nameHotel" type="text" th:field="${hotel.name}">
+				</div>
+				<div class="field">
+					<label>Cancellation Policy:</label>
+					<textarea id="cancellationPolicy" th:field="${hotel.cancellationPolicy}"></textarea>
+				</div>
+				<div class="field">
+
+					<label>Description:</label>
+					<textarea id="description" th:field="${hotel.description}"></textarea>
+				</div>
+				<div class="field">
+					<label>Rating:</label>
+					<input id="rating" type="number" min="0" max="5" th:field="${hotel.rating}">
+				</div>
+				<div class="field">
+					<label>Manager:</label>
+					<input id="manager" type="text" th:field="${hotel.manager}">
+				</div>
+				<div class="field">
+
+					<label>Main Photo:</label>
+					<input id="mainPhotoInput" name="mainPhoto123" accept=".jpg,.png,.gif,.webp" type="file">
+				</div>
+				<div class="field">
+					<label>Secondary Photo:</label>
+					<input id="secondaryPhotoInput" name="secondaryPhoto123" accept=".jpg,.png,.gif,.webp" type="file">
+				</div>
+				<div class="field">
+					<label>Regulation:</label>
+					<textarea id="regulation" th:field="${hotel.regulation}"></textarea>
+				</div>
+				<div class="field-full">
+
+
+
+					<th:block th:if="${checkEdit==true}">
+					
+					</th:block>
+					<input id="address" style="display: none;" type="text" th:field="${hotel.address}">
+					<th:block th:if="${checkEdit==true}">
+						<br>
+						<label>Address:</label>
+
+						<input class="w-100" readonly th:value="
 			${#strings.substringBefore(hotel.address, ';')}">
-			
-		
-			</th:block>
-			
-			
-			<div>
-				<select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
-					<option value="" selected>Chọn tỉnh thành</option>
-				</select>
-
-				<select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
-					<option value="" selected>Chọn quận huyện</option>
-				</select>
-
-				<select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
-					<option value="" selected>Chọn phường xã</option>
-				</select>
-				<label>Address Home:</label>
-				<input id="chanAdress" type="text">
-
-			</div>
-			
-
-			
-		
 
 
-			<button type="reset">Reset</button>
+					</th:block>
 
-			<button type="submit">Submit</button>
 
-		</form>
+					<div class="select-address">
+						<div class="row">
+							<div class="col-md-3">
+								<select class="form-select form-select-sm mb-3 " id="city" aria-label=".form-select-sm">
+									<option value="" selected>Chọn tỉnh thành</option>
+								</select>
+							</div>
+							<div class="col-md-3">
+								<select class="form-select form-select-sm mb-3 " id="district"
+									aria-label=".form-select-sm">
+									<option value="" selected>Chọn quận huyện</option>
+								</select>
+							</div>
+							<div class="col-md-3">
+								<select class="form-select form-select-sm " id="ward" aria-label=".form-select-sm">
+									<option value="" selected>Chọn phường xã</option>
+								</select>
+							</div>
+							<div class="col-md-3">
+
+								<input id="chanAdress" type="text" placeholder="Apartment number
+">
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="buttons">
+				
+					<button type="submit" class="btn-main">Submit</button>
+					<button type="reset" class="btn-main">Reset</button>
+				</div>
+
+
+			</form>
 		</div>
-		
-		
-		
+
+
+
 
 
 	</div>
@@ -151,38 +168,38 @@
 		</script>
 		<script>
 			$('#formSubmit').submit(function (e) {
-			
+
 				var isChecked = $("#checkEdit").is(":checked");
 				var cityValue = $('#city option:selected');
 				var districtValue = $('#district option:selected');
 				var wardValue = $('#ward option:selected');
-				if(isChecked){
+				if (isChecked) {
 					// nó sẽ kiểm tra coi có chọn phần tử city chưa
-					if(
-						!(/^\d+$/.test(cityValue.val()))){
-							
-							
-							return
-						
-					}else {
-						if(
-						!(/^\d+$/.test(wardValue.val()))){
+					if (
+						!(/^\d+$/.test(cityValue.val()))) {
+
+
+						return
+
+					} else {
+						if (
+							!(/^\d+$/.test(wardValue.val()))) {
 							e.preventDefault();
-						alert("Address is not full !");
-						return ;
+							alert("Address is not full !");
+							return;
 						}
 					}
-					
+
 				};
-				
-				
+
+
 				var addressHomeValue = $('#chanAdress').val();
 				alert("Address is End moi full !");
-				var addressValue = cityValue.text() + " - " + districtValue.text() + " - " + wardValue.text() + " - " + addressHomeValue +";";
-				addressValue += "city:"+cityValue.val()
-				+";district:"+districtValue.val()+";ward"+wardValue.val()+";"
+				var addressValue = cityValue.text() + " - " + districtValue.text() + " - " + wardValue.text() + " - " + addressHomeValue + ";";
+				addressValue += "city:" + cityValue.val()
+					+ ";district:" + districtValue.val() + ";ward" + wardValue.val() + ";"
 				$('#address').val(addressValue);
-				
+
 
 			});
 		</script>

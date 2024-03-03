@@ -1,6 +1,7 @@
 package com.demo.controllers.user;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,8 @@ public class IndexUserController {
 
 	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session) {
-	modelMap.put("hotels", serviceHotel.findAll());	
+
+	modelMap.put("hotels", serviceHotel.hotelShowIndexs(null, null));	
 	return "user/index";
 	}
 	

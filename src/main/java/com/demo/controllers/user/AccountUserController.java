@@ -52,7 +52,7 @@ public class AccountUserController {
 		}else {
 			
 			if(authentication != null) {
-			
+		
 			modelMap.put("account", accountSelectService.getAccountLogin(authentication));
 			}	
 			return "user/account/index";

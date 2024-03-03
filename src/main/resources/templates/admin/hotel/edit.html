@@ -108,16 +108,14 @@
 					<div class="card">
 
 						<div class="card-header">
-							Header
+							Main Photo
 						</div>
 
 						<div class="card-body p-0">
 							<img class="img-fluid h-100" th:src="${urlImagesHotelMain}+'/'+${hotel.mainPhoto}">
 						</div>
 
-						<div class="card-footer">
-							Footer
-						</div>
+
 
 					</div>
 				</div>
@@ -126,31 +124,26 @@
 					<div class="card ">
 
 						<div class="card-header">
-							Ảnh phụ
+							Secondary Photo
 						</div>
 
 						<div class="card-body p-0">
 							<img class="img-fluid h-100" th:src="${urlImagesHotelMain}+'/'+${hotel.secondaryPhoto}">
 						</div>
 
-						<div class="card-footer">
-							Footer
-						</div>
-
-					</div>
-
-
-
-					<div class="card">
 
 
 					</div>
+
+
+
+
 				</div>
 				<a th:href="${adminHotel+'/'+'editPaper/'+hotel.idAccount}" class="col-2 d-flex">
 					<div class="card w-100 ">
 
 						<div class="card-header">
-							Papẻr
+							Paper
 						</div>
 
 						<div class="card-body d-flex justify-content-center align-items-center  p-0">
@@ -159,44 +152,27 @@
 								<i class="fa-solid fa-image"></i>Paper
 							</div>
 						</div>
-
-						<div class="card-footer">
-							Footer
-						</div>
-
 					</div>
-
-
-
 					<div class="card">
-
-
 					</div>
 				</a>
 
 			</div>
-
-
-
-
-
-
-
 			<div id="formToBody" class="">
 				<div class="card">
 
 					<div class="card-header">
 						<div class="row">
-							<div class="col-3">
-								Header
+							<div class="col-md-8">
+								<h3>Hotel </h3>
 							</div>
-							<div class="col">
+							<div class="col-md-4">
 								<form th:if="${hotel.status==true}" method="post" th:action="@{${urlForm+'/status'}}">
 									<input name="status" style="display: none;" type="text" value="false">
-									<button type="submit">Unactive Activity</button>
+									<button type="submit" class="btn-main">Unactive Activity</button>
 								</form>
 
-								<h3>Cái acctivity này phân quyền admin với super admin được thôi </h3>
+
 
 								<form th:if="${hotel.status==false}" method="post" th:action="@{${urlForm+'/status'}}">
 									<input name="status" style="display: none;" type="text" value="true">
@@ -267,7 +243,7 @@
 							</div>
 						</div>
 
-						
+
 
 					</div>
 

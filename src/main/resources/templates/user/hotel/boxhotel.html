@@ -11,7 +11,7 @@
 
 
 
-	<div class="box-room">
+	<div class="box-room mb-30">
 		<div th:class="wrapper">
 			<div class="image">
 				<img th:src="@{'/assets/images/hotel/main/'+${room.mainPhoto}}">
@@ -25,64 +25,65 @@
 				</div>
 				<p th:text="${room.cancellationPolicy}" class="description"></p>
 				<p class="sub-title" th:text="${#strings.substringBefore(room.address, '-')}"></p>
-				
-				
-				<th:block th:each="r ,i : ${room.rooms}">
-					
-					<th:block th:if="${r.priceDiscount} > 0">
-						<p class="price-sale"><span>₫
-								<th:block th:text="${#numbers.formatDecimal(r.priceDiscount, 0, 'COMMA', 2, 'POINT')}">
-								</th:block>
-							</span></p>
-
-						<p class="price "><span>₫<th:block
-									th:text="${#numbers.formatDecimal(r.price, 0, 'COMMA', 2, 'POINT')}">
-								</th:block></span>
-							-<th:block
-								th:text="${#strings.substringBefore((100 - (r.priceDiscount / r.price) * 100), '.')}">
-							</th:block>%
-						</p>
-					</th:block>
-					<th:block th:if="${r.priceDiscount} <= 0">
 
 
-						<p class="price "><span
-								style="text-decoration-line:none ; color:rgb(255, 94, 31);font-size: 26px;font-weight: 700;">
-								₫<th:block th:text="${#numbers.formatDecimal(r.price, 0, 'COMMA', 0, 'POINT')}">
-								</th:block>
-						</p>
-					</th:block>
 
+
+				<th:block th:if="${room.priceDiscount} > 0">
+					<p class="price-sale"><span>₫
+							<th:block th:text="${#numbers.formatDecimal(room.priceDiscount, 0, 'COMMA', 0, 'POINT')}">
+							</th:block>
+						</span></p>
+
+					<p class="price "><span>₫<th:block
+								th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
+							</th:block></span>
+						-<th:block
+							th:text="${#strings.substringBefore((100 - (room.priceDiscount / room.price) * 100), '.')}">
+						</th:block>%
+					</p>
+				</th:block>
+				<th:block th:if="${room.priceDiscount} <= 0">
+
+
+					<p class="price "><span
+							style="text-decoration-line:none ; color:rgb(255, 94, 31);font-size: 26px;font-weight: 700;">
+							₫<th:block th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
+							</th:block>
+					</p>
+				</th:block>
 				</th:block>
 
 
+
+				<th:block th:text="${room.totalrating}"></th:block>
 				<div class="evaluate">
-					<!--<div class="row">
-											<div class="col-md-6">
-												<div class="box-rating" style="--percent: 90%">
-													<div class="rating">
-														<div class="star yellow">
-															<i class="fa-solid fa-star"></i>
-															<i class="fa-solid fa-star"></i>
-															<i class="fa-solid fa-star"></i>
-															<i class="fa-solid fa-star"></i>
-															<i class="fa-solid fa-star"></i>
-														</div>
-													</div>
-													<div class="star grey">
-														<i class="fa-solid fa-star"></i>
-														<i class="fa-solid fa-star"></i>
-														<i class="fa-solid fa-star"></i>
-														<i class="fa-solid fa-star"></i>
-														<i class="fa-solid fa-star"></i>
-													</div>
-												</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="box-rating"  th:style="'--percent: 90%'">
+								<div class="rating">
+									<div class="star yellow">
+										<i class="fa-solid fa-star"></i>
+										<i class="fa-solid fa-star"></i>
+										<i class="fa-solid fa-star"></i>
+										<i class="fa-solid fa-star"></i>
+										<i class="fa-solid fa-star"></i>
+									</div>
+								</div>
+								<div class="star grey">
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+								</div>
+							</div>
 
-											</div>
-											<div class="col-md-6">
+						</div>
+						<div class="col-md-6">
 
-											</div>
-										</div>-->
+						</div>
+					</div>
 					<div class="buttons">
 						<a th:href="@{'/hotel/detail/'+${room.idAccount}}" class="btn btn-booknow">Book now</a>
 					</div>
