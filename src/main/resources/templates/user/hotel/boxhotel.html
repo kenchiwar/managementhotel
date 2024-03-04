@@ -30,29 +30,33 @@
 
 
 				<th:block th:if="${room.priceDiscount} > 0">
-					<p class="price-sale"><span>₫
-							<th:block th:text="${#numbers.formatDecimal(room.priceDiscount, 0, 'COMMA', 0, 'POINT')}">
-							</th:block>
-						</span></p>
+					<th:block th:if="${room.priceDiscount < room.price} ">
+						<p class="price-sale"><span>₫
+								<th:block
+									th:text="${#numbers.formatDecimal(room.priceDiscount, 0, 'COMMA', 0, 'POINT')}">
+								</th:block>
+							</span></p>
 
-					<p class="price "><span>₫<th:block
-								th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
-							</th:block></span>
-						-<th:block
-							th:text="${#strings.substringBefore((100 - (room.priceDiscount / room.price) * 100), '.')}">
-						</th:block>%
-					</p>
-				</th:block>
-				<th:block th:if="${room.priceDiscount} <= 0">
+						<p class="price "><span>₫<th:block
+									th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
+								</th:block></span>
+							-<th:block
+								th:text="${#strings.substringBefore((100 - (room.priceDiscount / room.price) * 100), '.')}">
+							</th:block>%
+						</p>
+					</th:block>
+					<th:block th:if="${room.priceDiscount} <= 0">
 
 
-					<p class="price "><span
-							style="text-decoration-line:none ; color:rgb(255, 94, 31);font-size: 26px;font-weight: 700;">
-							₫<th:block th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
-							</th:block>
-					</p>
+						<p class="price "><span
+								style="text-decoration-line:none ; color:rgb(255, 94, 31);font-size: 26px;font-weight: 700;">
+								₫<th:block th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
+								</th:block>
+						</p>
+					</th:block>
 				</th:block>
-				</th:block>
+
+
 
 
 
@@ -60,7 +64,7 @@
 				<div class="evaluate">
 					<div class="row">
 						<div class="col-md-6">
-							<div class="box-rating"  th:style="'--percent: 90%'">
+							<div class="box-rating" th:style="'--percent: 90%'">
 								<div class="rating">
 									<div class="star yellow">
 										<i class="fa-solid fa-star"></i>
