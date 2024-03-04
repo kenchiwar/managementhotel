@@ -8,5 +8,10 @@ public class HelperThymleaf {
 	    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
 	    return decimalFormat.format(number);
 	}
+	public Integer formatRating(Long totalraint ,Double totalevalte) {
+	
+		
+		return Double.valueOf(totalevalte*100/(totalraint*5)).intValue();
+	}
 	
 }

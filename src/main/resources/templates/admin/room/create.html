@@ -26,100 +26,95 @@
 		</style>
 	</div>
 	<div id="main-content">
-		<h4>Content</h4>
-		<a th:href="@{${urlReturn}}"><button class="btn btn-primary"> return </button></a>
-		<h1>Ở đây có phần tử ẩn chỉ vô edit thấy được thôi</h1>
-		<div th:if="${checkEdit==true}">
-			<form id="formDelete1"  onsubmit="return confirm('are your sure want to delete!')" method="post" th:action="@{${urlForm}+'/delete'}">
-					<button  class="btn btn-danger" type="submit">Delete</button>
-			</form>
-			
-			//////////
-			<h1>Có phần tử ẩn nữa </h1>
-			<form id="formDelete" onsubmit="return confirm('are your sure want to do Action!')" method="post" th:action="@{${urlForm}+'/status'}">
-					
-					<input type="text" style="display: none;"
-					 th:value="${roomData.status==true?'false':'true'}" name="status"  >
-					<button class="btn btn-primary"
-					th:text="${roomData.status==true?'Unactive':'Active'}"
-					 type="submit"></button>
-			</form>
-			
-		</div>
-		<h1>/////</h1>
-		<form id="formSubmit" method="post" th:action="@{${urlForm}}">
-			<input type="text"   style="display: none;" th:field="${roomData.hotel}" >
-			<input type="text" th:field="${roomData.id}" style="display: none;">
-			<input type="text" th:field="${roomData.status}" style="display: none;">
+		<div class="container">
 			<div class="row">
-				<div class="col-xl-6  col-md-12 form-group">
+
+				<div class="col-12 mb-5 ">
+					<a th:href="@{${urlReturn}}"><button class="btn btn-primary btn-main"> Return </button></a>
+				</div>
+				<div class="col-md-6 ">
+					<div th:if="${checkEdit==true}">
+						<form id="formDelete1" onsubmit="return confirm('are your sure want to delete!')" method="post"
+							th:action="@{${urlForm}+'/delete'}" class="text-center">
+							<button class="btn btn-danger btn-main bg-red" type="submit">Delete</button>
+						</form>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<form id="formDelete" onsubmit="return confirm('are your sure want to do Action!')" method="post"
+						th:action="@{${urlForm}+'/status'}">
+
+						<input type="text" style="display: none;" th:value="${roomData.status==true?'false':'true'}"
+							name="status">
+						<button class="btn btn-primary btn-main" th:text="${roomData.status==true?'Unactive':'Active'}"
+							type="submit"></button>
+					</form>
+				</div>
+			</div>
+
+
+			<form id="formSubmit" method="post" th:action="@{${urlForm}}" class="box-form">
+				<input type="text" style="display: none;" th:field="${roomData.hotel}">
+				<input type="text" th:field="${roomData.id}" style="display: none;">
+				<input type="text" th:field="${roomData.status}" style="display: none;">
+				<div class="field-full">
+
 					<label for="email">Name</label>
 					<textarea rows="1" class="form-control" th:field="${roomData.name}" id="name"></textarea>
 				</div>
-				<div class="col-xl-6  col-md-12"></div>
-
-				<div class="col-xl-4  col-md-12 form-group">
+				<div class="field">
 					<label for="price">Price</label>
 					<input type="text" step="0.01" class="form-control typeNumber-text" th:field="${roomData.price}"
 						id="price">
 				</div>
-
-				<div class="col-xl-4 col-md-12 form-group">
+				<div class="field">
 					<label for="priceDiscount">Price Discount</label>
 					<input type="number" step="0.01" min="0" class="form-control typeNumber-text"
 						th:field="${roomData.priceDiscount}" id="priceDiscount">
 				</div>
-				<div class="col"></div>
-
-				<div class="col-xl-6  col-md-12  form-group">
+				<div class="field-full">
 					<label for="reasonDiscount">Reason Discount</label>
 
 					<input type="text" class="form-control" th:field="${roomData.reasonDiscount}" id="reasonDiscount">
 				</div>
-				<div class="col-xl-12"></div>
-
-				<div class="col-xl-4  col-md-12 form-group">
+				<div class="field">
 					<label for="roomMax">Room Max</label>
 					<input type="number" value="0" min="0" class="form-control typeNumber-text"
 						th:field="${roomData.roomMax}" id="roomMax">
 				</div>
-
-				<div class="col-xl-4  col-md-12 form-group">
+				<div class="field">
 					<label for="roomNow">Room Now</label>
 					<input type="text" class="form-control 
 					 typeNumber-text" th:field="${roomData.roomNow}" id="roomNow">
 				</div>
-				<div class="col-xl-4"></div>
-
-				<div class="col-xl-4  col-md-12 form-group">
+				<div class="field">
 					<label for="peopleMin">People Min</label>
 					<input type="text" value="0" min="0" class="form-control" th:field="${roomData.peopleMin}"
 						id="peopleMin">
 				</div>
-
-				<div class="col-xl-4  col-md-12 form-group">
+				<div class="field">
 					<label for="peopleMax">People Max</label>
 					<input type="number" min="0" class="form-control" th:field="${roomData.peopleMax}" id="peopleMax">
 				</div>
-				<div class="col-12 form-group">
+				<div class="field-full">
 					<label for="reasonDiscount">Describes</label>
 					<textarea th:field="${roomData.describes}" class="form-control" id="describes" rows="3"></textarea>
 
 				</div>
 
 
-			</div>
+				<div class="buttons">
+				<button type="submit" class="btn btn-primary btn-main">
+					Submit
+				</button>
+				</div>
+
+			</form>
 
 
-			<button type="submit" class="btn btn-primary">
-				Submit
-			</button>
-
-		</form>
 
 
-
-
+		</div>
 	</div>
 	<div id="script">
 

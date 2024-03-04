@@ -29,42 +29,43 @@
 
 
 
-				<th:block th:if="${room.priceDiscount} > 0">
-					<th:block th:if="${room.priceDiscount < room.price} ">
-						<p class="price-sale"><span>₫
-								<th:block
-									th:text="${#numbers.formatDecimal(room.priceDiscount, 0, 'COMMA', 0, 'POINT')}">
-								</th:block>
-							</span></p>
+				<th:block th:if="${room.priceDiscount} > 0 and ${room.priceDiscount < room.price} ">
 
-						<p class="price "><span>₫<th:block
-									th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
-								</th:block></span>
-							-<th:block
-								th:text="${#strings.substringBefore((100 - (room.priceDiscount / room.price) * 100), '.')}">
-							</th:block>%
-						</p>
-					</th:block>
-					<th:block th:if="${room.priceDiscount} <= 0">
+					<p class="price-sale"><span>₫
+							<th:block th:text="${#numbers.formatDecimal(room.priceDiscount, 0, 'COMMA', 0, 'POINT')}">
+							</th:block>
+						</span></p>
+
+					<p class="price "><span>₫<th:block
+								th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
+							</th:block></span>
+						-<th:block
+							th:text="${#strings.substringBefore((100 - (room.priceDiscount / room.price) * 100), '.')}">
+						</th:block>%
+					</p>
+				</th:block>
+				<th:block th:if="${room.priceDiscount} <= 0">
 
 
-						<p class="price "><span
-								style="text-decoration-line:none ; color:rgb(255, 94, 31);font-size: 26px;font-weight: 700;">
-								₫<th:block th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
-								</th:block>
-						</p>
-					</th:block>
+					<p class="price "><span
+							style="text-decoration-line:none ; color:rgb(255, 94, 31);font-size: 26px;font-weight: 700;">
+							₫<th:block th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
+							</th:block>
+					</p>
+				</th:block>
 				</th:block>
 
 
 
 
 
-				<th:block th:text="${room.totalrating}"></th:block>
+
+
+				</th:block>
 				<div class="evaluate">
 					<div class="row">
-						<div class="col-md-6">
-							<div class="box-rating" th:style="'--percent: 90%'">
+						<div class="col-md-12">
+							<div class="box-rating" th:style="'--percent:'+${room.haha}+'%'">
 								<div class="rating">
 									<div class="star yellow">
 										<i class="fa-solid fa-star"></i>
@@ -82,11 +83,11 @@
 									<i class="fa-solid fa-star"></i>
 								</div>
 							</div>
-
+							<p th:text="'('+${room.totalrating}+')'"></p>
 						</div>
-						<div class="col-md-6">
-
-						</div>
+						
+							
+						
 					</div>
 					<div class="buttons">
 						<a th:href="@{'/hotel/detail/'+${room.idAccount}}" class="btn btn-booknow">Book now</a>

@@ -35,7 +35,15 @@ public class HotelUserController {
 	private RoomService serviceRoom;
 	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session) {
-		modelMap.put("hotels", serviceHotel.hotelShowIndexs(null, null));	
+		var hotels = serviceHotel.hotelShowIndexs(null, null);
+		hotels.forEach(x->{
+			if(x.getTotalrating() >0) {
+			x.setHaha(x.getHaha()*100/(x.getTotalrating()*5));
+			}else {
+				x.setHaha(0l);
+			}
+		});
+		modelMap.put("hotels", hotels);	
 	return "user/hotel/index";
 	}
 	

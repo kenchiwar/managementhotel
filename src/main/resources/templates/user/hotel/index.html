@@ -241,9 +241,11 @@
 							<div class="row">
 								<th:block th:each="room , index : ${hotels}">
 									<!-- Single Product Area -->
+									<th:block th:if="${room.status} == true">
 									<div class="col-12 col-sm-6 col-lg-4">
 										<th:block th:insert="/user/hotel/boxhotel :: .box-room"></th:block>
 									</div>
+									</th:block>
 
 									<!-- Single Product Area -->
 								</th:block>
