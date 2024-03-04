@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.demo.helpers.SelectHelperHotel;
 import com.demo.services.AccountSelectService;
 import com.demo.services.AccountService;
 import com.demo.services.HotelService;
@@ -38,15 +39,53 @@ public class IndexUserController {
 
 	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session) {
-	var hotels = serviceHotel.hotelShowIndexs(null, null);
-	hotels.forEach(x->{
-		if(x.getTotalrating() >0) {
-		x.setHaha(x.getHaha()*100/(x.getTotalrating()*5));
-		}else {
-			x.setHaha(0l);
-		}
-	});
-	modelMap.put("hotels", hotels);	
+		SelectHelperHotel select = new SelectHelperHotel();
+		select.setCity("01");
+		var hotels = serviceHotel.hotelShowIndexs(select, null);
+		hotels.forEach(x -> {
+			
+			if (x.getTotalrating() > 0) {
+				x.setHaha(x.getHaha() * 100 / (x.getTotalrating() * 5));
+			} else {
+				x.setHaha(0l);
+			}
+		});
+		
+		
+		//HCM
+		select.setCity("79");
+		var hotel = serviceHotel.hotelShowIndexs(select, null);
+		hotels.forEach(x -> {
+			if (x.getTotalrating() > 0) {
+				x.setHaha(x.getHaha() * 100 / (x.getTotalrating() * 5));
+			} else {
+				x.setHaha(0l);
+			}
+		});
+		hotels.addAll(hotel);
+		//DA NANG
+		select.setCity("48");
+		 hotel = serviceHotel.hotelShowIndexs(select, null);
+		hotel.forEach(x -> {
+			if (x.getTotalrating() > 0) {
+				x.setHaha(x.getHaha() * 100 / (x.getTotalrating() * 5));
+			} else {
+				x.setHaha(0l);
+			}
+		});
+		hotels.addAll(hotel);
+		hotels.forEach(x ->{
+			if (x.getTotalrating() > 0) {
+				x.setHaha(x.getHaha() * 100 / (x.getTotalrating() * 5));
+			} else {
+				x.setHaha(0l);
+			}
+		});
+		modelMap.put("hotels", hotels);
+
+		
+
+		
 	return "user/index";
 	}
 	

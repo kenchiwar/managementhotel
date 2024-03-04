@@ -223,49 +223,82 @@ public class HotelServiceImpl implements HotelService {
 		CriteriaQuery<HotelShowIndex> cq = cb.createQuery(HotelShowIndex.class);
 		Root<Hotel> root = cq.from(Hotel.class);
 		Predicate whereClause = cb.and();
-	//Join<Hotel, Evaluate> evaluateJoin = root.join("evaluates", JoinType.LEFT);
+		// Join<Hotel, Evaluate> evaluateJoin = root.join("evaluates", JoinType.LEFT);
 		Join<Hotel, Room> roomJoin = root.join("rooms", JoinType.LEFT);
 		// **1. Subquery for total evaluations (COALESCE(SUM(e1_0.number), ?))**
-		
+
 		Subquery<Long> evaluateSubquery = cq.subquery(Long.class);
 		Root<Evaluate> evaluateRoot = evaluateSubquery.from(Evaluate.class);
 		evaluateSubquery.select(cb.sum(evaluateRoot.get("number")));
-		evaluateSubquery.where(
-		    cb.equal(evaluateRoot.get("hotel").get("idAccount"), root.get("idAccount"))
-		);
+		evaluateSubquery.where(cb.equal(evaluateRoot.get("hotel").get("idAccount"), root.get("idAccount")));
 		// **2. Subquery for number of evaluations (COALESCE(COUNT(e1_0.id), ?))**
 		Subquery<Long> countSubquery = cq.subquery(Long.class);
 		Root<Evaluate> countRoot = countSubquery.from(Evaluate.class);
 		countSubquery.select(cb.coalesce(cb.count(countRoot.get("id")), 0L)); // Set default to 0
 		countSubquery.where(cb.equal(countRoot.get("hotel").get("idAccount"), root.get("idAccount")));
 
-		//List addd
+		// List addd
 		List<Selection<?>> selections = Hotel.selection(root);
-		//selections.add(cb.coalesce(cb.sum(evaluateJoin.get("number")), 0).alias("totalrating"));
-		//selections.add(cb.coalesce(cb.count(evaluateJoin), 0).alias("haha"));
-		selections.add(
-			    cb.coalesce(evaluateSubquery, 0).alias("haha")
-			);
-		selections.add(
-			    cb.coalesce(countSubquery, 0).alias("totalrating")
-			);
-		selections.add(cb.coalesce(cb.min(roomJoin.get("price")), 0).alias("price"));
-		selections.add(cb.coalesce(cb.min(roomJoin.get("priceDiscount")), 0).alias("priceDiscount"));
+		// selections.add(cb.coalesce(cb.sum(evaluateJoin.get("number")),
+		// 0).alias("totalrating"));
+		// selections.add(cb.coalesce(cb.count(evaluateJoin), 0).alias("haha"));
+		selections.add(cb.coalesce(evaluateSubquery, 0).alias("haha"));
+		selections.add(cb.coalesce(countSubquery, 0).alias("totalrating"));
+		var minPrice = cb.coalesce(cb.min(roomJoin.get("price")), 0);
+		var maxPrice = cb.coalesce(cb.min(roomJoin.get("priceDiscount")), 0);
+		selections.add(minPrice.alias("price"));
+		selections.add(maxPrice.alias("priceDiscount"));
 		cq.multiselect(selections).groupBy(root.get("idAccount"));
+		if (selectHelper != null) {
+			if (selectHelper.getCity() != null && !selectHelper.getCity().isBlank()) {
+				whereClause = cb.and(whereClause,
+						cb.like(root.get("address"), "%city:" + selectHelper.getCity() + "%"));
+				System.out.println("1");
+				if (selectHelper.getDistrict() != null && !selectHelper.getDistrict().isBlank()) {
+					System.out.println("2");
+					whereClause = cb.and(whereClause,
+							cb.like(root.get("address"), "%district:" + selectHelper.getDistrict() + "%"));
+					if (selectHelper.getWard() != null && !selectHelper.getWard().isBlank()) {
+						System.out.println("3");
+						whereClause = cb.and(whereClause,
+								cb.like(root.get("address"), "%ward:" + selectHelper.getDistrict() + "%"));
+					}
+				}
+			}
+			if(selectHelper.getPriceMin()!=null) {
+				System.out.println(selectHelper.getPriceMin());
+//				whereClause = cb.and(whereClause,
+//						cb.greaterThanOrEqualTo(minPrice,selectHelper.getPriceMin()));
+			}
+			if(selectHelper.getPriceMax()!=null) {
+				System.out.println(selectHelper.getPriceMax());
+//				whereClause = cb.and(whereClause,
+//						cb.lessThanOrEqualTo(maxPrice,selectHelper.getPriceMax()));
+			}
+			if(selectHelper.getServices()!=null 
+					) {
+				for (var x : selectHelper.getServices()) {
+					whereClause = cb.and(whereClause,
+							cb.like(root.get("description"),
+									"%" + x + "%"));
+				}
+			}
+			
 
+		}
 		cq.where(whereClause);
 		if (findByid != null) {
-			whereClause = cb.and(whereClause,
-					cb.equal(root.get("nhanvienByManvXuly").get("id_account"), findByid));
+			whereClause = cb.and(whereClause, cb.equal(root.get("nhanvienByManvXuly").get("id_account"), findByid));
 			cq.where(whereClause);
 			List<HotelShowIndex> result = new ArrayList<>();
 			result.add(entityManager.createQuery(cq).getSingleResult());
 			return result;
 		}
-		
+
 		// TODO Auto-generated method stub
 		return entityManager.createQuery(cq).getResultList();
 	}
+
 	@Override
 	public List<HotelDetail> hotelDetail(SelectHelperHotel selectHelper, Integer findByid) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -274,30 +307,26 @@ public class HotelServiceImpl implements HotelService {
 		Root<Account> rootAccount = cq.from(Account.class);
 		Predicate whereClause = cb.and();
 
-		
 		// Join Subquery với Root
 //		Subquery<Account> subquery = cq.subquery(Account.class);
 //		Root<Account> accountRoot = subquery.from(Account.class);
 //		subquery.where(cb.equal(accountRoot.get("id"), root.get("idHandler")));
 
 		// Join Subquery with Root
-		//whereClause=cb.and(whereClause,cb.exists(subquery));
-		
-		whereClause = cb.and(whereClause,cb.isNotNull(root.get("status")));
-		whereClause = cb.and(whereClause,cb.equal(rootAccount.get("id"),root.get("id")));
-		
-		
-		
+		// whereClause=cb.and(whereClause,cb.exists(subquery));
+
+		whereClause = cb.and(whereClause, cb.isNotNull(root.get("status")));
+		whereClause = cb.and(whereClause, cb.equal(rootAccount.get("id"), root.get("id")));
+
 		List<Selection<?>> selections = Hotel.selection(root);
-		//selections.add(subquery.select(accountRoot.get("firstName")).alias("metmoi"));
+		// selections.add(subquery.select(accountRoot.get("firstName")).alias("metmoi"));
 		selections.add(rootAccount.get("firstName").alias("metmoi"));
-		
+
 		cq.multiselect(selections);
-		
+
 		cq.where(whereClause);
 		if (findByid != null) {
-			whereClause = cb.and(whereClause,
-					cb.equal(root.get("id_account"), findByid));
+			whereClause = cb.and(whereClause, cb.equal(root.get("id_account"), findByid));
 			cq.where(whereClause);
 			List<HotelDetail> result = new ArrayList<>();
 			result.add(entityManager.createQuery(cq).getSingleResult());
@@ -306,10 +335,7 @@ public class HotelServiceImpl implements HotelService {
 		System.out.println("ffff");
 		// TODO Auto-generated method stub
 		return entityManager.createQuery(cq).getResultList();
-		
-		
-	
-		
+
 	}
 
 	@Override
@@ -317,27 +343,23 @@ public class HotelServiceImpl implements HotelService {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Account> cq = cb.createQuery(Account.class);
 		Root<Account> root = cq.from(Account.class);
-		
+
 		Predicate whereClause = cb.and();
-		if(selectHelper!=null) {
-			if(selectHelper.getRoleMax() != null) 
+		if (selectHelper != null) {
+			if (selectHelper.getRoleMax() != null)
+				whereClause = cb.and(whereClause, cb.lessThanOrEqualTo(root.get("role.id"), selectHelper.getRoleMax()))
+
+				;
+			if (selectHelper.getRoleMin() != null)
 				whereClause = cb.and(whereClause,
-						cb.lessThanOrEqualTo(root.get("role.id")
-								,selectHelper.getRoleMax()))
-						
-				; 
-			if(selectHelper.getRoleMin() != null) 
-				whereClause = cb.and(whereClause,
-						cb.greaterThanOrEqualTo(root.get("role.id")
-								,selectHelper.getRoleMin()))
-						
-				; 
+						cb.greaterThanOrEqualTo(root.get("role.id"), selectHelper.getRoleMin()))
+
+				;
 		}
 		cq.where(whereClause);
-		
+
 		// TODO Auto-generated method stub
 		return entityManager.createQuery(cq).getResultList();
 	}
-	
 
 }
