@@ -223,13 +223,32 @@ public class HotelServiceImpl implements HotelService {
 		CriteriaQuery<HotelShowIndex> cq = cb.createQuery(HotelShowIndex.class);
 		Root<Hotel> root = cq.from(Hotel.class);
 		Predicate whereClause = cb.and();
-		Join<Hotel, Evaluate> evaluateJoin = root.join("evaluates", JoinType.LEFT);
+	//Join<Hotel, Evaluate> evaluateJoin = root.join("evaluates", JoinType.LEFT);
 		Join<Hotel, Room> roomJoin = root.join("rooms", JoinType.LEFT);
-		whereClause = cb.and(whereClause,cb.notEqual(roomJoin.get("status"), false));
+		// **1. Subquery for total evaluations (COALESCE(SUM(e1_0.number), ?))**
 		
+		Subquery<Long> evaluateSubquery = cq.subquery(Long.class);
+		Root<Evaluate> evaluateRoot = evaluateSubquery.from(Evaluate.class);
+		evaluateSubquery.select(cb.sum(evaluateRoot.get("number")));
+		evaluateSubquery.where(
+		    cb.equal(evaluateRoot.get("hotel").get("idAccount"), root.get("idAccount"))
+		);
+		// **2. Subquery for number of evaluations (COALESCE(COUNT(e1_0.id), ?))**
+		Subquery<Long> countSubquery = cq.subquery(Long.class);
+		Root<Evaluate> countRoot = countSubquery.from(Evaluate.class);
+		countSubquery.select(cb.coalesce(cb.count(countRoot.get("id")), 0L)); // Set default to 0
+		countSubquery.where(cb.equal(countRoot.get("hotel").get("idAccount"), root.get("idAccount")));
+
+		//List addd
 		List<Selection<?>> selections = Hotel.selection(root);
-		selections.add(cb.coalesce(cb.sum(evaluateJoin.get("number")), 0).alias("totalrating"));
-		selections.add(cb.coalesce(cb.count(evaluateJoin), 0L).alias("totalevalate"));
+		//selections.add(cb.coalesce(cb.sum(evaluateJoin.get("number")), 0).alias("totalrating"));
+		//selections.add(cb.coalesce(cb.count(evaluateJoin), 0).alias("haha"));
+		selections.add(
+			    cb.coalesce(evaluateSubquery, 0).alias("haha")
+			);
+		selections.add(
+			    cb.coalesce(countSubquery, 0).alias("totalrating")
+			);
 		selections.add(cb.coalesce(cb.min(roomJoin.get("price")), 0).alias("price"));
 		selections.add(cb.coalesce(cb.min(roomJoin.get("priceDiscount")), 0).alias("priceDiscount"));
 		cq.multiselect(selections).groupBy(root.get("idAccount"));
@@ -252,25 +271,26 @@ public class HotelServiceImpl implements HotelService {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<HotelDetail> cq = cb.createQuery(HotelDetail.class);
 		Root<Hotel> root = cq.from(Hotel.class);
+		Root<Account> rootAccount = cq.from(Account.class);
 		Predicate whereClause = cb.and();
-//		Join<Hotel, Evaluate> evaluateJoin = root.join("evaluates", JoinType.LEFT);
-//		Join<Hotel, Room> roomJoin = root.join("rooms", JoinType.LEFT);
-//		whereClause = cb.and(whereClause,cb.notEqual(roomJoin.get("status"), false));
-		//
+
 		
 		// Join Subquery với Root
-		Subquery<Account> subquery = cq.subquery(Account.class);
-		Root<Account> accountRoot = subquery.from(Account.class);
-		subquery.where(cb.equal(accountRoot.get("id"), root.get("idHandler")));
+//		Subquery<Account> subquery = cq.subquery(Account.class);
+//		Root<Account> accountRoot = subquery.from(Account.class);
+//		subquery.where(cb.equal(accountRoot.get("id"), root.get("idHandler")));
 
 		// Join Subquery with Root
-		whereClause=cb.and(whereClause,cb.exists(subquery));
+		//whereClause=cb.and(whereClause,cb.exists(subquery));
 		
 		whereClause = cb.and(whereClause,cb.isNotNull(root.get("status")));
+		whereClause = cb.and(whereClause,cb.equal(rootAccount.get("id"),root.get("id")));
+		
+		
 		
 		List<Selection<?>> selections = Hotel.selection(root);
-		selections.add(subquery.select(accountRoot.get("firstName")).alias("metmoi"));
-
+		//selections.add(subquery.select(accountRoot.get("firstName")).alias("metmoi"));
+		selections.add(rootAccount.get("firstName").alias("metmoi"));
 		
 		cq.multiselect(selections);
 		

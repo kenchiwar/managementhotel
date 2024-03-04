@@ -48,54 +48,52 @@ public class HotelAdminController {
 	private RoomService serviceRoom;
 
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
-	public String Index(ModelMap modelMap,
-			Authentication authentication
-			) {
-		//tùy điều kiện lấy hotel 
+	public String Index(ModelMap modelMap, Authentication authentication) {
+		// tùy điều kiện lấy hotel
 		modelMap.put("urlImagesHotelMain", AttributeHelper.urlImagesHotelMain);
 		modelMap.put("adminHotel", "/" + UrlHelper.adminHotel);
-		modelMap.put(dataKey+"s", serviceHotel.findAll());
+		modelMap.put(dataKey + "s", serviceHotel.findAll());
 		
-		serviceHotel.hotelDetail(null, null);
+		serviceHotel.hotelDetail(null, null).forEach(x->{
+			System.out.println(x.getMetmoi());
+			
+			System.out.println("///");
+		});
 		return "admin/hotel/index";
 	}
+
 	@RequestMapping(value = { "detail" }, method = RequestMethod.GET)
-	public String detail(ModelMap modelMap,
-			Authentication authentication
-			) {
-		//tùy điều kiện lấy hotel 
+	public String detail(ModelMap modelMap, Authentication authentication) {
+		// tùy điều kiện lấy hotel
 		modelMap.put("urlImagesHotelMain", AttributeHelper.urlImagesHotelMain);
 		modelMap.put("adminHotel", "/" + UrlHelper.adminHotel);
-		modelMap.put(dataKey+"s", serviceHotel.findAll());
-		
+		modelMap.put(dataKey + "s", serviceHotel.findAll());
+
 		//
 		modelMap.put(AttributeHelper.urlForm, "/" + url + "/editHandler");
 
 		modelMap.put(AttributeHelper.checkEdit, false);
-		//admin đủ quyền mới thấy 
+		// admin đủ quyền mới thấy
 		SelectAccountHelper selectHelper = new SelectAccountHelper();
 		selectHelper.setRoleMax(1);
 		selectHelper.setRoleMin(2);
-		modelMap.put("admins",serviceHotel.selectAccount(null, null) );
+		modelMap.put("admins", serviceHotel.selectAccount(null, null));
 		serviceHotel.hotelDetail(null, null);
 		return "admin/hotel/detail";
 	}
+
 	@RequestMapping(value = { "editHandler" }, method = RequestMethod.POST)
-	public String updateHandler(ModelMap modelMap,
-			Authentication authentication,
-			@RequestParam("idHotel") Integer idHotel,
-			@RequestParam("idAccount") Integer idAccount
-			) {
-		
+	public String updateHandler(ModelMap modelMap, Authentication authentication,
+			@RequestParam("idHotel") Integer idHotel, @RequestParam("idAccount") Integer idAccount) {
+
 		Hotel hotel = serviceHotel.find(idHotel);
 		hotel.setIdHandler(idAccount);
 		serviceAccount.find(idAccount);
 		System.out.println("fdsfsdf");
-		//tùy điều kiện lấy hotel 
-		
-		return "redirect:/" + url + "/detail" ;
+		// tùy điều kiện lấy hotel
+
+		return "redirect:/" + url + "/detail";
 	}
-	
 
 	@RequestMapping(value = { "create" }, method = RequestMethod.GET)
 	public String create(ModelMap modelMap) {
@@ -243,8 +241,9 @@ public class HotelAdminController {
 	}
 
 	@RequestMapping(value = { "edit/status", "edit/{id}/status" }, method = RequestMethod.POST)
-	public String editStatus(@RequestParam("status") boolean status, @PathVariable(value = "id", required = false) Integer id,
-			RedirectAttributes redirect, ModelMap modelMap, Authentication authentication) {
+	public String editStatus(@RequestParam("status") boolean status,
+			@PathVariable(value = "id", required = false) Integer id, RedirectAttributes redirect, ModelMap modelMap,
+			Authentication authentication) {
 
 		Hotel data;
 		if (id != null) {
@@ -268,33 +267,30 @@ public class HotelAdminController {
 	}
 
 	@RequestMapping(value = { "edit/allRoom", "edit/{id}/allRoom" }, method = RequestMethod.POST)
-	public String updateAllRoom(
-			@RequestParam("reasonDiscountAll") String reasonDiscountAll,
+	public String updateAllRoom(@RequestParam("reasonDiscountAll") String reasonDiscountAll,
 			@RequestParam("scaleDiscountAll") Integer scaleDiscountAll,
-			@PathVariable(value = "id", required = false) Integer id,
-			RedirectAttributes redirect, ModelMap modelMap, Authentication authentication) {
+			@PathVariable(value = "id", required = false) Integer id, RedirectAttributes redirect, ModelMap modelMap,
+			Authentication authentication) {
 
 		Hotel data;
-		
+
 		if (id != null) {
 			data = serviceHotel.find(id);
 		} else {
 
 			data = selectAccountService.getAccountLogin(authentication).getHotel();
 		}
-		
-		data.getRooms().forEach(x->{
-			if(reasonDiscountAll!=null&&reasonDiscountAll!="") 
+
+		data.getRooms().forEach(x -> {
+			if (reasonDiscountAll != null && reasonDiscountAll != "")
 				x.setReasonDiscount(reasonDiscountAll);
-			if(scaleDiscountAll !=null && (0<scaleDiscountAll && scaleDiscountAll<100) ) 
-				x.setPriceDiscount(x.getPrice()*(100-scaleDiscountAll)/100);
-		});	
-		
-		
-		
+			if (scaleDiscountAll != null && (0 < scaleDiscountAll && scaleDiscountAll < 100))
+				x.setPriceDiscount(x.getPrice() * (100 - scaleDiscountAll) / 100);
+		});
+
 		if (!serviceRoom.saveAll((new ArrayList<Room>(data.getRooms()))))
 			return AttributeHelper.errorPage;
-		
+
 		if (serviceHotel.save(data)) {
 			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
 		} else {

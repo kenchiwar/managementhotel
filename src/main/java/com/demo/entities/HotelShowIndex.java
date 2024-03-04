@@ -3,8 +3,8 @@ package com.demo.entities;
 public class HotelShowIndex extends Hotel{
 	private Double price ;
 	private Double priceDiscount ;
-	private Long totalevalate;
-	private Integer totalrating;
+	private Long haha;
+	private Long totalrating;
 	public Double getPrice() {
 		return price;
 	}
@@ -17,18 +17,24 @@ public class HotelShowIndex extends Hotel{
 	public void setPriceDiscount(Double priceDiscount) {
 		this.priceDiscount = priceDiscount;
 	}
-	public Long getTotalevalate() {
-		return totalevalate;
+	
+
+	
+	
+	
+	public Long getHaha() {
+		return haha;
 	}
-	public void setTotalevalate(Long totalevalate) {
-		this.totalevalate = totalevalate;
+	public void setHaha(Long haha) {
+		this.haha = haha;
 	}
-	public Integer getTotalrating() {
+	public Long getTotalrating() {
 		return totalrating;
 	}
-	public void setTotalrating(Integer totalrating) {
+	public void setTotalrating(Long totalrating) {
 		this.totalrating = totalrating;
 	}
+	
 	
 
 }
