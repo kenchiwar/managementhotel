@@ -19,7 +19,7 @@ function ClickImg(element) {
 function Popup({ values, src }) {
     var galleris = values;
     var categories = [];
-    galleris.forEach((e) => categories.push(e.getAttribute("category-name")));
+    galleris.forEach((e) => categories.push(e.getAttribute("alt")));
     newCategories = [];
     newCategories = categories.filter((e) => {
         return newCategories.includes(e) ? "" : newCategories.push(e);
@@ -41,7 +41,7 @@ function Popup({ values, src }) {
         var m = values;
         var q = [];
         m.forEach((el) => {
-            if (el.getAttribute("category-name") == e) {
+            if (el.getAttribute("alt") == e) {
                 q.push(el);
             }
         });
@@ -61,7 +61,7 @@ function Popup({ values, src }) {
         popup += " <div class='img-wrapper' > ";
         popup +=
             '<img alt="' +
-            e.getAttribute("category-name") +
+            e.getAttribute("alt") +
             '" src="' +
             e.currentSrc +
             '"/>';
@@ -97,7 +97,7 @@ function changeImage() {
 function activeImage() {
     var images = document.querySelectorAll(".popup-gallery .list-img img");
     var img = document.querySelector(".popup-gallery .single-img img");
-
+	console.log(images);
     images.forEach((element) => {
         if (element.currentSrc == img.currentSrc) {
             element.classList.add("active");
@@ -112,7 +112,7 @@ function changeButton() {
     var a = document.querySelectorAll(".popup-gallery .categories button");
     var images = document.querySelectorAll(".popup-gallery .list-img img");
     galleris = document.querySelectorAll("#gallery img");
-    galleris.forEach((e) => categories.push(e.getAttribute("category-name")));
+    galleris.forEach((e) => categories.push(e.getAttribute("alt")));
     newCategories = [];
     newCategories = categories.filter((e) => {
         return newCategories.includes(e) ? "" : newCategories.push(e);

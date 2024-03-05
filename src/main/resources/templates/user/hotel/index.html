@@ -87,6 +87,14 @@
 
 								<div class="shop-sidebar-area">
 									<form method="get" id="formSubmit">
+
+										<input type="hidden" id="searchcity" th:field="${search.city}">
+										<input type="hidden" id="searchward" th:field="${search.ward}">
+										<input type="hidden" id="searchdistrict" th:field="${search.district}">
+										<input type="hidden" id="searchpriceMin" th:field="${search.priceMin}">
+										<input type="hidden" id="searchpriceMax" th:field="${search.priceMax}" >
+										<input type="hidden" id="searchReset" name="searchReset" value="false">
+
 										<!-- Shop Widget -->
 										<div class="shop-widget price mb-50">
 											<h4 class="widget-title">Prices</h4>
@@ -104,25 +112,115 @@
 														<span class="ui-slider-handle ui-state-default ui-corner-all"
 															tabindex="0"></span>
 													</div>
-													<div class="range-price" id="price-range">Price: ₫0-₫10000000
+													<div class="range-price" id="price-range">Price: ₫0 - ₫10000000
 													</div>
 												</div>
 											</div>
 										</div>
 
 										<!-- Shop Widget -->
-										
-										
+										<div class="shop-widget catagory mb-50">
+											<h4 class="widget-title">Facilities</h4>
+											<div class="widget-desc">
+												<!-- Single Checkbox -->
+												<div
+													class="custom-control custom-checkbox d-flex align-items-center mb-2">
+													<input type="checkbox" class="custom-control-input"
+														id="customCheck1" value="WiFi" th:field="${search.services}">
+													<label class="custom-control-label" for="customCheck1">WiFi <span
+															class="text-muted"></span></label>
+												</div>
+												<!-- Single Checkbox -->
+												<div
+													class="custom-control custom-checkbox d-flex align-items-center mb-2">
+													<input type="checkbox" class="custom-control-input"
+														id="customCheck2" value="Swimming Pool"
+														th:field="${search.services}">
+													<label class="custom-control-label" for="customCheck2">Swimming Pool
+														<span class="text-muted"></span></label>
+												</div>
+												<!-- Single Checkbox -->
+												<div
+													class="custom-control custom-checkbox d-flex align-items-center mb-2">
+													<input type="checkbox" class="custom-control-input"
+														id="customCheck3" value="Parking" th:field="${search.services}">
+													<label class="custom-control-label" for="customCheck3">Parking<span
+															class="text-muted"></span></label>
+												</div>
+												<!-- Single Checkbox -->
+												<div
+													class="custom-control custom-checkbox d-flex align-items-center mb-2">
+													<input type="checkbox" class="custom-control-input"
+														id="customCheck4" value="Restaurant"
+														th:field="${search.services}">
+													<label class="custom-control-label"
+														for="customCheck4">Restaurant<span
+															class="text-muted"></span></label>
+												</div>
+												<!-- Single Checkbox -->
+												<div
+													class="custom-control custom-checkbox d-flex align-items-center mb-2">
+													<input type="checkbox" class="custom-control-input"
+														id="customCheck5" value="24-Hour Front Desk"
+														th:field="${search.services}">
+													<label class="custom-control-label" for="customCheck5">24-Hour Front
+														Desk
+														<span class="text-muted"></span></label>
+												</div>
+												<!-- Single Checkbox -->
+												<div
+													class="custom-control custom-checkbox d-flex align-items-center mb-2">
+													<input type="checkbox" class="custom-control-input"
+														id="customCheck6" value="Elevator"
+														th:field="${search.services}">
+													<label class="custom-control-label" for="customCheck6">Elevator
+														<span class="text-muted"></span></label>
+												</div>
+												<div
+													class="custom-control custom-checkbox d-flex align-items-center mb-2">
+													<input type="checkbox" class="custom-control-input"
+														id="customCheck6" value="Wheelchair Access"
+														th:field="${search.services}">
+													<label class="custom-control-label" for="customCheck6">Wheelchair
+														Access
+														<span class="text-muted"></span></label>
+												</div>
+												<div
+													class="custom-control custom-checkbox d-flex align-items-center mb-2">
+													<input type="checkbox" class="custom-control-input"
+														id="customCheck6" value="Fitness Center"
+														th:field="${search.services}">
+													<label class="custom-control-label" for="customCheck6">Fitness
+														Center <span class="text-muted"></span></label>
+												</div>
+												<div
+													class="custom-control custom-checkbox d-flex align-items-center mb-2">
+													<input type="checkbox" class="custom-control-input"
+														id="customCheck6" value="Meeting Facilities"
+														th:field="${search.services}">
+													<label class="custom-control-label" for="customCheck6">Meeting
+														Facilities
+														<span class="text-muted"></span></label>
+												</div>
+												<div
+													class="custom-control custom-checkbox d-flex align-items-center mb-2">
+													<input type="checkbox" class="custom-control-input"
+														id="customCheck6" value="Airport Transfer"
+														th:field="${search.services}">
+													<label class="custom-control-label" for="customCheck6">Airport
+														Transfer
+														<span class="text-muted"></span></label>
+												</div>
+
+
+											</div>
+										</div>
 
 										<!-- Shop Widget -->
-										
-										<input type="hidden"  id="searchcity" th:field="${search.city}">
-										<input type="hidden" id="searchward" th:field="${search.ward}">
-										<input type="hidden" id="searchdistrict" th:field="${search.district}"> 
-										<input type="hidden" id="searchpriceMin" th:field="${search.priceMin}">
-										<input type="hidden" id="searchpriceMax" th:field="${search.priceMax}">
-										
+
+
 										<button type="submit">Submit</button>
+										<button type="reset" id="btnreset">reset</button>
 									</form>
 									<!-- Shop Widget -->
 
@@ -205,13 +303,13 @@
 
 		<script>
 			$('#formSubmit').submit(function (e) {
-				
+
 				var cityValue = $('#city option:selected').val();
 				var districtValue = $('#district option:selected').val();
 				var wardValue = $('#ward option:selected').val();
-				
+
 				var priceMin = $('#price-range').text().split('₫')[1].replace('-', '');
-				
+
 				var priceMax = $('#price-range').text().split('₫')[2].replace(' ', '');
 				$('#searchcity').val(cityValue);
 				$('#searchdistrict').val(districtValue);
@@ -220,12 +318,18 @@
 				$('#searchpriceMin').val($.trim(priceMin));
 				$('#searchpriceMax').val($.trim(priceMax));
 				console.log(priceMin);
-				
-				
+
+
 				console.log(priceMax);
 
 
 			});
+		</script>
+		<script>
+			$('#btnreset').click((e)=>{
+				$('#searchReset').val(true);
+				$('#formSubmit').submit();
+			})
 		</script>
 
 	</div>

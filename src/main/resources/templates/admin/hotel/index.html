@@ -8,90 +8,185 @@
 
 <body>
 	<div id="css">
+		<style>
 
+		</style>
 	</div>
 	<div id="main-content">
-	
-		<section class="content">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12">
-						<div class="card">
-							<div class="card-header">
-								<h3 class="card-title">DataTable with minimal features & hover style</h3>
-							</div>
-							<!-- /.card-header -->
-							<div class="card-body">
-								
 
 
-								</h1>
-								<table id="example2" class="table table-bordered table-hover">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Address</th>
-											<th>Rating</th>
-											<th>Status</th>
-											<th>Main Photo</th>
-											<th>Secondary Photo</th>
-											
-											<th>Description</th>
-											<th>Option</th>
-										</tr>
-									</thead>
-									<tbody>
-										<th:block th:each="hotel :${hotels}">
-											<tr th:class="${hotel.status==true?'status-t':'status-f'}">
-												<td th:text="${hotel.name}"></td>
-												
-												<td th:text="${#strings.substringBefore(hotel.address, ';')}"></td>
-												<td th:text="${hotel.rating}"></td>
-												<td
-													th:text="${hotel.status==true?'Operating company':'Dormant company'}">
-												</td>
-												<td>
-													<img class="img-fluid h-100"
-														th:src="${urlImagesHotelMain}+'/'+${hotel.mainPhoto}">
-												</td>
-												<td>
-													<img class="img-fluid h-100"
-														th:src="${urlImagesHotelMain}+'/'+${hotel.secondaryPhoto}">
-												</td>
-												
-												<td th:text="${hotel.description}"></td>
-												<td><a th:href="@{${adminHotel+'/edit/'+hotel.idAccount}}"><button class="btn btn-primary">Edit</button></a>
-												
-											</tr>
-										</th:block>
-									</tbody>
-									<tfoot>
-										<tr>
-											<th>Name</th>
-											<th>Address</th>
-											<th>Rating</th>
-											<th>Status</th>
-											<th>Secondary Photo</th>
-											<th>Main Photo</th>
-											<th>Description</th>
+		<!-- The Modal -->
+		<div id="myModal" style="display: none;" display="none">
+			<span class="close">&times;</span>
+			<form id="formHandler" method="post" th:action="@{${urlForm}}" class="box-form">
 
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-							<!-- /.card-body -->
-						</div>
-						<!-- /.card -->
-					</div>
-					<!-- /.col -->
+				<div class="field">
+					<input type="text" id="idHotel" name="idHotel">
 				</div>
-				<!-- /.row -->
+				<div class="field">
+					<input type="text" id="idAccount" name="idAccount">
+				</div>
+			</form>
+			<table id="example2" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Phone</th>
+						<th>Email</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="admin :${admins}">
+						<tr>
+							<td th:text="${admin.firstName+' '+admin.lastName}"></td>
+							<td th:text="${admin.phone}"></td>
+							<td th:text="${admin.email}"></td>
+							<td>
+								<button class="buttonHandler-submit btn btn-primary">Choose Handler</button>
+								<input th:value="${admin.id}" class="handlerAccountId" type="text">
+							</td>
+
+
+						</tr>
+					</th:block>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>Name</th>
+						<th>Phone</th>
+						<th>Email</th>
+						<th></th>
+					</tr>
+				</tfoot>
+			</table>
+			<div id="caption"></div>
+		</div>
+		<!--ENd model-->
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">Hotel Detail</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							
+							<table id="example2" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Address</th>
+										<th>Rating</th>
+										<th>Status</th>
+										<th>Main Photo</th>
+										<th>Secondary Photo</th>
+
+										<th>Description</th>
+										<th>Option</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="hotel :${hotels}">
+										<tr th:class="${hotel.status==true?'status-t':'status-f'}">
+											<td th:text="${hotel.name}"></td>
+
+											<td th:text="${#strings.substringBefore(hotel.address, ';')}"></td>
+											<td th:text="${hotel.rating}"></td>
+											<td th:text="${hotel.status==true?'Operating company':'Dormant company'}">
+											</td>
+											<td>
+												<img class="img-fluid h-100"
+													th:src="${urlImagesHotelMain}+'/'+${hotel.mainPhoto}">
+											</td>
+											<td>
+												<img class="img-fluid h-100"
+													th:src="${urlImagesHotelMain}+'/'+${hotel.secondaryPhoto}">
+											</td>
+
+											<td th:text="${hotel.description}"></td>
+											<td>
+												<a th:href="@{${adminHotel+'/edit/'+hotel.idAccount}}">
+													<button class="btn-main mb-5">
+														Edit
+													</button>
+												</a>
+												
+
+												<button class="buttonHandler btn-main">
+													Hanlder
+												</button>
+												
+
+											</td>
+
+										</tr>
+									</th:block>
+								</tbody>
+								<tfoot>
+									<tr>
+										<th>Name</th>
+										<th>Address</th>
+										<th>Rating</th>
+										<th>Status</th>
+										<th>Secondary Photo</th>
+										<th>Main Photo</th>
+										<th>Description</th>
+
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+				</div>
+				<!-- /.col -->
 			</div>
-			<!-- /.container-fluid -->
+			<!-- /.row -->
+		</div>
+		<!-- /.container-fluid -->
 		</section>
 	</div>
 	<div id="script">
+		<script>
+			$(document).ready(function () {
+				// Xử lý click cho tất cả button có class buttonHandler
+				$(".buttonHandler").click(function () {
+					// Lấy URL ảnh từ data-src attribute
 
+
+					var handlerAccountId = $(this).closest("td").find(".handlerAccountId").val();
+
+					// Cập nhật giá trị cho input idHotel
+					$("#idHotel").val(handlerAccountId);
+					// Hiển thị modal và cập nhật src của ảnh
+					$("#myModal").show();
+
+				});
+				$(".buttonHandler-submit").click(function () {
+					// Lấy URL ảnh từ data-src attribute
+
+
+					var handlerAccountId = $(this).closest("td").find(".handlerAccountId").val();
+
+					// Cập nhật giá trị cho input idHotel
+					$("#idAccount").val(handlerAccountId);
+					$("#formHandler").submit();
+					// Hiển thị modal và cập nhật src của ảnh
+					$("#myModal").show();
+
+				});
+
+
+				// Đóng modal khi nhấn nút đóng
+				$(".close").click(function () {
+					$("#myModal").hide();
+				});
+			});
+		</script>
 	</div>
 </body>
 

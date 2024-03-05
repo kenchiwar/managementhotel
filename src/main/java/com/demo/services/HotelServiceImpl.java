@@ -223,6 +223,7 @@ public class HotelServiceImpl implements HotelService {
 		CriteriaQuery<HotelShowIndex> cq = cb.createQuery(HotelShowIndex.class);
 		Root<Hotel> root = cq.from(Hotel.class);
 		Predicate whereClause = cb.and();
+		var havingClause = cb.and();
 		// Join<Hotel, Evaluate> evaluateJoin = root.join("evaluates", JoinType.LEFT);
 		Join<Hotel, Room> roomJoin = root.join("rooms", JoinType.LEFT);
 		// **1. Subquery for total evaluations (COALESCE(SUM(e1_0.number), ?))**
@@ -249,6 +250,7 @@ public class HotelServiceImpl implements HotelService {
 		selections.add(minPrice.alias("price"));
 		selections.add(maxPrice.alias("priceDiscount"));
 		cq.multiselect(selections).groupBy(root.get("idAccount"));
+		// whrere
 		if (selectHelper != null) {
 			if (selectHelper.getCity() != null && !selectHelper.getCity().isBlank()) {
 				whereClause = cb.and(whereClause,
@@ -265,28 +267,24 @@ public class HotelServiceImpl implements HotelService {
 					}
 				}
 			}
-			if(selectHelper.getPriceMin()!=null) {
+			if (selectHelper.getPriceMin() != null) {
 				System.out.println(selectHelper.getPriceMin());
-//				whereClause = cb.and(whereClause,
-//						cb.greaterThanOrEqualTo(minPrice,selectHelper.getPriceMin()));
+				havingClause = cb.and(havingClause, cb.greaterThanOrEqualTo(maxPrice, selectHelper.getPriceMin()));
 			}
-			if(selectHelper.getPriceMax()!=null) {
+			if (selectHelper.getPriceMax() != null) {
 				System.out.println(selectHelper.getPriceMax());
-//				whereClause = cb.and(whereClause,
-//						cb.lessThanOrEqualTo(maxPrice,selectHelper.getPriceMax()));
+				havingClause = cb.and(havingClause, cb.lessThanOrEqualTo(minPrice, selectHelper.getPriceMax()));
 			}
-			if(selectHelper.getServices()!=null 
-					) {
+			if (selectHelper.getServices() != null) {
 				for (var x : selectHelper.getServices()) {
-					whereClause = cb.and(whereClause,
-							cb.like(root.get("description"),
-									"%" + x + "%"));
+					whereClause = cb.and(whereClause, cb.like(root.get("description"), "%" + x + "%"));
 				}
 			}
-			
 
 		}
+		// end if wwh
 		cq.where(whereClause);
+		cq.having(havingClause);
 		if (findByid != null) {
 			whereClause = cb.and(whereClause, cb.equal(root.get("nhanvienByManvXuly").get("id_account"), findByid));
 			cq.where(whereClause);

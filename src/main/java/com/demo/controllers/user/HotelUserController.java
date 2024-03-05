@@ -43,8 +43,10 @@ public class HotelUserController {
 			,@RequestParam(name ="searchReset",required = false) boolean reset ,
 			ModelMap modelMap, HttpSession session) {
 		List<HotelShowIndex> hotels ;
-		
-		if((search !=null && search!= new SelectHelperHotel()) &&  reset!=true ) {
+		if(reset==true) {
+			return "redirect:/hotel";
+		}
+		if((search !=null && search!= new SelectHelperHotel()) ) {
 			hotels = serviceHotel.hotelShowIndexs(search, null);
 			System.out.println(search.getCity());
 			modelMap.put("search", search);
@@ -69,9 +71,13 @@ public class HotelUserController {
 	}
 	
 	@RequestMapping(value = "detail/{id}", method = RequestMethod.GET)
-	public String Single(ModelMap modelMap, HttpSession session) {
-
+	public String Single(ModelMap modelMap, HttpSession session,@PathVariable("id") int id) {
+		var hotel = serviceHotel.find(id);
+		
+		
+		modelMap.put("hotel", hotel);
 		return "user/hotel/single";
+		
 	}
 
 }

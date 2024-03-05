@@ -49,16 +49,20 @@ public class HotelAdminController {
 
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, Authentication authentication) {
-		// tùy điều kiện lấy hotel
 		modelMap.put("urlImagesHotelMain", AttributeHelper.urlImagesHotelMain);
 		modelMap.put("adminHotel", "/" + UrlHelper.adminHotel);
 		modelMap.put(dataKey + "s", serviceHotel.findAll());
-		
-		serviceHotel.hotelDetail(null, null).forEach(x->{
-			System.out.println(x.getMetmoi());
-			
-			System.out.println("///");
-		});
+
+		//
+		modelMap.put(AttributeHelper.urlForm, "/" + url + "/editHandler");
+
+		modelMap.put(AttributeHelper.checkEdit, false);
+		// admin đủ quyền mới thấy
+		SelectAccountHelper selectHelper = new SelectAccountHelper();
+		selectHelper.setRoleMax(1);
+		selectHelper.setRoleMin(2);
+		modelMap.put("admins", serviceHotel.selectAccount(null, null));
+		serviceHotel.hotelDetail(null, null);
 		return "admin/hotel/index";
 	}
 
