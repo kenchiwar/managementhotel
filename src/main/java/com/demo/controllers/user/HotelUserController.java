@@ -71,11 +71,46 @@ public class HotelUserController {
 	}
 	
 	@RequestMapping(value = "detail/{id}", method = RequestMethod.GET)
-	public String Single(ModelMap modelMap, HttpSession session,@PathVariable("id") int id) {
+	public String Single(ModelMap modelMap, HttpSession session,@PathVariable("id") int id,@ModelAttribute(name = "search") SelectHelperHotel search
+			,@RequestParam(name ="searchReset",required = false) boolean reset ) {
 		var hotel = serviceHotel.find(id);
-		
-		
 		modelMap.put("hotel", hotel);
+		
+		//hotels 
+		SelectHelperHotel select = new SelectHelperHotel();
+		List<HotelShowIndex> hotels ;
+		if(reset==true) {
+			return "redirect:/hotel";
+		}
+		if((search !=null && search!= new SelectHelperHotel()) ) {
+			hotels = serviceHotel.hotelShowIndexs(search, null);
+			System.out.println(search.getCity());
+			modelMap.put("search", search);
+			
+		}else {
+			hotels = serviceHotel.hotelShowIndexs(null, null);
+			
+			hotels.forEach(x -> {
+				if (x.getTotalrating() > 0) {
+					x.setHaha(x.getHaha() * 100 / (x.getTotalrating() * 5));
+				} else {
+					x.setHaha(0l);
+				}
+			});
+			modelMap.put("search", new SelectHelperHotel());
+			
+		}
+		hotels.forEach(x ->{
+			if (x.getTotalrating() > 0) {
+				x.setHaha(x.getHaha() * 100 / (x.getTotalrating() * 5));
+			} else {
+				x.setHaha(0l);
+			}
+		});
+		
+		modelMap.put("hotels", hotels);
+		
+		
 		return "user/hotel/single";
 		
 	}

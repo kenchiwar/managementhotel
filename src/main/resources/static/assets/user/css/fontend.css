@@ -468,11 +468,11 @@ button.btn-submit {
 	text-align: end;
 }
 .btn-booknow {
-    padding: 5px 10px;
-    color: #fff;
+    padding: 5px 10px !important;
+    color: #fff !important;
     background: rgb(255, 94, 31);
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 16px !important;
+    font-weight: 600 !important;
 }
 .rooms {
 	display: flex;
@@ -517,4 +517,7 @@ button.btn-submit {
 .detai-hotels .box-room .content{
 	flex: 0 0 60%;
 	max-width: 60%;
+}
+.box-room-detail {
+	
 }

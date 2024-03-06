@@ -38,6 +38,31 @@
 			.see-all:hover {
 				color: rgba(1, 148, 243, 1.00);
 			}
+
+			.related-products-area .container {
+				position: relative;
+			}
+
+			.swiper-button-prev {
+				left: -80px;
+			}
+
+			.swiper-button-next {
+				right: -80px;
+			}
+
+			.s-button {
+				width: 40px;
+				height: 40px;
+				color: #fff;
+				background: #333333a1;
+				border-radius: 100px;
+				line-height: 40px;
+			}
+
+			.s-button::after {
+				font-size: 18px;
+			}
 		</style>
 	</div>
 	<div class="main-content">
@@ -78,7 +103,7 @@
 									</p>
 								</div>
 								<div class="col-md-2">
-									<a href="#room" class="btn btn-booknow">Select Room</a>
+									<a onclick="scrollToRoom()" class="btn btn-booknow">Select Room</a>
 								</div>
 							</div>
 						</div>
@@ -248,60 +273,63 @@
 			</div>
 		</section>
 		<!-- ##### Single Product Details Area End ##### -->
-		<section>
+		<section id="room">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
 						<h2>Room</h2>
 					</div>
-					<div class="col-md-6">
 
-						<th:block th:each="room : ${hotel.rooms}">
+					<th:block th:each="room : ${hotel.rooms}">
+						<div class="col-md-6">
 
-							<div class="box-room-detail box">
+							<div class="box-room-detail box mb-30" data-aos="fade-up" data-aos-duration="2000">
 								<div class="wrapper">
 									<div class="content">
-										<h3 class="fs-20 fw-600" th:text="name"></h3>
+										<h3 class="fs-20 fw-600 color-black" th:text="${room.name}"></h3>
+										<p class="fs-18 fw-600 " th:text="'People : '+${room.peopleMax}"></p>
 									</div>
+									<div>
+										<div class="b-price">
+											<th:block
+												th:if="${room.priceDiscount} > 0 and ${room.priceDiscount < room.price} ">
 
-									<div class="b-price">
-										<th:block
-											th:if="${room.priceDiscount} > 0 and ${room.priceDiscount < room.price} ">
+												<p class="price-sale"><span>₫
+														<th:block
+															th:text="${#numbers.formatDecimal(room.priceDiscount, 0, 'COMMA', 0, 'POINT')}">
+														</th:block>
+													</span></p>
 
-											<p class="price-sale"><span>₫
-													<th:block
-														th:text="${#numbers.formatDecimal(room.priceDiscount, 0, 'COMMA', 0, 'POINT')}">
-													</th:block>
-												</span></p>
-
-											<p class="price "><span>₫<th:block
-														th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
-													</th:block></span>
-												-<th:block
-													th:text="${#strings.substringBefore((100 - (room.priceDiscount / room.price) * 100), '.')}">
-												</th:block>%
-											</p>
-										</th:block>
-										<th:block th:if="${room.priceDiscount} <= 0">
+												<p class="price "><span>₫<th:block
+															th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
+														</th:block></span>
+													-<th:block
+														th:text="${#strings.substringBefore((100 - (room.priceDiscount / room.price) * 100), '.')}">
+													</th:block>%
+												</p>
+											</th:block>
+											<th:block th:if="${room.priceDiscount} <= 0">
 
 
-											<p class="price "><span
-													style="text-decoration-line:none ; color:rgb(255, 94, 31);font-size: 26px;font-weight: 700;">
-													₫<th:block
-														th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
-													</th:block>
-											</p>
-										</th:block>
+												<p class="price "><span
+														style="text-decoration-line:none ; color:rgb(255, 94, 31);font-size: 26px;font-weight: 700;">
+														₫<th:block
+															th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
+														</th:block>
+												</p>
+											</th:block>
 
-									</div>
-									<div class="buttons">
-										<a th:href="'#'" class="btn btn-booknow">Book
-											now</a>
+										</div>
+										<div class="buttons">
+											<a th:href="'#'" class="btn btn-booknow">Book
+												now</a>
+										</div>
 									</div>
 								</div>
 							</div>
-						</th:block>
-					</div>
+						</div>
+					</th:block>
+
 				</div>
 			</div>
 		</section>
@@ -312,113 +340,50 @@
 					<div class="col-12">
 						<!-- Section Heading -->
 						<div class="section-heading text-center">
-							<h2>Related Products</h2>
+							<h2>TOP TRENDING HOTELS</h2>
 						</div>
 					</div>
 				</div>
 
 				<div class="row">
 
-					<!-- Single Product Area -->
-					<div class="col-12 col-sm-6 col-lg-3">
-						<div class="single-product-area mb-100">
-							<!-- Product Image -->
-							<div class="product-img">
-								<a href="shop-details.html"><img src="/assets/user/img/bg-img/40.png" alt=""></a>
-								<!-- Product Tag -->
-								<div class="product-tag">
-									<a href="#">Hot</a>
-								</div>
-								<div class="product-meta d-flex">
-									<a href="#" class="wishlist-btn"><i class="icon_heart_alt"></i></a>
-									<a href="cart.html" class="add-to-cart-btn">Add to cart</a>
-									<a href="#" class="compare-btn"><i class="arrow_left-right_alt"></i></a>
-								</div>
+					<div class="col-12">
+						<div class="swiper">
+							<!-- Additional required wrapper -->
+							<div class="swiper-wrapper">
+
+
+								<th:block th:each="room , index : ${hotels}">
+									<th:block th:if="${room.status} == true">
+										<div class="swiper-slide">
+											<th:block th:if="${room.status} == true">
+												<th:block th:insert="/user/hotel/boxhotel :: .box-room">
+												</th:block>
+											</th:block>
+										</div>
+
+
+
+									</th:block>
+
+
 							</div>
-							<!-- Product Info -->
-							<div class="product-info mt-15 text-center">
-								<a href="shop-details.html">
-									<p>Cactus Flower</p>
-								</a>
-								<h6>$10.99</h6>
-							</div>
+							<!-- If we need pagination -->
+
+
+							<!-- If we need navigation buttons -->
+
 						</div>
 					</div>
-
-					<!-- Single Product Area -->
-					<div class="col-12 col-sm-6 col-lg-3">
-						<div class="single-product-area mb-100">
-							<!-- Product Image -->
-							<div class="product-img">
-								<a href="shop-details.html"><img src="/assets/user/img/bg-img/41.png" alt=""></a>
-								<div class="product-meta d-flex">
-									<a href="#" class="wishlist-btn"><i class="icon_heart_alt"></i></a>
-									<a href="cart.html" class="add-to-cart-btn">Add to cart</a>
-									<a href="#" class="compare-btn"><i class="arrow_left-right_alt"></i></a>
-								</div>
-							</div>
-							<!-- Product Info -->
-							<div class="product-info mt-15 text-center">
-								<a href="shop-details.html">
-									<p>Cactus Flower</p>
-								</a>
-								<h6>$10.99</h6>
-							</div>
-						</div>
-					</div>
-
-					<!-- Single Product Area -->
-					<div class="col-12 col-sm-6 col-lg-3">
-						<div class="single-product-area mb-100">
-							<!-- Product Image -->
-							<div class="product-img">
-								<a href="shop-details.html"><img src="/assets/user/img/bg-img/42.png" alt=""></a>
-								<div class="product-meta d-flex">
-									<a href="#" class="wishlist-btn"><i class="icon_heart_alt"></i></a>
-									<a href="cart.html" class="add-to-cart-btn">Add to cart</a>
-									<a href="#" class="compare-btn"><i class="arrow_left-right_alt"></i></a>
-								</div>
-							</div>
-							<!-- Product Info -->
-							<div class="product-info mt-15 text-center">
-								<a href="shop-details.html">
-									<p>Cactus Flower</p>
-								</a>
-								<h6>$10.99</h6>
-							</div>
-						</div>
-					</div>
-
-					<!-- Single Product Area -->
-					<div class="col-12 col-sm-6 col-lg-3">
-						<div class="single-product-area mb-100">
-							<!-- Product Image -->
-							<div class="product-img">
-								<a href="shop-details.html"><img src="/assets/user/img/bg-img/43.png" alt=""></a>
-								<!-- Product Tag -->
-								<div class="product-tag sale-tag">
-									<a href="#">Hot</a>
-								</div>
-								<div class="product-meta d-flex">
-									<a href="#" class="wishlist-btn"><i class="icon_heart_alt"></i></a>
-									<a href="cart.html" class="add-to-cart-btn">Add to cart</a>
-									<a href="#" class="compare-btn"><i class="arrow_left-right_alt"></i></a>
-								</div>
-							</div>
-							<!-- Product Info -->
-							<div class="product-info mt-15 text-center">
-								<a href="shop-details.html">
-									<p>Cactus Flower</p>
-								</a>
-								<h6>$10.99</h6>
-							</div>
-						</div>
-					</div>
-
 				</div>
+
+				<div class="swiper-button-prev s-button"></div>
+				<div class="swiper-button-next s-button"></div>
 			</div>
+
 		</div>
 	</div>
+
 	<div id="script">
 		<script>
 			var categoryImage = document.querySelectorAll(".image.col-md-6");
@@ -454,8 +419,53 @@
 				activeImage();
 				changeButton();
 			})
+
 		</script>
-	</div>
+		<script>
+			AOS.init();
+		</script>
+		<script>
+			const swiper = new Swiper('.related-products-area .swiper', {
+				slidesPerView: 1,
+				spaceBetween: 10,
+				autoplay: {
+					delay: 5000,
+				},
+				breakpoints: {
+					// when window width is >= 320px
+					320: {
+						slidesPerView: 2,
+						spaceBetween: 20
+					},
+					// when window width is >= 480px
+					480: {
+						slidesPerView: 3,
+						spaceBetween: 30
+					},
+					// when window width is >= 640px
+					640: {
+						slidesPerView: 4,
+						spaceBetween: 40
+					}
+				}
+			});
+		</script>
+		<script>
+			var element = document.getElementById("room");
+			var rect = element.getBoundingClientRect();
+
+			var xPosition = rect.left;
+			var yPosition = Math.floor(rect.top - 100);
+
+
+			function scrollToRoom() {
+				window.scrollTo({
+					top: yPosition,
+					behavior: 'smooth' // Optional: Tạo hiệu ứng mượt mà
+				});
+			}
+		</script>
+		</divc>
 </body>
 
 </html>
