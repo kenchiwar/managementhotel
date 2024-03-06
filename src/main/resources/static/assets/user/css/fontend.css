@@ -222,7 +222,9 @@
     margin-bottom: 50px;
     text-align: center;
 }
-
+.popup .list-img .img-wrapper.none{
+	display: none;
+}
 .popup .single-img .img-wrapper img {
     max-height: 400px;
 }

@@ -1,4 +1,6 @@
 var gallery = document.querySelectorAll("#gallery img");
+
+
 gallery.forEach((element) => ClickImg(element));
 
 function ClickImg(element) {
@@ -41,10 +43,11 @@ function Popup({ values, src }) {
         var m = values;
         var q = [];
         m.forEach((el) => {
-            if (el.getAttribute("alt") == e) {
+            if (el.getAttribute("alt") == e ) {
                 q.push(el);
             }
         });
+        if(e != null){
         popup +=
             "<button type='button' value=" +
             i +
@@ -53,6 +56,7 @@ function Popup({ values, src }) {
             "(" +
             q.length +
             ") </button> ";
+            }
     });
     popup += " </div>";
     popup += ' <div class="list-img" > ';
@@ -97,9 +101,11 @@ function changeImage() {
 function activeImage() {
     var images = document.querySelectorAll(".popup-gallery .list-img img");
     var img = document.querySelector(".popup-gallery .single-img img");
-	console.log(images);
+	
     images.forEach((element) => {
-        if (element.currentSrc == img.currentSrc) {
+        if (element.currentSrc === img.currentSrc) {
+			console.log(element.currentSrc.split("/")[7])
+			console.log(img.currentSrc.split("/")[7])
             element.classList.add("active");
         } else {
             element.classList.remove("active");
@@ -123,19 +129,19 @@ function changeButton() {
             i = el.target.value;
             var img = document.querySelector(".popup-gallery .single-img img");
             var pp = [];
+           
             images.forEach((e) => {
                 if (i >= 0) {
                     if (e.getAttribute("alt") == newCategories[i]) {
                         pp.push(e);
-
-                        e.classList.remove("none");
+                        e.parentElement.classList.remove("none");
                     } else {
-                        e.classList.remove("none");
-                        e.classList.add("none");
+                        e.parentElement.classList.remove("none");
+                        e.parentElement.classList.add("none");
                     }
                 } else {
                     pp.push(e);
-                    e.classList.remove("none");
+                    e.parentElement.classList.remove("none");
                 }
             });
             console.log(pp);

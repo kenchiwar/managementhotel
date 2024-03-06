@@ -8,7 +8,37 @@
 
 <body>
 	<div id="css">
+		<style>
+			#gallery .image:nth-child(6) {
+				position: relative;
+			}
 
+			#gallery .image:nth-child(6)::after {
+				content: "";
+				position: absolute;
+				background: rgba(3, 18, 26, 0.5);
+				width: calc(100% - 20px);
+				height: 100px;
+				top: 0;
+				left: 10px;
+				border-radius: 10px;
+				z-index: 1;
+			}
+
+			.see-all {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				z-index: 2;
+				color: #fff;
+				transform: translate(-50%, -50%);
+				cursor: pointer;
+			}
+
+			.see-all:hover {
+				color: rgba(1, 148, 243, 1.00);
+			}
+		</style>
 	</div>
 	<div class="main-content">
 		<div class="breadcrumb-area">
@@ -57,18 +87,21 @@
 						<div class="col-md-8">
 							<div class="single-image">
 
-								<img th:src="@{'/assets/images/hotel/main/'+${hotel.secondaryPhoto}}" alt="hotel">
+								<img th:src="@{'/assets/images/hotel/main/'+${hotel.secondaryPhoto}}">
 
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="row">
 								<th:block th:each="categoryimage : ${hotel.categoryimages}">
-									<th:block th:each="image : ${categoryimage.images}">
+									<th:block th:each="image,i : ${categoryimage.images}">
+
 										<div class="image col-md-6">
 											<img th:alt="${categoryimage.name}"
 												th:src="@{'/assets/images/hotel/categoryImage/'+${image.name}}">
 										</div>
+
+
 									</th:block>
 								</th:block>
 							</div>
@@ -89,7 +122,8 @@
 										role="tab">Description</a>
 								</li>
 								<li class="nav-item">
-									<a href="#policy" class="nav-link" data-toggle="tab" role="tab">Policy</a>
+									<a href="#policy" class="nav-link" data-toggle="tab" role="tab">Policy and
+										Regulation</a>
 								</li>
 								<li class="nav-item">
 									<a href="#reviews" class="nav-link" data-toggle="tab" role="tab">Reviews <span
@@ -101,73 +135,51 @@
 								<div role="tabpanel" class="tab-pane fade show active" id="description">
 									<div class="description_area">
 										<th:block th:text="${hotel.description}">
-											
+
 										</th:block>
 									</div>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="policy">
 									<div class="additional_info_area">
-										<p>What should I do if I receive a damaged parcel?
-											<br> <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-												Reprehenderit impedit similique qui, itaque delectus labore.</span>
-										</p>
-										<p>I have received my order but the wrong item was delivered to me.
-											<br> <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis
-												quam voluptatum beatae harum tempore, ab?</span>
-										</p>
-										<p>Product Receipt and Acceptance Confirmation Process
-											<br> <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum
-												ducimus, temporibus soluta impedit minus rerum?</span>
-										</p>
-										<p>How do I cancel my order?
-											<br> <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum
-												eius eum, minima!</span>
-										</p>
+										<h3 class="fs-20 color-black fw-600">Policy</h3>
+										<th:block th:text="${hotel.cancellationPolicy}">
+
+										</th:block>
+										<h3 class="fs-20 color-black fw-600">Regulation</h3>
+										<th:block th:text="${hotel.regulation}">
+
+										</th:block>
 									</div>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="reviews">
 									<div class="reviews_area">
 										<ul>
 											<li>
-												<div class="single_user_review mb-15">
-													<div class="review-rating">
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<span>for Quality</span>
-													</div>
-													<div class="review-details">
-														<p>by <a href="#">Colorlib</a> on <span>12 Sep 2018</span></p>
-													</div>
-												</div>
-												<div class="single_user_review mb-15">
-													<div class="review-rating">
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<span>for Design</span>
-													</div>
-													<div class="review-details">
-														<p>by <a href="#">Colorlib</a> on <span>12 Sep 2018</span></p>
-													</div>
-												</div>
-												<div class="single_user_review">
-													<div class="review-rating">
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<i class="fa fa-star" aria-hidden="true"></i>
-														<span>for Value</span>
-													</div>
-													<div class="review-details">
-														<p>by <a href="#">Colorlib</a> on <span>12 Sep 2018</span></p>
-													</div>
-												</div>
+												<th:block th:each="e : ${hotel.evaluates}">
+													<div class="single_user_review mb-15">
+														<div class="review-rating">
+															<th:block th:each="i : ${#numbers.sequence(1, e.number)}">
+																<i class="fa fa-star" aria-hidden="true"></i>
+
+
+															</th:block>
+															<span>for Quality</span>
+															</th>
+															<div class="comment">
+																<th:block th:text="${e.comment}"></th:block>
+															</div>
+															<div class="review-details">
+																<p>by <a href="#">
+																		<th:block th:text="${e.nameAccount}"></th:block>
+																	</a> on <span>
+																		<th:block
+																			th:text="${#dates.format(e.created,'dd/MM/yyyy')}">
+																		</th:block>
+																	</span>
+																</p>
+															</div>
+														</div>
+												</th:block>
 											</li>
 										</ul>
 									</div>
@@ -236,7 +248,63 @@
 			</div>
 		</section>
 		<!-- ##### Single Product Details Area End ##### -->
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<h2>Room</h2>
+					</div>
+					<div class="col-md-6">
 
+						<th:block th:each="room : ${hotel.rooms}">
+
+							<div class="box-room-detail box">
+								<div class="wrapper">
+									<div class="content">
+										<h3 class="fs-20 fw-600" th:text="name"></h3>
+									</div>
+
+									<div class="b-price">
+										<th:block
+											th:if="${room.priceDiscount} > 0 and ${room.priceDiscount < room.price} ">
+
+											<p class="price-sale"><span>₫
+													<th:block
+														th:text="${#numbers.formatDecimal(room.priceDiscount, 0, 'COMMA', 0, 'POINT')}">
+													</th:block>
+												</span></p>
+
+											<p class="price "><span>₫<th:block
+														th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
+													</th:block></span>
+												-<th:block
+													th:text="${#strings.substringBefore((100 - (room.priceDiscount / room.price) * 100), '.')}">
+												</th:block>%
+											</p>
+										</th:block>
+										<th:block th:if="${room.priceDiscount} <= 0">
+
+
+											<p class="price "><span
+													style="text-decoration-line:none ; color:rgb(255, 94, 31);font-size: 26px;font-weight: 700;">
+													₫<th:block
+														th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}">
+													</th:block>
+											</p>
+										</th:block>
+
+									</div>
+									<div class="buttons">
+										<a th:href="'#'" class="btn btn-booknow">Book
+											now</a>
+									</div>
+								</div>
+							</div>
+						</th:block>
+					</div>
+				</div>
+			</div>
+		</section>
 		<!-- ##### Related Product Area Start ##### -->
 		<div class="related-products-area">
 			<div class="container">
@@ -354,13 +422,38 @@
 	<div id="script">
 		<script>
 			var categoryImage = document.querySelectorAll(".image.col-md-6");
-			
-			categoryImage.forEach((e,i)=>{
-				if(i >= 6){
+
+			categoryImage.forEach((e, i) => {
+				if (i >= 6) {
 					e.style.display = "none";
 				}
+				if (i == 5) {
+					var x = document.createElement("div");
+					x.classList.add("see-all");
+					x.innerHTML = `
+					
+						<a id="seeall">See all</a>
 				
+					`;
+					e.appendChild(x)
+				}
+
 			});
+
+		</script>
+		<script>
+			$('#seeall').click((e) => {
+				var g = document.querySelectorAll("#gallery img");
+				var categoryImage = document.querySelectorAll(".image.col-md-6 img");
+				var src = categoryImage[0].currentSrc;
+				Popup({
+					values: g,
+					src: src,
+				});
+				changeImage();
+				activeImage();
+				changeButton();
+			})
 		</script>
 	</div>
 </body>
