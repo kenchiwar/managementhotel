@@ -15,7 +15,7 @@ public class AccountSelectServiceImpl implements AccountSelectService{
 
     public Account getAccountLogin(Authentication authentication) {
     	
-    	 return accountRepository.findByEmail("nghi@gmail.com");
+    	 return accountRepository.findByEmail("trungnghi202@gmail.com");
     }
     
     
