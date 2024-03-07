@@ -5,6 +5,7 @@ public class BillDetailDTO {
     private Integer id;
     private Integer billId;
     private Integer roomId;
+    private String roomName;
     private Double price;
     private Double priceDiscount;
     private Double numberDay;
@@ -29,11 +30,20 @@ public class BillDetailDTO {
     }
 
     // Getters and setters
+    
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public String getRoomName() {
+		return roomName;
+	}
+
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+
+	public void setId(Integer id) {
         this.id = id;
     }
 

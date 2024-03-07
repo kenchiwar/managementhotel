@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demo.entities.Account;
+import com.demo.entities.AccountCensus;
 import com.demo.entities.Evaluate;
 import com.demo.entities.Hotel;
 import com.demo.entities.HotelDetail;
@@ -118,7 +119,7 @@ public class HotelServiceImpl implements HotelService {
 
 			if (idAccount != null) {
 				System.out.println(" lan 1");
-				hotelDetail.setStatus(false);
+				hotelDetail.setStatus(null);
 				hotelDetail.setAccount(new Account(idAccount));
 			} else {
 
@@ -358,6 +359,53 @@ public class HotelServiceImpl implements HotelService {
 
 		// TODO Auto-generated method stub
 		return entityManager.createQuery(cq).getResultList();
+	}
+	@Override
+	public List<Double> biilCensua(Integer id) {
+
+				String query = "SELECT month, total_revenue "
+				+ "FROM ( SELECT MONTH(check_out_until) AS month, SUM(total) AS total_revenue FROM bill b "
+				+ (id!=null?("WHERE b.main_guest = '"+id+"' "):" ")
+				+ "GROUP BY MONTH(check_out_until) ORDER BY month ASC ) AS t UNION ALL SELECT '13' AS month, SUM(total) AS total_revenue "
+				+ "FROM bill b WHERE "
+				+ (id!=null?"b.main_guest = '"+id+"' AND ":" ")
+				+ "check_out_until >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY);";
+		List<Object[]> results = entityManager.createNativeQuery(query).getResultList();
+		
+		List<Double> ketThuc = new ArrayList<>();
+		
+		ketThuc.addAll(Collections.nCopies(13, 0.0));
+
+		for (Object[] row : results) {
+			Integer month =  Integer.parseInt((String) row[0]); // Assuming month is at index 0
+			var totalRevenue = (Double) row[1]; // Assuming total_revenue is at index 1
+			ketThuc.set(month-1,totalRevenue);
+		}
+		System.out.println(ketThuc.get(1));
+		
+		return ketThuc;
+	}
+
+	@Override
+	public AccountCensus accountCensus() {
+		var result = new AccountCensus();
+		String query = "SELECT "
+				+ "(SELECT COUNT(*) FROM hotel WHERE status = TRUE) "
+				+ "AS total_hotel_active"  //0
+				+ ", (SELECT COUNT(*) FROM hotel WHERE status = FALSE) "
+				+ "AS total_hotel_inactive"//1
+				+ ", (SELECT COUNT(*) FROM account WHERE id_role = 2) "
+				+ "AS total_account_role_2" //3
+				+ ", (SELECT COUNT(*) FROM hotel WHERE status IS NULL) "
+				+ "AS total_hotel_null_status;";  //4
+		Object[] data = (Object[]) entityManager.createNativeQuery(query).getSingleResult();
+		result.setTotal_hotel_active((Long)data[0]);
+		result.setTotal_hotel_inactive((Long)data[1]);
+		result.setTotal_account_role_2((Long)data[2]);
+		result.setTotal_hotel_null_status((Long)data[3]);
+		System.out.println(result.toString());
+		// TODO Auto-generated method stub
+		return result;
 	}
 
 }

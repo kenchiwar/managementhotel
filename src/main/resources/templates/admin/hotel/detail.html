@@ -13,179 +13,161 @@
 		</style>
 	</div>
 	<div id="main-content">
+		
+		<div class="row" th:if="${accountCensus!=null}">
+			<div class="col-lg-3 col-6">
 
-
-		<!-- The Modal -->
-		<div id="myModal" style="display: none;" display="none">
-			<span class="close">&times;</span>
-			<form id="formHandler" method="post" th:action="@{${urlForm}}" class="box-form">
-
-				<div class="field">
-					<input type="text" id="idHotel" name="idHotel">
-				</div>
-				<div class="field">
-					<input type="text" id="idAccount" name="idAccount">
-				</div>
-			</form>
-			<table id="example2" class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Phone</th>
-						<th>Email</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<th:block th:each="admin :${admins}">
-						<tr>
-							<td th:text="${admin.firstName+' '+admin.lastName}"></td>
-							<td th:text="${admin.phone}"></td>
-							<td th:text="${admin.email}"></td>
-							<td>
-								<button class="buttonHandler-submit btn btn-primary">Choose Handler</button>
-								<input th:value="${admin.id}" class="handlerAccountId" type="text">
-							</td>
-
-
-						</tr>
-					</th:block>
-				</tbody>
-				<tfoot>
-					<tr>
-						<th>Name</th>
-						<th>Phone</th>
-						<th>Email</th>
-						<th></th>
-					</tr>
-				</tfoot>
-			</table>
-			<div id="caption"></div>
-		</div>
-		<!--ENd model-->
-
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-12">
-					<div class="card">
-						<div class="card-header">
-							<h3 class="card-title">Hotel Detail</h3>
-						</div>
-						<!-- /.card-header -->
-						<div class="card-body">
-							
-							<table id="example2" class="table table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>Name</th>
-										<th>Address</th>
-										<th>Rating</th>
-										<th>Status</th>
-										<th>Main Photo</th>
-										<th>Secondary Photo</th>
-
-										<th>Description</th>
-										<th>Option</th>
-									</tr>
-								</thead>
-								<tbody>
-									<th:block th:each="hotel :${hotels}">
-										<tr th:class="${hotel.status==true?'status-t':'status-f'}">
-											<td th:text="${hotel.name}"></td>
-
-											<td th:text="${#strings.substringBefore(hotel.address, ';')}"></td>
-											<td th:text="${hotel.rating}"></td>
-											<td th:text="${hotel.status==true?'Operating company':'Dormant company'}">
-											</td>
-											<td>
-												<img class="img-fluid h-100"
-													th:src="${urlImagesHotelMain}+'/'+${hotel.mainPhoto}">
-											</td>
-											<td>
-												<img class="img-fluid h-100"
-													th:src="${urlImagesHotelMain}+'/'+${hotel.secondaryPhoto}">
-											</td>
-
-											<td th:text="${hotel.description}"></td>
-											<td>
-												<a th:href="@{${adminHotel+'/edit/'+hotel.idAccount}}">
-													<button class="btn-main mb-5">
-														Edit
-													</button>
-												</a>
-												
-
-												<button class="buttonHandler btn-main">
-													Hanlder
-												</button>
-												
-
-											</td>
-
-										</tr>
-									</th:block>
-								</tbody>
-								<tfoot>
-									<tr>
-										<th>Name</th>
-										<th>Address</th>
-										<th>Rating</th>
-										<th>Status</th>
-										<th>Secondary Photo</th>
-										<th>Main Photo</th>
-										<th>Description</th>
-
-									</tr>
-								</tfoot>
-							</table>
-						</div>
-						<!-- /.card-body -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3 th:text="${accountCensus.total_hotel_active}"></h3>
+						<p>Hotel</p>
 					</div>
-					<!-- /.card -->
+					<div class="icon">
+						<i class="fa-solid fa-hotel"></i>
+					</div>
+					<a href="#" class="small-box-footer"></a>
 				</div>
-				<!-- /.col -->
 			</div>
-			<!-- /.row -->
+
+			<div class="col-lg-3 col-6">
+
+				<div class="small-box bg-success">
+					<div class="inner">
+						<h3 th:text="${accountCensus.total_hotel_null_status}"></h3>
+						<p>New Hotel</p>
+					</div>
+					<div class="icon">
+						<i class="fa-sharp fa-thin fa-sparkles"></i>
+					</div>
+					<a href="#" class="small-box-footer"></a>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-6">
+
+				<div class="small-box bg-warning">
+					<div class="inner">
+						<h3 th:text="${accountCensus.total_account_role_2}"></h3>
+						<p>User Registrations</p>
+					</div>
+					<div class="icon">
+						<i class="ion ion-person-add"></i>
+					</div>
+					<a href="#" class="small-box-footer"></a>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-6">
+
+				<div class="small-box bg-danger">
+					<div class="inner">
+						<h3 th:text="${accountCensus.total_hotel_null_status}"></h3>
+						<p>Inactice Hotel</p>
+					</div>
+					<div class="icon">
+						<i class="ion ion-pie-graph"></i>
+					</div>
+					<a href="#" class="small-box-footer"></a>
+				</div>
+			</div>
+
 		</div>
-		<!-- /.container-fluid -->
-		</section>
+		<br>
+		<div class="row p-2">
+			<div class="card card-success col-12 p-2">
+				<div class="card-header">
+					<h3 class="card-title">Bar Chart</h3>
+
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse">
+							<i class="fas fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-tool" data-card-widget="remove">
+							<i class="fas fa-times"></i>
+						</button>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="chart">
+						<canvas id="barChart"
+							style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+					</div>
+				</div>
+				<!-- /.card-body -->
+			</div>
+		</div>
+		<input type="hidden" id="biilCensua" th:value="${biilCensua}">
 	</div>
 	<div id="script">
 		<script>
-			$(document).ready(function () {
-				// Xử lý click cho tất cả button có class buttonHandler
-				$(".buttonHandler").click(function () {
-					// Lấy URL ảnh từ data-src attribute
+			$(function () {
+				/* ChartJS
+				 * -------
+				 * Here we will create a few charts using ChartJS
+				 */
+
+				//--------------
+				//- AREA CHART -
+				//--------------
+
+				// Get context with jQuery - using jQuery's .get() method.
+				// Lấy giá trị từ input
+				var inputValue = $('#biilCensua').val();
+				
+				// Chuyển đổi giá trị sang mảng số
+				var data = inputValue.slice(1, -1).split(",").map(function(value) {
+  return parseFloat(value);
+});
+
+				// Khai báo biến mảng số
+				var dataArray = data;
+				console.log(dataArray);
+				var areaChartData = {
+					labels: ['January', 'February', 'March', 'April',
+						'May', 'June', 'July', 'August', 'September'
+						, 'October', 'November', 'December','Now'],
+					datasets: [
+						{
+							label: 'Total',
+							backgroundColor: 'rgba(60,141,188,0.9)',
+							borderColor: 'rgba(60,141,188,0.8)',
+							pointRadius: false,
+							pointColor: '#3b8bba',
+							pointStrokeColor: 'rgba(60,141,188,1)',
+							pointHighlightFill: '#fff',
+							pointHighlightStroke: 'rgba(60,141,188,1)',
+							data: dataArray
+						},
+
+					]
+				}
 
 
-					var handlerAccountId = $(this).closest("td").find(".handlerAccountId").val();
-
-					// Cập nhật giá trị cho input idHotel
-					$("#idHotel").val(handlerAccountId);
-					// Hiển thị modal và cập nhật src của ảnh
-					$("#myModal").show();
-
-				});
-				$(".buttonHandler-submit").click(function () {
-					// Lấy URL ảnh từ data-src attribute
+				//
+				var barChartCanvas = $('#barChart').get(0).getContext('2d')
+				var barChartData = $.extend(true, {}, areaChartData)
+				var temp0 = areaChartData.datasets[0]
 
 
-					var handlerAccountId = $(this).closest("td").find(".handlerAccountId").val();
+				barChartData.datasets[0] = temp0
 
-					// Cập nhật giá trị cho input idHotel
-					$("#idAccount").val(handlerAccountId);
-					$("#formHandler").submit();
-					// Hiển thị modal và cập nhật src của ảnh
-					$("#myModal").show();
+				var barChartOptions = {
+					responsive: true,
+					maintainAspectRatio: false,
+					datasetFill: false
+				}
 
-				});
+				new Chart(barChartCanvas, {
+					type: 'bar',
+					data: barChartData,
+					options: barChartOptions
+				})
 
+				//---------------------
+				//- STACKED BAR CHART -
+				//---------------------
 
-				// Đóng modal khi nhấn nút đóng
-				$(".close").click(function () {
-					$("#myModal").hide();
-				});
-			});
+			})
 		</script>
 	</div>
 </body>

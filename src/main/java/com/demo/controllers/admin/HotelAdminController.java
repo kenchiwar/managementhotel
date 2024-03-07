@@ -66,23 +66,22 @@ public class HotelAdminController {
 		return "admin/hotel/index";
 	}
 
-	@RequestMapping(value = { "detail" }, method = RequestMethod.GET)
-	public String detail(ModelMap modelMap, Authentication authentication) {
+	@RequestMapping(value = { "detail","detail/{id}" }, method = RequestMethod.GET)
+	public String detail(ModelMap modelMap, Authentication authentication,
+			@PathVariable(name="id",required = false) Integer id) {
 		// tùy điều kiện lấy hotel
-		modelMap.put("urlImagesHotelMain", AttributeHelper.urlImagesHotelMain);
-		modelMap.put("adminHotel", "/" + UrlHelper.adminHotel);
-		modelMap.put(dataKey + "s", serviceHotel.findAll());
-
-		//
-		modelMap.put(AttributeHelper.urlForm, "/" + url + "/editHandler");
-
-		modelMap.put(AttributeHelper.checkEdit, false);
-		// admin đủ quyền mới thấy
-		SelectAccountHelper selectHelper = new SelectAccountHelper();
-		selectHelper.setRoleMax(1);
-		selectHelper.setRoleMin(2);
-		modelMap.put("admins", serviceHotel.selectAccount(null, null));
-		serviceHotel.hotelDetail(null, null);
+		Account account =selectAccountService.getAccountLogin(authentication);
+		if(account.getRole().getId()>2 && !(id!=null)) {
+			modelMap.put("biilCensua", 
+					serviceHotel.biilCensua(null));
+		modelMap.put("accountCensus", serviceHotel.accountCensus());
+		}
+		if(id!=null) modelMap.put("biilCensua", 
+				serviceHotel.biilCensua(id));
+			
+		
+		
+		
 		return "admin/hotel/detail";
 	}
 

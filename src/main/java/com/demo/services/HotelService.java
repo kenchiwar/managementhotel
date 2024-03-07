@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.entities.Account;
+import com.demo.entities.AccountCensus;
 import com.demo.entities.Categoryimage;
 import com.demo.entities.Hotel;
 import com.demo.entities.HotelDetail;
@@ -28,4 +29,7 @@ public interface HotelService {
     //thêm finb By id thì trả về 1 list có kết quả đầu tiên là id cần tìm 
     public List<HotelShowIndex> hotelShowIndexs(SelectHelperHotel selectHelper,Integer findByid);
     public List<HotelDetail> hotelDetail(SelectHelperHotel selectHelper, Integer findByid) ;
+    public AccountCensus accountCensus() ;
+    public List<Double> biilCensua(Integer id) ;
+   
 }

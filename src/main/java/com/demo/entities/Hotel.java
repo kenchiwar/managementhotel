@@ -246,6 +246,7 @@ public class Hotel implements java.io.Serializable {
 		List<Selection<?>> selection = new ArrayList<>();
 		selection.add(root.get("idAccount").alias("idAccount"));
 		selection.add(root.get("name").alias("name"));
+		
 		selection.add(root.get("cancellationPolicy").alias("cancellationPolicy"));
 		selection.add(root.get("description").alias("description"));
 		selection.add(root.get("rating").alias("rating"));

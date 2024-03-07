@@ -18,6 +18,13 @@ public class Payment implements java.io.Serializable {
 
 	public Payment() {
 	}
+	
+
+	public Payment(Integer id) {
+		super();
+		this.id = id;
+	}
+
 
 	public Payment(String method, boolean status) {
 		this.method = method;

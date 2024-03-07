@@ -16,19 +16,20 @@ public class Evaluate implements java.io.Serializable {
 	private Integer number;
 	private String comment;
 	private Date created;
-	private boolean status;
+	private Boolean status;
 	private Integer idAccount;
 	private Integer idBill;
 	private String nameAccount;
 
 	public Evaluate() {
+		
 	}
 
 	public Evaluate(Hotel hotel) {
 		this.hotel = hotel;
 	}
 
-	public Evaluate(Hotel hotel, Integer number, String comment, Date created,boolean status,Integer idAccount, Integer idBill,
+	public Evaluate(Hotel hotel, Integer number, String comment, Date created,Boolean status,Integer idAccount, Integer idBill,
 			String nameAccount) {
 		this.hotel = hotel;
 		this.number = number;
@@ -91,11 +92,11 @@ public class Evaluate implements java.io.Serializable {
 
 	@Column(name = "status")
 
-	public boolean isStatus() {
+	public Boolean isStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 

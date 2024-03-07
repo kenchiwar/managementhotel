@@ -1,83 +1,78 @@
 package com.demo.dtos;
 
+import java.util.Date;
+
+import com.demo.entities.Hotel;
+
 public class EvaluateDTO {
+	private Integer id;
 
-    private Integer id;
-    private Integer hotelId;
-    private Integer number;
-    private String comment;
-    private Integer accountId;
-    private Integer billId;
-    private String accountName;
-
-    public EvaluateDTO() {
-    }
-
-    public EvaluateDTO(Integer id, Integer hotelId, Integer number, String comment, Integer accountId,
-                       Integer billId, String accountName) {
-        this.id = id;
-        this.hotelId = hotelId;
-        this.number = number;
-        this.comment = comment;
-        this.accountId = accountId;
-        this.billId = billId;
-        this.accountName = accountName;
-    }
-
-    // Getters and setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getHotelId() {
-        return hotelId;
-    }
-
-    public void setHotelId(Integer hotelId) {
-        this.hotelId = hotelId;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Integer getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
-    }
-
-    public Integer getBillId() {
-        return billId;
-    }
-
-    public void setBillId(Integer billId) {
-        this.billId = billId;
-    }
-
-    public String getAccountName() {
-        return accountName;
-    }
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
-    }
+	private Integer number;
+	private String comment;
+	private Date created;
+	private Boolean status;
+	private Integer idHotel;
+	private Integer idAccount;
+	private Integer idBill;
+	private String nameAccount;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public Integer getIdHotel() {
+		return idHotel;
+	}
+	public void setIdHotel(Integer idHotel) {
+		this.idHotel = idHotel;
+	}
+	public Boolean getStatus() {
+		return status;
+	}
+	public Integer getNumber() {
+		return number;
+	}
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public Boolean isStatus() {
+		return status;
+	}
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+	public Integer getIdAccount() {
+		return idAccount;
+	}
+	public void setIdAccount(Integer idAccount) {
+		this.idAccount = idAccount;
+	}
+	public Integer getIdBill() {
+		return idBill;
+	}
+	public void setIdBill(Integer idBill) {
+		this.idBill = idBill;
+	}
+	public String getNameAccount() {
+		return nameAccount;
+	}
+	public void setNameAccount(String nameAccount) {
+		this.nameAccount = nameAccount;
+	}
+	
+	
 }
