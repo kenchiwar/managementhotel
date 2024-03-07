@@ -14,9 +14,15 @@ public class AccountDTO {
     private String active;
     private Boolean status;
     private Long countNoCommentBill;
-    
+    private String eeeee;
     
 	
+	public String getEeeee() {
+		return eeeee;
+	}
+	public void setEeeee(String eeeee) {
+		this.eeeee = eeeee;
+	}
 	public Long getCountNoCommentBill() {
 		return countNoCommentBill;
 	}
