@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.*;
 
 /**
@@ -18,9 +20,13 @@ public class Bill implements java.io.Serializable {
 	private Account account;
 	private Payment payment;
 	private String service;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date checkInFrom;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date checkInUntil;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date checkOutFrom;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date checkOutUntil;
 	private String mainGuest;
 	private String status;

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+
+<head>
+	
+</head>
+
+<body>
+	<div id="css">
+		
+	</div>
+	<div id="main-content">
+		<h4>Evaluate</h4>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>number</th>
+					<th>comment</th>
+					<th>created</th>
+					<th>idaccount</th>
+					<th>name_account</th>
+					<th>id bill</th>
+					<th>id hotel</th>
+					<th>status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="evaluate : ${evaluates}">
+					<td th:text="${evaluate.id}"></td>
+					<td th:text="${evaluate.number}"></td>
+					<td th:text="${evaluate.comment}"></td>
+					<td th:text="${evaluate.created}"></td>
+					<td th:text="${evaluate.idAccount}"></td>
+					<td th:text="${evaluate.nameAccount}"></td>
+
+					<td th:text="${evaluate.idBill}"></td>
+					<td th:text="${evaluate.hotel.name}"></td>
+					<td ><a th:href="@{'/admin/evaluate/unactive/' + ${evaluate.id}}" th:text="${evaluate.status == true ? 'Active' : 'UnActive'}"></a></td>
+				</tr>
+			</tbody>
+		</table>	
+	</div>
+	<div id="script">
+		
+	</div>
+</body>
+
+</html>

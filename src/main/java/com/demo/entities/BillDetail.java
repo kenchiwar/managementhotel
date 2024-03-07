@@ -22,12 +22,14 @@ public class BillDetail implements java.io.Serializable {
 	private Double total;
 	private String reasonDiscount;
 	private Integer numberHour;
+	private Integer quantity;
 
+	
 	public BillDetail() {
 	}
 
 	public BillDetail(Bill bill, Room room, Double price, Double priceDiscount, Double numberDay, Double total,
-			String reasonDiscount, Integer numberHour) {
+			String reasonDiscount, Integer numberHour, Integer quantity) {
 		this.bill = bill;
 		this.room = room;
 		this.price = price;
@@ -36,6 +38,7 @@ public class BillDetail implements java.io.Serializable {
 		this.total = total;
 		this.reasonDiscount = reasonDiscount;
 		this.numberHour = numberHour;
+		this.quantity = quantity;
 	}
 
 	@Id
@@ -122,6 +125,15 @@ public class BillDetail implements java.io.Serializable {
 
 	public void setNumberHour(Integer numberHour) {
 		this.numberHour = numberHour;
+	}
+
+	@Column(name = "quantity")
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 }

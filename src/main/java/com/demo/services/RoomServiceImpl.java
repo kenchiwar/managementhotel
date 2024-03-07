@@ -2,6 +2,7 @@ package com.demo.services;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,7 @@ public class RoomServiceImpl implements RoomService {
 		return repositoryRoom.findById(id).get();
 	}
 
+
 	@Override
 	public boolean saveAll(List<Room> rooms) {
 		try {
@@ -105,5 +107,6 @@ public class RoomServiceImpl implements RoomService {
 		// TODO Auto-generated method stub
 		return entityManager.createQuery(cq).getResultList();
 	}
+
 
 }

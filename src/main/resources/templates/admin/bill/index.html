@@ -1,16 +1,169 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
-
+	<style>
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		table, th, td {
+			border: 1px solid black;
+		}
+		th, td {
+			padding: 8px;
+			text-align: left;
+		}
+		th {
+			background-color: #f2f2f2;
+		}
+	</style>
 <head>
 	
 </head>
-
 <body>
 	<div id="css">
 		
 	</div>
 	<div id="main-content">
-		<h4>Content</h4>
+
+		<h2>Danh sách đặt phòng</h2>
+
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>ID_sender</th>
+					<th>ID Người gửi</th>
+					<th>Dịch vụ</th>
+					<th>phong</th>
+					<th>Khách chính</th>
+					<th>so ngay o</th>
+					<th>Total</th>
+					<th>Trạng thái</th>
+					<th>Confirm</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="bill_ : ${bill_1}">
+					<td th:text="${bill_.id}"></td>
+					<td th:text="${bill_.bill.account.id}"></td>
+					<td th:text="${bill_.bill.account.email}"></td>
+					<td th:text="${bill_.bill.service}"></td>
+					<td th:text="${bill_.room.name}"></td>
+					<td th:text="${bill_.bill.mainGuest}"></td>
+					<td th:text="${bill_.numberDay}"></td>
+					<td th:text="${bill_.bill.total}"></td>
+					<td th:text="${bill_.bill.status == '1' ? 'thanh toan roi' : bill_.bill.status == '2' ?  'dag o' : 'aaaaa'}"></td>
+					<td>
+						<a th:href="@{'/admin/billdetail/edit/' + ${bill_.id}}" 
+						th:text="${bill_.bill.status == '1' ? 'khach den nhan phong' : bill_.bill.status == '2' ?  'khach tra phong' : 'aaaaa'}"></a>
+					</td>
+					<td>
+						<a th:href="@{'/admin/billdetail/' + ${bill_.id}}">Details</a>						|
+						<a th:href="@{'/admin/billdetail/cancel/' + ${bill_.id}}">Cancel</a>
+
+					</td>
+					
+					<!-- <td>
+						<a th:href="@{'/admin/billdetail/edit_reason/' + ${bill_.id}}">Add reason</a>
+					</td> -->
+				</tr>
+				<!-- Add more rows for additional reservations -->
+			</tbody>
+		</table>	
+
+		
+		<h2>Danh sách phong dang o</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>ID Người gửi</th>
+					<th>Dịch vụ</th>
+					<th>phong</th>
+					<th>Khách chính</th>
+					<th>Trạng thái</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="bill_ : ${bill_2}">
+					<td th:text="${bill_.id}"></td>
+					<td th:text="${bill_.bill.account.email}"></td>
+					<td th:text="${bill_.bill.service}"></td>
+					<td th:text="${bill_.room.name}"></td>
+					<td th:text="${bill_.bill.mainGuest}"></td>
+					<td th:text="${bill_.bill.status == '1' ? 'thanh toan roi' : bill_.bill.status == '2' ?  'dag o' : 'aaaaa'}"></td>
+					<td>
+						<a th:href="@{'/admin/billdetail/edit/' + ${bill_.id}}" 
+						th:text="${bill_.bill.status == '1' ? 'khach den nhan phong' : bill_.bill.status == '2' ?  'khach tra phong' : 'aaaaa'}"></a>
+					</td>
+					<td>
+						<a th:href="@{'/admin/billdetail/' + ${bill_.id}}">Details</a>
+					</td>
+				</tr>
+				<!-- Add more rows for additional reservations -->
+			</tbody>
+		</table>
+		
+		<h2>Danh sách phong da hoan thanh</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>ID Người gửi</th>
+					<th>Dịch vụ</th>
+					<th>phong</th>
+					<th>Khách chính</th>
+					<th>Trạng thái</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="bill_ : ${bill_3_4}">
+					<td th:text="${bill_.id}"></td>
+					<td th:text="${bill_.bill.account.email}"></td>
+					<td th:text="${bill_.bill.service}"></td>
+					<td th:text="${bill_.room.name}"></td>
+					<td th:text="${bill_.bill.mainGuest}"></td>
+					<td th:text="${bill_.bill.status == '3' ? 'hoan thanh chua comment' : bill_.bill.status == '4' ?  'hoan thanh co comment' : 'aaaaa'}"></td>
+					<td>
+						<a th:href="@{'/admin/billdetail/' + ${bill_.id}}">Details</a>
+					</td>
+					
+				</tr>
+				<!-- Add more rows for additional reservations -->
+			</tbody>
+		</table>	
+		<h2>Danh sách huy phong</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>ID Người gửi</th>
+					<th>Dịch vụ</th>
+					<th>phong</th>
+					<th>Khách chính</th>
+					<th>Trạng thái</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="bill_ : ${bill_5}">
+					<td th:text="${bill_.id}"></td>
+					<td th:text="${bill_.bill.account.email}"></td>
+					<td th:text="${bill_.bill.service}"></td>
+					<td th:text="${bill_.room.name}"></td>
+					<td th:text="${bill_.bill.mainGuest}"></td>
+					<td th:text="${bill_.bill.status == '3' ? 'hoan thanh chua comment' : bill_.bill.status == '4' ?  'hoan thanh co comment' : 'aaaaa'}"></td>
+					<td>
+						<a th:href="@{'/admin/billdetail/' + ${bill_.id}}">Details</a>
+					</td>
+					
+				</tr>
+				<!-- Add more rows for additional reservations -->
+			</tbody>
+		</table>	
 	</div>
 	<div id="script">
 		
