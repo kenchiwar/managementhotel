@@ -13,7 +13,7 @@ public class Payment implements java.io.Serializable {
 
 	private Integer id;
 	private String method;
-	private boolean status;
+	private Boolean status;
 	private Set<Bill> bills = new HashSet<Bill>(0);
 
 	public Payment() {
@@ -26,12 +26,12 @@ public class Payment implements java.io.Serializable {
 	}
 
 
-	public Payment(String method, boolean status) {
+	public Payment(String method, Boolean status) {
 		this.method = method;
 		this.status = status;
 	}
 
-	public Payment(String method, boolean status, Set<Bill> bills) {
+	public Payment(String method, Boolean status, Set<Bill> bills) {
 		this.method = method;
 		this.status = status;
 		this.bills = bills;
@@ -59,11 +59,11 @@ public class Payment implements java.io.Serializable {
 	}
 
 	@Column(name = "status", nullable = false)
-	public boolean isStatus() {
+	public Boolean isStatus() {
 		return this.status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 

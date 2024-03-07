@@ -6,15 +6,15 @@ import com.demo.entities.Hotel;
 
 public class EvaluateDTO {
 	private Integer id;
-
+	private Integer hotelDTOID;
 	private Integer number;
 	private String comment;
 	private Date created;
 	private Boolean status;
-	private Integer idHotel;
 	private Integer idAccount;
 	private Integer idBill;
 	private String nameAccount;
+	//getter setter 
 	public Integer getId() {
 		return id;
 	}
@@ -22,14 +22,11 @@ public class EvaluateDTO {
 		this.id = id;
 	}
 	
-	public Integer getIdHotel() {
-		return idHotel;
+	public Integer getHotelDTOID() {
+		return hotelDTOID;
 	}
-	public void setIdHotel(Integer idHotel) {
-		this.idHotel = idHotel;
-	}
-	public Boolean getStatus() {
-		return status;
+	public void setHotelDTOID(Integer hotelDTOID) {
+		this.hotelDTOID = hotelDTOID;
 	}
 	public Integer getNumber() {
 		return number;
@@ -49,7 +46,7 @@ public class EvaluateDTO {
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-	public Boolean isStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 	public void setStatus(Boolean status) {

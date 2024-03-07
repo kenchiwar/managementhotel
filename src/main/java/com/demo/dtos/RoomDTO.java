@@ -15,19 +15,10 @@ public class RoomDTO {
     private Integer peopleMin;
     private Integer peopleMax;
     private String describes;
-    private Integer hotelId;
+    private Integer hotelDTOID;
 	public RoomDTO() {
 		super();
 	}
-	
-	public Integer getHotelId() {
-		return hotelId;
-	}
-
-	public void setHotelId(Integer hotelId) {
-		this.hotelId = hotelId;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -94,6 +85,11 @@ public class RoomDTO {
 	public void setDescribes(String describes) {
 		this.describes = describes;
 	}
-    
-
+	public Integer getHotelDTOID() {
+		return hotelDTOID;
+	}
+	public void setHotelDTOID(Integer hotelDTOID) {
+		this.hotelDTOID = hotelDTOID;
+	}
+	
 }

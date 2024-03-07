@@ -7,8 +7,8 @@ import java.util.Set;
 public class BillDTO {
 
     private Integer id;
-    private Integer accountId;
-    private Integer paymentId;
+    private Integer accountDTOID;
+    private Integer paymentDTOID;
     private String  paymentName;
     private String service;
     private Date checkInFrom;
@@ -24,28 +24,23 @@ public class BillDTO {
     private String securityCode;
     private Double total;
     private List<BillDetailDTO> billDetails  ;
-    
-	public BillDTO() {
-		super();
-	}
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getAccountId() {
-		return accountId;
+	public Integer getAccountDTOID() {
+		return accountDTOID;
 	}
-	public void setAccountId(Integer accountId) {
-		this.accountId = accountId;
+	public void setAccountDTOID(Integer accountDTOID) {
+		this.accountDTOID = accountDTOID;
 	}
-	
-	public Integer getPaymentId() {
-		return paymentId;
+	public Integer getPaymentDTOID() {
+		return paymentDTOID;
 	}
-	public void setPaymentId(Integer paymentId) {
-		this.paymentId = paymentId;
+	public void setPaymentDTOID(Integer paymentDTOID) {
+		this.paymentDTOID = paymentDTOID;
 	}
 	public String getPaymentName() {
 		return paymentName;

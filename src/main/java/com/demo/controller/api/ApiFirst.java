@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
+import com.demo.dtos.AccountDTO;
+import com.demo.dtos.BillDTO;
 import com.demo.dtos.CategoryimageDTO;
 import com.demo.dtos.EvaluateDTO;
 import com.demo.dtos.HotelDTO;
 import com.demo.entities.Hotel;
+import com.demo.services.AccountService;
+import com.demo.services.BillService;
 import com.demo.services.CategoryimageService;
 import com.demo.services.EvaluateService;
 import com.demo.services.HotelService;
@@ -35,6 +39,8 @@ public class ApiFirst {
 	HotelService serviceHotel;
 	@Autowired ModelMapper modelMapper;
 	@Autowired EvaluateService serviceEvaluate;
+	@Autowired BillService serviceBill;
+	@Autowired AccountService serviceAccount;
 	
 	@GetMapping(value = {"demo"},produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> demo1 (){
@@ -47,7 +53,7 @@ public class ApiFirst {
 	@GetMapping(value = {"demo2"},produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> demo2 (){
 		var a =studentService.findAll();
-		Hotel c =serviceHotel.find(2);
+		var c =serviceHotel.find(2);
 		var b =new TypeToken<List<EvaluateDTO>>(){}.getType();
 		var d =serviceEvaluate.find(6);
 		System.out.println(d.isStatus());

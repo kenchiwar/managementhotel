@@ -3,7 +3,7 @@ package com.demo.dtos;
 public class AccountDTO {
 
     private Integer id;
-    private Integer roleId;
+    private Integer roleDTOID;
     private String roleName;
     private String firstName;
     private String lastName;
@@ -13,22 +13,28 @@ public class AccountDTO {
     private String image;
     private String active;
     private Boolean status;
+    private Long countNoCommentBill;
+    
+    
+	
+	public Long getCountNoCommentBill() {
+		return countNoCommentBill;
+	}
+	public void setCountNoCommentBill(Long countNoCommentBill) {
+		this.countNoCommentBill = countNoCommentBill;
+	}
 	public Integer getId() {
 		return id;
 	}
-	
-	public Integer getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+	public Integer getRoleDTOID() {
+		return roleDTOID;
+	}
+	public void setRoleDTOID(Integer roleDTOID) {
+		this.roleDTOID = roleDTOID;
+	}
 	public String getRoleName() {
 		return roleName;
 	}

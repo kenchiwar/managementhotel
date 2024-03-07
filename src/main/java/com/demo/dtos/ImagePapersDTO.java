@@ -2,39 +2,34 @@ package com.demo.dtos;
 
 public class ImagePapersDTO {
     private Integer id;
-    private Integer hotelId;
+    private Integer hotelDTOID;
     private String name;
 
     public ImagePapersDTO() {
     }
 
-    public ImagePapersDTO(Integer id, Integer hotelId, String name) {
-        this.id = id;
-        this.hotelId = hotelId;
-        this.name = name;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getHotelDTOID() {
+		return hotelDTOID;
+	}
 
-    public Integer getHotelId() {
-        return hotelId;
-    }
+	public void setHotelDTOID(Integer hotelDTOID) {
+		this.hotelDTOID = hotelDTOID;
+	}
 
-    public void setHotelId(Integer hotelId) {
-        this.hotelId = hotelId;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+    
 }

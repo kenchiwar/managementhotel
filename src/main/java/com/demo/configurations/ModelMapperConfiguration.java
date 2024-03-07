@@ -1,8 +1,10 @@
 package com.demo.configurations;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
@@ -31,6 +33,8 @@ import com.demo.entities.Hotel;
 import com.demo.entities.Image;
 import com.demo.entities.Payment;
 import com.demo.entities.Room;
+import com.demo.helpers.UrlHelper;
+import com.demo.staticHelper.AttributeHelper;
 @Configuration
 public class ModelMapperConfiguration {
 	   @Autowired
@@ -47,11 +51,39 @@ public class ModelMapperConfiguration {
 //	                return "fff";
 //	            }
 //	        };
-	        Converter<Boolean, Boolean> converterImage = new AbstractConverter<Boolean, Boolean>() {
+	        Converter<Set<Bill>, Long> converterCountBillNoComment = new AbstractConverter<Set<Bill>, Long>() {
 	            @Override
-	            protected Boolean convert(Boolean source) {
+	            protected Long convert(Set<Bill> source) {
+	            	Optional<Set<Bill>> optionalBills = Optional.ofNullable(source);
 
-	                return source!=null ?source :false;
+	            	long count = optionalBills
+	            	                .map(Set::stream)
+	            	                .orElse(Stream.empty())
+	            	                .filter(bill -> bill.getName().contains("no-comment"))
+	            	                .count();
+	                return count;
+	            }
+	        };
+	        Converter<String, String> converterImageMain = new AbstractConverter<String, String>() {
+	            @Override
+	            protected String convert(String source) {
+
+	                return environment.getProperty("BASE_URL") + AttributeHelper.urlImagesHotelMain +"/" +source;
+	            }
+	        };
+	        Converter<String, String> converterImageCategoHotel = new AbstractConverter<String, String>() {
+	            @Override
+	            protected String convert(String source) {
+
+	                return environment.getProperty("BASE_URL") + AttributeHelper.urlImagesHotelCategory +"/" +source;
+	            }
+	        };
+	        Converter<String, String> converterAdress = new AbstractConverter<String, String>() {
+	            @Override
+	            protected String convert(String source) {
+	            	int index = source.indexOf(";");
+	            	
+	                return source.substring(0, index);
 	            }
 	        };
 	        
@@ -60,32 +92,65 @@ public class ModelMapperConfiguration {
 //	            m.using(converterBooleanTOString).map(Product::isStatus, ProductDTO::setPhone);
 //	            m.using(converterImage).map(Product::getImage, ProductDTO::setPhone);
 //	        });
-//	        mapper.addMappings(new PropertyMap<Evaluate, EvaluateDTO>() {
-//
-//	            @Override
-//	            protected void configure() {
-//	            	
-//	            	map().setId(source.getId());
-//	              //Thiếu hotel valute cần chỉnh
-//	                map().setNumber(source.getNumber());
-//	                map().setComment(source.getComment());
-//	                map().setCreated(source.getCreated());
-//	                map().setStatus(source.isStatus()); // boolean uses isStatus()
-//	                map().setIdAccount(source.getIdAccount());
-//	                map().setIdBill(source.getIdBill());
-//	                map().setNameAccount(source.getNameAccount());
-//	            }
-//
-//	        });
+	        
+	        mapper.addMappings(new PropertyMap<Evaluate, EvaluateDTO>() {
+
+	            @Override
+	            protected void configure() {
+	            	
+	            	map().setId(source.getId());
+	             
+	                map().setNumber(source.getNumber());
+	                map().setComment(source.getComment());
+	                map().setCreated(source.getCreated());
+	                map().setStatus(source.isStatus()); // boolean uses isStatus()
+	                map().setIdAccount(source.getIdAccount());
+	                map().setIdBill(source.getIdBill());
+	                map().setNameAccount(source.getNameAccount());
+	            }
+
+	        });
+	        mapper.addMappings(new PropertyMap<EvaluateDTO, EvaluateDTO>() {
+
+	            @Override
+	            protected void configure() {
+	            	
+	            	map().setId(source.getId());
+	             
+	                map().setNumber(source.getNumber());
+	                map().setComment(source.getComment());
+	                map().setCreated(source.getCreated());
+	                map().setStatus(source.getStatus()); // boolean uses isStatus()
+	                map().setIdAccount(source.getIdAccount());
+	                map().setIdBill(source.getIdBill());
+	                map().setNameAccount(source.getNameAccount());
+	            }
+
+	        });
 	        mapper.addMappings(new PropertyMap<Image, ImageDTO>() {
 
 	            @Override
 	            protected void configure() {
 	           	 map().setId(source.getId());
-	           	map().setName(source.getName()+"bbbbbbb");
+	           	map().setName(source.getName());
 	            
 	            }
 
+	        });
+	        mapper.addMappings(new PropertyMap<ImageDTO, Image>() {
+
+	            @Override
+	            protected void configure() {
+	           	 map().setId(source.getId());
+	           	map().setName(source.getName());
+	            
+	            }
+
+	        });
+	        mapper.typeMap(Image.class, ImageDTO.class).addMappings(m -> {
+	            m.map(Image::getId, ImageDTO::setId);
+	            m.using(converterImageCategoHotel).map(Image::getName, ImageDTO::setName);
+	           
 	        });
 	        mapper.addMappings(new PropertyMap<Categoryimage, CategoryimageDTO>() {
 
@@ -93,12 +158,16 @@ public class ModelMapperConfiguration {
 	            protected void configure() {
 	           	 map().setId(source.getId());
 	           	map().setName(source.getName());
-	           	
-	           
-	          //	List<ImageDTO> a = mapper.map(source.getImages(),  new TypeToken<List<ImageDTO>>(){}.getType());
-	          	//map().setImages(a);
-	           	
-	            }
+	           }
+
+	        });
+	        mapper.addMappings(new PropertyMap<CategoryimageDTO, Categoryimage>() {
+
+	            @Override
+	            protected void configure() {
+	           	 map().setId(source.getId());
+	           	map().setName(source.getName());
+	           }
 
 	        });
 	        mapper.addMappings(new PropertyMap<Room, RoomDTO>() {
@@ -106,7 +175,7 @@ public class ModelMapperConfiguration {
 	            @Override
 	            protected void configure() {
 	            	  map().setId(source.getId());
-	            	 
+	 
 	                  map().setName(source.getName());
 	                  map().setStatus(source.getStatus());
 	                  map().setPrice(source.getPrice());
@@ -125,7 +194,7 @@ public class ModelMapperConfiguration {
 	            @Override
 	            protected void configure() {
 	                map().setId(source.getId());
-	                map().setHotel(new Hotel(source.getHotelId()));
+	               // map().setHotel(new Hotel(source.getHotelId()));
 	                map().setName(source.getName());
 	                map().setStatus(source.getStatus());
 	                map().setPrice(source.getPrice());
@@ -140,72 +209,24 @@ public class ModelMapperConfiguration {
 
 	        });
 
-//	        mapper.typeMap(Evaluate.class, EvaluateDTO.class).addMappings(m -> {
-//	            // Direct mappings
-//	            m.map(Evaluate::getId, EvaluateDTO::setId);
-//	            m.map(Evaluate::getNumber, EvaluateDTO::setNumber);
-//	            m.map(Evaluate::getComment, EvaluateDTO::setComment);
-//	            m.map(Evaluate::getCreated, EvaluateDTO::setCreated);
-//	           
-//	            m.map(Evaluate::getIdAccount, EvaluateDTO::setIdAccount);
-//	            m.map(Evaluate::getIdBill, EvaluateDTO::setIdBill);
-//	            m.map(Evaluate::getNameAccount, EvaluateDTO::setNameAccount);
-//	            // Optional null safety (consider adding based on requirements)
-//	            
-//	        });
-	        mapper.addMappings(new PropertyMap<Evaluate, EvaluateDTO>() {
-
-	            @Override
-	            protected void configure() {
-	            	 map().setId(source.getId());
-	               
-	                 map().setNumber(source.getNumber()); 
-	                 map().setComment(source.getComment()); 
-	                 map().setCreated(source.getCreated()); 
-	                 map().setStatus(source.isStatus());
-	                 map().setIdAccount(source.getIdAccount()); 
-	                 map().setIdBill(source.getIdBill()); 
-	                 map().setNameAccount(source.getNameAccount()); 
-	            }
-
-	        });
+	       
 	      
-	        mapper.addMappings(new PropertyMap<EvaluateDTO, Evaluate>() {
 
-	            @Override
-	            protected void configure() {
-	                map().setId(source.getId());
-	                map().setNumber(source.getNumber());
-	                map().setComment(source.getComment());
-	                map().setCreated(source.getCreated());
-	                map().setStatus(source.isStatus());
-	                map().setIdAccount(source.getIdAccount());
-	                map().setIdBill(source.getIdBill());
-	                map().setNameAccount(source.getNameAccount());
-	            }
 
-	        });
-
-	        mapper.addMappings(new PropertyMap<Hotel, HotelDTO>() {
-
-	            @Override
-	            protected void configure() {
-	            	  map().setIdAccount(source.getIdAccount());
-	                  map().setName(source.getName()); // Assuming you want to map name again
-	                  map().setCancellationPolicy(source.getCancellationPolicy());
-	                  map().setDescription(source.getDescription());
-	                  map().setRating(source.getRating());
-	                  map().setManager(source.getManager());
-	                 // map().setStatus(source.getStatus()); // boolean uses isStatus()
-	                  map().setMainPhoto(source.getMainPhoto());
-	                  map().setSecondaryPhoto(source.getSecondaryPhoto());
-	                  map().setPapers(source.getPapers());
-	                  map().setRegulation(source.getRegulation());
-	                  map().setIdHandler(source.getIdHandler());
-	                  map().setAddress(source.getAddress());
-	                 
-	            }
-
+	        mapper.typeMap(Hotel.class, HotelDTO.class).addMappings(m -> {
+	            m.map(Hotel::getIdAccount, HotelDTO::setIdAccount);
+	            m.map(Hotel::getName, HotelDTO::setName);
+	            m.map(Hotel::getCancellationPolicy, HotelDTO::setCancellationPolicy);
+	            m.map(Hotel::getDescription, HotelDTO::setDescription);
+	            m.map(Hotel::getRating, HotelDTO::setRating);
+	            m.map(Hotel::getManager, HotelDTO::setManager);
+	            m.map(Hotel::getStatus, HotelDTO::setStatus); // Use converter for boolean
+	            m.using(converterImageMain).map(Hotel::getMainPhoto, HotelDTO::setMainPhoto);
+	            m.using(converterImageMain).map(Hotel::getSecondaryPhoto, HotelDTO::setSecondaryPhoto);
+	            m.map(Hotel::getPapers, HotelDTO::setPapers);
+	            m.map(Hotel::getRegulation, HotelDTO::setRegulation);
+	            m.map(Hotel::getIdHandler, HotelDTO::setIdHandler);
+	            m.using(converterAdress).map(Hotel::getAddress, HotelDTO::setAddress);
 	        });
 	        mapper.addMappings(new PropertyMap<HotelDTO, Hotel>() {
 
@@ -228,23 +249,20 @@ public class ModelMapperConfiguration {
 	            }
 
 	        });
-	        mapper.addMappings(new PropertyMap<Account, AccountDTO>() {
-
-	            @Override
-	            protected void configure() {
-	            	map().setId(source.getId());
-	            	map().setRoleId(source.getRole().getId()); // Assuming source has a getter for roleName
-	                map().setRoleName(source.getRole().getName()); // Assuming source has a getter for roleName
-	                map().setFirstName(source.getFirstName()); // Assuming source has a getter for firstName
-	                map().setLastName(source.getLastName()); // Assuming source has a getter for lastName
-	                map().setEmail(source.getEmail()); // Assuming source has a getter for email
-	                map().setPassword(source.getPassword()); // Assuming source has a getter for password (security concern, consider hashing password before mapping)
-	                map().setPhone(source.getPhone()); // Assuming source has a getter for phone
-	                map().setImage(source.getImage()); // Assuming source has a getter for image
-	                map().setActive(source.getActive()); // Assuming source has a getter for active
-	                 
-	            }
-
+	        mapper.typeMap(Account.class, AccountDTO.class).addMappings(m -> {
+	            m.map(Account::getId, AccountDTO::setId);
+	            m.map(account -> account.getRole().getName(), AccountDTO::setRoleName);
+	            // ... (Các mapping khác tương tự)
+	            m.map(Account::getFirstName, AccountDTO::setFirstName);
+	            m.map(Account::getLastName, AccountDTO::setLastName);
+	            m.map(Account::getEmail, AccountDTO::setEmail);
+	            // ... (Xem xét bảo mật khi mapping password)
+	            m.map(Account::getPhone, AccountDTO::setPhone);
+	            m.map(Account::getImage, AccountDTO::setImage);
+	            m.map(Account::getActive, AccountDTO::setActive);
+	            m.using(converterCountBillNoComment).map(Account::getBills, AccountDTO::setCountNoCommentBill);
+	          
+	            // ... (Nếu có các chuyển đổi khác)
 	        });
 	        mapper.addMappings(new PropertyMap<AccountDTO, Account>() {
 
@@ -260,7 +278,7 @@ public class ModelMapperConfiguration {
 	                map().setPhone(source.getPhone()); // Assuming source has a getter for phone
 	                map().setImage(source.getImage()); // Assuming source has a getter for image
 	                map().setActive(source.getActive()); // Assuming source has a getter for active
-	                 
+	               
 	            }
 
 	        });
@@ -303,83 +321,13 @@ public class ModelMapperConfiguration {
 
 	        });
 	       
-	        mapper.addMappings(new PropertyMap<Bill, BillDTO>() {
 
-	            @Override
-	            protected void configure() {
-	            	 map().setId(source.getId());
-	                 map().setName(source.getName());
-	                 map().setAccountId(source.getAccount().getId());
-	                 map().setPaymentId(source.getPayment().getId());
-	                 map().setPaymentName(source.getPayment().getMethod());
-	                 map().setService(source.getService());
-	                 map().setCheckInFrom(source.getCheckInFrom());
-	                 map().setCheckInUntil(source.getCheckInUntil());
-	                 map().setCheckOutFrom(source.getCheckOutFrom());
-	                 map().setCheckOutUntil(source.getCheckOutUntil());
-	                 map().setMainGuest(source.getMainGuest());
-	                 map().setStatus(source.getStatus());
-	                 map().setEmail(source.getEmail());
-	                 map().setPhone(source.getPhone());
-	                 map().setNote(source.getNote());
-	                 map().setSecurityCode(source.getSecurityCode());
-	                 map().setTotal(source.getTotal());
-
-	                 
-	            }
-
-	        });
-	        mapper.addMappings(new PropertyMap<BillDTO, Bill>() {
-
-	            @Override
-	            protected void configure() {
-	            	 map().setId(source.getId());
-	                 map().setName(source.getName());
-	                 map().setAccount(new Account(source.getAccountId()));
-	                 map().setPayment(new Payment(source.getPaymentId()));
-	                 map().setService(source.getService());
-	                 map().setCheckInFrom(source.getCheckInFrom());
-	                 map().setCheckInUntil(source.getCheckInUntil());
-	                 map().setCheckOutFrom(source.getCheckOutFrom());
-	                 map().setCheckOutUntil(source.getCheckOutUntil());
-	                 map().setMainGuest(source.getMainGuest());
-	                 map().setStatus(source.getStatus());
-	                 map().setEmail(source.getEmail());
-	                 map().setPhone(source.getPhone());
-	                 map().setNote(source.getNote());
-	                 map().setSecurityCode(source.getSecurityCode());
-	                 map().setTotal(source.getTotal());
-
-	                 
-	            }
-
-	        });
-	        
 	        
 	        
 	        
 	       
 	        
-//	        mapper.addMappings(new PropertyMap<Account, AccountDTO>() {
-//
-//	            @Override
-//	            protected void configure() {
-//	            	 map().setId(source.getId());
-//	                 map().setRoleId(source.getRole().getId());
-//	                 map().setFirstName(source.getFirstName());
-//	                 map().setLastName(source.getLastName());
-//	                 map().setEmail(source.getEmail());
-//	                 map().setPassword(source.getPassword()); // Assuming password mapping is desired
-//	                 map().setPhone(source.getPhone());
-//	                 map().setImage(source.getImage());
-//	                 map().setActive(source.getActive());
-//	                 map().setStatus(source.getStatus());
-//	                 // Ignore mapping bills collection due to potential complexity
-//	                 // Consider separate mapping for Bill if needed
-//	                //thiếu comment với evalute mapper 
-//	            }
-//
-//	        });
+
 	        return mapper;
 	      
 	       
