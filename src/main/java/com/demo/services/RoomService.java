@@ -1,5 +1,7 @@
 package com.demo.services;
 
+import java.util.List;
+
 import com.demo.entities.Room;
 
 public interface RoomService {

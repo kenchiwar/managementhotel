@@ -13,10 +13,8 @@
 		<div class="container">
 			<h5 th:text="${msg}"></h5>
 		<h4>Create bill</h4>
-		<form th:action="@{/admin/bill/create}" method="post">
-			<label for="idSender">Sender ID:</label><br>
-			<input type="number" th:field="${bill.account.id}"><br>
-	
+		<form method="post" th:action="@{/admin/bill/create}" >
+			
 			<label for="service">Service:</label><br>
 			<input type="text" th:field="${bill.service}"><br>
 	
@@ -35,9 +33,6 @@
 			<label for="main_guest">Main Guest:</label><br>
 			<input type="text" th:field="${bill.mainGuest}"><br>
 	
-			<label for="status">Status:</label><br>
-			<input type="text" th:field="${bill.status}"><br>
-	
 			<label for="name">Name:</label><br>
 			<input type="text" th:field="${bill.name}"><br>
 	
@@ -55,11 +50,12 @@
 	
 			<label for="security_code">Security Code:</label><br>
 			<input type="text" th:field="${bill.securityCode}"><br>
-	
-			<label for="total">Total:</label><br>
-			<input type="number" th:field="${bill.total}"><br><br>
-	
+			
+			<label for="quantity">quantity:</label><br>
+			<input type="number" th:field="${billDetail.quantity}"><br>
+
 			<input type="submit" value="Submit">
+			</form>
 		</form>
 		</div>
 	</div>

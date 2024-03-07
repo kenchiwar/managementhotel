@@ -1,5 +1,7 @@
 package com.demo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +43,15 @@ public class EvaluateServiceImpl implements EvaluateService{
     @Override
     public Evaluate find(int id) {
         return EvaluateRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Evaluate> getEvaluates_hotel(int idHotel, int idAccount) {
+        return EvaluateRepository.getEvaluates_hotel(idHotel, idAccount);
+    }
+
+    @Override
+    public List<Evaluate> getEvaluates(int idHotel) {
+        return EvaluateRepository.getEvaluates(idHotel);
     }
 }

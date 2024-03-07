@@ -10,7 +10,22 @@
 		
 	</div>
 	<div id="main-content">
-		<h4>Content</h4>
+		<h4>Bill Confirm</h4>
+		<label>Id: </label> <tb:block th:text="${billDetail.id}"></tb:block><br>
+		<label>Phong: </label> <tb:block th:text="${billDetail.room.name}"></tb:block><br>
+		<label>Ngay dat: </label> <tb:block th:text="${billDetail.bill.checkInUntil}"></tb:block><br>
+		<label>Ngay tra phong: </label> <tb:block th:text="${billDetail.bill.checkOutUntil}"></tb:block><br>
+		<label>Khach chinh: </label> <tb:block th:text="${billDetail.bill.mainGuest}"></tb:block><br>
+		<label>Gia: </label> <tb:block th:text="${billDetail.price}"></tb:block><br>
+		<label>Gia giam: </label> <tb:block th:text="${billDetail.priceDiscount}"></tb:block><br>
+		<label>Tong gia: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
+		<label>Ly do giam gia: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
+		<label>Phuong thuc thanh toan: </label> <tb:block th:text="${payment.method}"></tb:block><br>
+
+		<form th:action="@{/bill/paypal}" method="post">
+			<input type="hidden" name="total" th:value="${billDetail.total}">
+			<button type="submit">Paypal</button>
+		</form>
 	</div>
 	<div id="script">
 		
