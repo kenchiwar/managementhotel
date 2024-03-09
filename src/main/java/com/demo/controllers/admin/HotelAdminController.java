@@ -51,18 +51,36 @@ public class HotelAdminController {
 	public String Index(ModelMap modelMap, Authentication authentication) {
 		modelMap.put("urlImagesHotelMain", AttributeHelper.urlImagesHotelMain);
 		modelMap.put("adminHotel", "/" + UrlHelper.adminHotel);
-		modelMap.put(dataKey + "s", serviceHotel.findAll());
+		
+		
+		var hotels = serviceHotel.findAll();
+		var accounts = selectAccountService.getAccountLogin(authentication);
+		if(accounts.getRole().getId()==1) {
+			modelMap.put(dataKey + "s", hotels);
+			modelMap.put("checkHandler",true);
+		}else {
+			List<Hotel> a = new ArrayList<Hotel>();
+			hotels.forEach(x->{
+				if(x.getIdHandler()!=null && x.getIdHandler()==accounts.getId()) {
+					a.add(x);
+				}
+				
+			});
+			modelMap.put("checkHandler",false);
+			modelMap.put(dataKey + "s", a);
+
+			
+		}
+		
 
 		//
 		modelMap.put(AttributeHelper.urlForm, "/" + url + "/editHandler");
 
 		modelMap.put(AttributeHelper.checkEdit, false);
 		// admin đủ quyền mới thấy
-		SelectAccountHelper selectHelper = new SelectAccountHelper();
-		selectHelper.setRoleMax(1);
-		selectHelper.setRoleMin(2);
+		
 		modelMap.put("admins", serviceHotel.selectAccount(null, null));
-		serviceHotel.hotelDetail(null, null);
+		
 		return "admin/hotel/index";
 	}
 
@@ -89,11 +107,11 @@ public class HotelAdminController {
 
 		Hotel hotel = serviceHotel.find(idHotel);
 		hotel.setIdHandler(idAccount);
-		serviceAccount.find(idAccount);
+		serviceHotel.save(hotel);
 		System.out.println("fdsfsdf");
 		// tùy điều kiện lấy hotel
 
-		return "redirect:/" + url + "/detail";
+		return "redirect:/" + url + "";
 	}
 
 	@RequestMapping(value = { "create" }, method = RequestMethod.GET)

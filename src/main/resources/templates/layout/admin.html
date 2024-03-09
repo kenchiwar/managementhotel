@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="mainContentAdmin(title,content,css,script)">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:fragment="mainContentAdmin(title,content,css,script)">
 
 <head>
 	<meta charset="utf-8">
@@ -25,17 +26,19 @@
 	<!-- Theme style -->
 	<link rel="stylesheet" th:href="@{/assets/admin/dist/css/adminlte.min.css}">
 	<link rel="stylesheet" th:href="@{/assets/admin/dist/css/fontend.css}">
-		<link rel="stylesheet" th:href="@{/assets/admin/dist/fancybox/fancybox.css}">
-
+	<link rel="stylesheet" th:href="@{/assets/admin/dist/fancybox/fancybox.css}">
+	<link rel="stylesheet" th:href="@{/assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}">
 	<!-- overlayScrollbars -->
 	<link rel="stylesheet" th:href="@{/assets/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}">
 	<!-- Daterange picker -->
 	<link rel="stylesheet" th:href="@{/assets/admin/plugins/daterangepicker/daterangepicker.css}">
-	
+
 	<!-- summernote -->
 	<link rel="stylesheet" th:href="@{/assets/admin/plugins/summernote/summernote-bs4.min.css}">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
 </head>
 
@@ -48,8 +51,8 @@
 				height="60" width="60">
 		</div>
 		<th:block th:if="${css}">
-		<div th:replace="${css}"></div>
-	</th:block>
+			<div th:replace="${css}"></div>
+		</th:block>
 		<!-- Navbar -->
 		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
 			<!-- Left navbar links -->
@@ -240,7 +243,7 @@
 								<i class="fa-solid fa-envelope"></i>
 								<p>
 									Complain
-											
+
 								</p>
 							</a>
 							<ul class="nav nav-treeview">
@@ -256,7 +259,7 @@
 										<p>Create</p>
 									</a>
 								</li>
-								
+
 							</ul>
 						</li>
 						<li class="nav-item">
@@ -264,7 +267,7 @@
 								<i class="fa-solid fa-star"></i>
 								<p>
 									Evaluate
-											
+
 								</p>
 							</a>
 							<ul class="nav nav-treeview">
@@ -280,7 +283,7 @@
 										<p>Create</p>
 									</a>
 								</li>
-								
+
 							</ul>
 						</li>
 						<li class="nav-item ">
@@ -288,7 +291,7 @@
 								<i class="fa-solid fa-hotel"></i>
 								<p>
 									Hotel
-											
+
 
 								</p>
 							</a>
@@ -305,7 +308,7 @@
 										<p>Create</p>
 									</a>
 								</li>
-								
+
 							</ul>
 						</li>
 						<li class="nav-item ">
@@ -328,7 +331,7 @@
 										<p>Create</p>
 									</a>
 								</li>
-								
+
 							</ul>
 						</li>
 						<li class="nav-item ">
@@ -351,7 +354,7 @@
 										<p>Create</p>
 									</a>
 								</li>
-								
+
 							</ul>
 						</li>
 						<li class="nav-item ">
@@ -374,7 +377,7 @@
 										<p>Create</p>
 									</a>
 								</li>
-								
+
 							</ul>
 						</li>
 						<li class="nav-item ">
@@ -397,7 +400,7 @@
 										<p>Create</p>
 									</a>
 								</li>
-								
+
 							</ul>
 						</li>
 						<li class="nav-item ">
@@ -420,7 +423,7 @@
 										<p>Create</p>
 									</a>
 								</li>
-								
+
 							</ul>
 						</li>
 
@@ -439,11 +442,11 @@
 
 			<div th:replace="${content}">
 
-				</div>
-		</div>	
+			</div>
+		</div>
 		<!-- /.content-wrapper -->
 		<footer class="main-footer">
-			<strong> &copy; 2024 </strong> 
+			<strong> &copy; 2024 </strong>
 		</footer>
 
 		<!-- Control Sidebar -->
@@ -453,7 +456,7 @@
 		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
-	
+
 	<!-- jQuery -->
 	<script th:src="@{/assets/admin/plugins/jquery/jquery.min.js}"></script>
 	<!-- jQuery UI 1.11.4 -->
@@ -489,6 +492,19 @@
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script th:src="@{/assets/admin/dist/js/pages/dashboard.js}"></script>
 	<script th:src="@{/assets/admin/dist/fancybox/fancybox.js}"></script>
+
+	<script th:src="@{/assets/admin/plugins/datatables/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+	<script th:src="@{/assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+	<script th:src="@{/assets/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/admin/plugins/jszip/jszip.min.js}"></script>
+	<script th:src="@{/assets/admin/plugins/pdfmake/pdfmake.min.js}"></script>
+	<script th:src="@{/assets/admin/plugins/pdfmake/vfs_fonts.js}"></script>
+	<script th:src="@{/assets/admin/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+	<script th:src="@{/assets/admin/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+	<script th:src="@{/assets/admin/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
 	<th:block th:if="${script}">
 		<div th:replace="${script}"></div>
 	</th:block>
