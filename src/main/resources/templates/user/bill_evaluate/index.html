@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/user :: mainContent('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
 
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -9,63 +9,40 @@
 
 <body>
 	<div id="css">
-		
 	</div>
 	<div id="main-content">	
-		<h3>Bill List</h3>
-		<table>
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>ID sender</th>
-					<th>Người gửi</th>
-					<th>Dịch vụ</th>
-					<th>phong</th>
-					<th>Khách chính</th>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Phone</th>
-					<th>Ngay dat phong</th>
-					<th>Ngay tra phong</th>
-					<th>Gio nhan phong</th>
-					<th>Gio tra phong</th>
-					<th>So ngay</th>
-					<th>So gio</th>
-					<th>Gia</th>
-					<th>Gia giam</th>
-					<th>Ly do Gia giam</th>
-					<th>Total</th>
-					<th>Trạng thái</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="bill_ : ${billDetails}">
-					<td th:text="${bill_.id}"></td>
-					<td th:text="${bill_.bill.account.id}"></td>
-					<td th:text="${bill_.bill.account.email}"></td>
-					<td th:text="${bill_.bill.service}"></td>
-					<td th:text="${bill_.room.name}"></td>
-					<td th:text="${bill_.bill.mainGuest}"></td>
-					<td th:text="${bill_.bill.name}"></td>
-					<td th:text="${bill_.bill.email}"></td>
-					<td th:text="${bill_.bill.phone}"></td>
-					<td th:text="${bill_.bill.checkInUntil}"></td>
-					<td th:text="${bill_.bill.checkOutUntil}"></td>
-					<td th:text="${bill_.bill.checkInUntil}"></td>
-					<td th:text="${bill_.bill.checkOutUntil}"></td>
-					<td th:text="${bill_.numberDay}"></td>
-					<td th:text="${bill_.numberHour}"></td>
-					<td th:text="${bill_.price}"></td>
-					<td th:text="${bill_.priceDiscount}"></td>
-					<td th:text="${bill_.reasonDiscount}"></td>
-					<td th:text="${bill_.total}"></td>
-					<td th:text="${bill_.bill.status == '1' ? 'thanh toan roi' : bill_.bill.status == '2' ?  'dag o' : 'aaaaa'}"></td>		
-					<td><a th:href="@{'/bill/evaluate/' + ${bill_.id}}">Detail</a></td>			
-				</tr>
-			</tbody>
-		</table>	
-	
+		<div class="breadcrumb-area">
+			<!-- Top Breadcrumb Area -->
+			<div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
+				style="background-image: url(/assets/user/img/bg-img/footer-background.webp);">
+				<h2>Account</h2>
+			</div>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Account</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<th:block  th:insert="user/account/box :: .box-info"></th:block>
+				</div>
+				<div class="col-md-8">
+					<th:block 	th:each="bill : ${billDetails}">
+						<th:block  th:insert="user/bill_evaluate/boxevaluate :: .box-bill"></th:block>
+					</th:block>
+				</div>
+			</div>
+		</div>
 	<div id="script">
 		<script>
 		document.addEventListener("DOMContentLoaded", function() {

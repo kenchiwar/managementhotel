@@ -53,7 +53,7 @@ public class EvaluateController {
 		var account = accountSelectService.getAccountLogin(authentication);
 		var billDetails = billDetailService.getBillDetails(account.getId());
 		modelMap.put("billDetails", billDetails);
-		
+		modelMap.put("account", accountSelectService.getAccountLogin(authentication));
 		return "user/bill_evaluate/index";
 	}
 
@@ -63,7 +63,7 @@ public class EvaluateController {
 		var billDetail = billDetailService.find(id);
         modelMap.put("evaluate", evaluate);
 		modelMap.put("billDetail", billDetail);
-		
+		modelMap.put("account", accountSelectService.getAccountLogin(authentication));
 		return "user/bill_evaluate/detail";
 	}
 	public static Date localDateToDate(LocalDate localDate) {
