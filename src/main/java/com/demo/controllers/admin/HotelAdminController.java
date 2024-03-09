@@ -71,13 +71,11 @@ public class HotelAdminController {
 			@PathVariable(name="id",required = false) Integer id) {
 		// tùy điều kiện lấy hotel
 		Account account =selectAccountService.getAccountLogin(authentication);
-		if(account.getRole().getId()>2 && !(id!=null)) {
+		
 			modelMap.put("biilCensua", 
-					serviceHotel.biilCensua(null));
-		modelMap.put("accountCensus", serviceHotel.accountCensus());
-		}
-		if(id!=null) modelMap.put("biilCensua", 
-				serviceHotel.biilCensua(id));
+					serviceHotel.biilCensua(id));
+		if(account.getRole().getId()>2 && !(id!=null)) modelMap.put("accountCensus", serviceHotel.accountCensus());
+		
 			
 		
 		
@@ -147,9 +145,9 @@ public class HotelAdminController {
 
 			dataAuthentica = selectAccountService.getAccountLogin(authentication).getHotel();
 		}
-
 		if (!serviceHotel.authenticationEdit(dataAuthentica, authentication))
 			return AttributeHelper.errorPage;
+		
 		modelMap.put(dataKey, dataAuthentica);
 
 		// modelMap.put(dataKey,new Hotel());
@@ -181,8 +179,7 @@ public class HotelAdminController {
 			dataAuthentica = selectAccountService.getAccountLogin(authentication).getHotel();
 		}
 
-		if (!serviceHotel.authenticationEdit(dataAuthentica, authentication))
-			return AttributeHelper.errorPage;
+		
 		modelMap.put(dataKey, dataAuthentica);
 
 		// modelMap.put(dataKey,new Hotel());
@@ -229,8 +226,7 @@ public class HotelAdminController {
 
 			data = selectAccountService.getAccountLogin(authentication).getHotel();
 		}
-		if (!serviceHotel.authenticationEdit(data, authentication))
-			return AttributeHelper.errorPage;
+		
 		System.out.println("dfsfsdfsfsfdsfsfsf");
 		if (serviceHotel.save(data, filArrayAdd, idDeleteArray)) {
 			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");
@@ -255,8 +251,7 @@ public class HotelAdminController {
 
 			data = selectAccountService.getAccountLogin(authentication).getHotel();
 		}
-		if (!serviceHotel.authenticationEdit(data, authentication))
-			return AttributeHelper.errorPage;
+	
 		data.setStatus(status);
 		if (serviceHotel.save(data)) {
 			redirect.addFlashAttribute(AttributeHelper.successAlert, "Success");

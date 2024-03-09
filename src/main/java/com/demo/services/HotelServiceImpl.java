@@ -52,7 +52,7 @@ public class HotelServiceImpl implements HotelService {
 	EntityManager entityManager;
 	@Autowired
 	private ImagePapersRepository repositoryImagePaper;
-
+	@Autowired private AccountSelectService accountSelectService;
 	@Override
 	public boolean delete(int id) {
 		try {
@@ -152,7 +152,11 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public boolean authenticationEdit(Hotel hotel, Authentication authentication) {
-		return true;
+		Account account = accountSelectService.getAccountLogin(authentication);
+		
+		
+
+		return (hotel.getIdAccount()== account.getId() || account.getRole().getId()<=2);
 	}
 
 	@Override
@@ -283,6 +287,7 @@ public class HotelServiceImpl implements HotelService {
 			}
 
 		}
+		whereClause = cb.and(whereClause, cb.equal(root.get("status"),true));
 		// end if wwh
 		cq.where(whereClause);
 		cq.having(havingClause);
@@ -314,7 +319,7 @@ public class HotelServiceImpl implements HotelService {
 		// Join Subquery with Root
 		// whereClause=cb.and(whereClause,cb.exists(subquery));
 
-		whereClause = cb.and(whereClause, cb.isNotNull(root.get("status")));
+		whereClause = cb.and(whereClause, cb.equal(root.get("status"),true));
 		whereClause = cb.and(whereClause, cb.equal(rootAccount.get("id"), root.get("id")));
 
 		List<Selection<?>> selections = Hotel.selection(root);
