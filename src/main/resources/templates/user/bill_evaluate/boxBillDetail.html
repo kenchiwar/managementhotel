@@ -31,7 +31,7 @@
 		</th:block>
 
 		<th:block th:if="${billDetail.bill.status == '1'}">
-			<a id="cancelLink" class="btn btn-primary" th:href="@{'/admin/billdetail/cancel/' + ${billDetail.id}}">Cancel</a>
+			<a id="cancelLink" class="btn btn-danger" th:href="@{'/bill/cancel/' + ${billDetail.id}}">Cancel</a>
 		</th:block>
 		</div>
 	</div>

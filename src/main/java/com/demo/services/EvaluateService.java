@@ -13,4 +13,6 @@ public interface EvaluateService {
     public List<Evaluate> getEvaluates_hotel(int idHotel, int idAccount);
     public List<Evaluate> getEvaluates(int idHotel);
 
+    public Evaluate getEvaluate_bill(int idBill, int idAccount);
+
 }

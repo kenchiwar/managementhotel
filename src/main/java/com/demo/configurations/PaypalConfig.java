@@ -12,7 +12,7 @@ import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 
 @Configuration
-public class PaypalConfiguration {
+public class PaypalConfig {
 
 	@Value("${paypal.client.id}")
 	private String clientId;

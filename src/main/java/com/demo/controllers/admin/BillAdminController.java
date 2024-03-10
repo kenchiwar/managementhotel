@@ -153,7 +153,7 @@ public class BillAdminController {
 				Double percent_price = (double)0.1;
 				Double percent_price_day = (double)0.05;
 
-				total = billDetails.getPriceDiscount() * billDetails.getQuantity() * (1-percent_price) * billDetails.getNumberDay() * (1-percent_price_day);
+				total = ((billDetails.getPriceDiscount() * billDetails.getQuantity()) * (1-percent_price)) * billDetails.getNumberDay() * (1-percent_price_day);
 				billDetails.setTotal(total);
 				billDetailService.save(billDetails);
 

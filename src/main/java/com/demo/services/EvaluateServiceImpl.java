@@ -54,4 +54,9 @@ public class EvaluateServiceImpl implements EvaluateService{
     public List<Evaluate> getEvaluates(int idHotel) {
         return EvaluateRepository.getEvaluates(idHotel);
     }
+
+    @Override
+    public Evaluate getEvaluate_bill(int idBill, int idAccount) {
+        return EvaluateRepository.getEvaluate_bill(idBill, idAccount);
+    }
 }

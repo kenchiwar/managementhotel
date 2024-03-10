@@ -15,4 +15,7 @@ public interface EvaluateRepository extends CrudRepository<Evaluate, Integer>{
 
     @Query("from Evaluate where hotel.id =:idHotel")
     public List<Evaluate> getEvaluates(@Param("idHotel") int idHotel);
+
+    @Query("from Evaluate where idBill =:idBill and idAccount =:idAccount")
+    public Evaluate getEvaluate_bill(@Param("idBill") int idBill, @Param("idAccount") int idAccount);
 }

@@ -95,7 +95,7 @@ public class EvaluateController {
     }
 
 
-	return "redirect:/bill/evaluate";
+	return "redirect:/bill/";
 	}
 
 	@RequestMapping(value= {"nocomment"} ,method = RequestMethod.GET)
