@@ -72,6 +72,12 @@ public class BillDetailServiceImpl implements BillDetailService{
     public List<BillDetail> getBills_5() {
         return BillDetailRepository.getBills_5();
     }
+
+    @Override
+    public BillDetail getBill_User(int id_sender, int id) {
+        return BillDetailRepository.getBill_User(id_sender, id);
+    }
+
     @Override
     public List<BillDetail> getBillDetails(int id) {
         return BillDetailRepository.getBillDetails(id);
@@ -97,5 +103,22 @@ public class BillDetailServiceImpl implements BillDetailService{
     @Override
     public List<BillDetail> getBillDetails_5(int id) {
         return BillDetailRepository.getBillDetails_5(id);
+    }
+
+    @Override
+    public List<BillDetail> getBillDetails_hotel(int idAccount) {
+        return BillDetailRepository.getBillDetails_hotel(idAccount);
+    }
+    @Override
+    public List<BillDetail> getBillDetails_hotel_2(int idAccount) {
+        return BillDetailRepository.getBillDetails_hotel_2(idAccount);
+    }
+    @Override
+    public List<BillDetail> getBillDetails_hotel_3_4(int idAccount) {
+        return BillDetailRepository.getBillDetails_hotel_3_4(idAccount);
+    }
+    @Override
+    public List<BillDetail> getBillDetails_hotel_5(int idAccount) {
+        return BillDetailRepository.getBillDetails_hotel_5(idAccount);
     }
 }

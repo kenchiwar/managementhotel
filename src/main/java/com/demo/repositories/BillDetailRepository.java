@@ -27,6 +27,10 @@ public interface BillDetailRepository extends CrudRepository<BillDetail, Integer
 
     @Query("from BillDetail where bill.status ='5'")
     public List<BillDetail> getBills_5();
+
+    @Query("from BillDetail where bill.account.id =:id_sender and id=:id")
+    public BillDetail getBill_User(@Param("id_sender") int id_sender, @Param("id") int id);
+
     @Query("from BillDetail where bill.account.id =:id_sender")
     public List<BillDetail> getBillDetails(@Param("id_sender") int id_sender);
 
@@ -44,4 +48,16 @@ public interface BillDetailRepository extends CrudRepository<BillDetail, Integer
 
     @Query("from BillDetail where bill.account.id =:id_sender and bill.status ='5'")
     public List<BillDetail> getBillDetails_5(@Param("id_sender") int id_sender);
+
+    @Query("from BillDetail where room.hotel.idAccount =:idAccount and bill.status ='1'")
+    public List<BillDetail> getBillDetails_hotel(@Param("idAccount") int idAccount);
+
+    @Query("from BillDetail where room.hotel.idAccount =:idAccount and bill.status ='2'")
+    public List<BillDetail> getBillDetails_hotel_2(@Param("idAccount") int idAccount);
+
+    @Query("from BillDetail where room.hotel.idAccount =:idAccount and bill.status ='3' or bill.status='4'")
+    public List<BillDetail> getBillDetails_hotel_3_4(@Param("idAccount") int idAccount);
+
+    @Query("from BillDetail where room.hotel.idAccount =:idAccount and bill.status ='5'")
+    public List<BillDetail> getBillDetails_hotel_5(@Param("idAccount") int idAccount);
 }

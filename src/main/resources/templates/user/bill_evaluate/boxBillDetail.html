@@ -1,0 +1,38 @@
+<div class="box-bill box mb-20">
+	<div class="wrapper">
+		<div class="content">
+			<h6><tb:block th:text="${
+				billDetail.bill.status == '1' ? 'Paid' :
+				billDetail.bill.status == '2' ? 'Live In' :
+				billDetail.bill.status == '3' ? 'Completed' :
+				billDetail.bill.status == '4' ? 'Completed' : 'Cancelled'
+			}"></tb:block></h6>
+		<label>Code: </label> <tb:block th:text="${billDetail.id}"></tb:block><br>
+		<img th:src="@{'/assets/images/hotel/main/'+${billDetail.room.hotel.mainPhoto}}"><br>
+		<h5><a th:href="@{'/hotel/detail/' + ${billDetail.room.hotel.idAccount}}" th:text="${billDetail.room.hotel.name}"></a></h5>
+		<label>Room: </label> <tb:block th:text="${billDetail.room.name}"></tb:block><br>
+		<label>Start Date: </label> <tb:block th:text="${billDetail.bill.checkInUntil}"></tb:block><br>
+		<label>Number of nights: </label> <tb:block th:text="${billDetail.numberDay}"></tb:block><br>
+		<label>End Date: </label> <tb:block th:text="${billDetail.bill.checkOutUntil}"></tb:block><br>
+		<label>Khach chinh: </label> <tb:block th:text="${billDetail.bill.mainGuest}"></tb:block><br>
+		<label>Gia: </label> <tb:block th:text="${billDetail.price}"></tb:block><br>
+		<label>Gia giam: </label> <tb:block th:text="${billDetail.priceDiscount}"></tb:block><br>
+		<label>Tong gia: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
+		<label>Total: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
+		<th:block th:if="${billDetail.bill.status == '3'}">
+			<form method="post" th:action="@{/bill/evaluate/comment}">
+				numnber:<input type="number" max="5" th:field="${evaluate.number}"><br>
+				Comment: <input type="text" th:field="${evaluate.comment}"><br>
+
+				<input type="hidden" th:field="${billDetail.id}">
+				<input type="submit" value="Comment">
+
+			</form>
+		</th:block>
+
+		<th:block th:if="${billDetail.bill.status == '1'}">
+			<a id="cancelLink" class="btn btn-primary" th:href="@{'/admin/billdetail/cancel/' + ${billDetail.id}}">Cancel</a>
+		</th:block>
+		</div>
+	</div>
+</div>

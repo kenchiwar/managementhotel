@@ -16,6 +16,7 @@ public interface BillDetailService {
     public List<BillDetail> getBills_2();
     public List<BillDetail> getBills_3_4();
     public List<BillDetail> getBills_5();
+    public BillDetail getBill_User(int id_sender, int id);
 
     public List<BillDetail> getBillDetails(int id);
     public List<BillDetail> getBillDetails_1(int id);
@@ -23,5 +24,10 @@ public interface BillDetailService {
     public List<BillDetail> getBillDetails_3(int id);
     public List<BillDetail> getBillDetails_3_4(int id);
     public List<BillDetail> getBillDetails_5(int id);
+
+    public List<BillDetail> getBillDetails_hotel(int idAccount);
+    public List<BillDetail> getBillDetails_hotel_2(int idAccount);
+    public List<BillDetail> getBillDetails_hotel_3_4(int idAccount);
+    public List<BillDetail> getBillDetails_hotel_5(int idAccount);
 
 }

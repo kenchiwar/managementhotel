@@ -518,6 +518,84 @@ button.btn-submit {
 	flex: 0 0 60%;
 	max-width: 60%;
 }
-.box-room-detail {
+.box-bill.box{
+	padding: unset !important;
+}
+
+.box-bill .box-header {
+    display: flex;
+    padding: 20px;
+    border-bottom: 1px solid;
+    justify-content: space-between;
+    flex-wrap: wrap;
+        align-items: center;
+}
+.box-bill .box-header h6,
+.box-bill .box-header p{
+	margin:0;
+}
+.box-bill .box-content{
+	 border-bottom: 1px solid;
+}
+.box-bill .box-content img{
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+.box-bill .box-content .info{
+	padding: 20px 0;
+}
+.box-bill .box-content .check .wrapper{
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	margin: 0 -20px;
+}
+.box-bill .box-content .wrapper >div{
+	padding:0 20px;
+}
+.box-bill .box-footer{
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	padding: 10px;
+	gap: 15px;
+}
+.box-bill .box-footer .btn-outline{
+	padding: 0 20px;
+	height: 40px;
+	line-height: 40px;
+	border: 1px solid rgba(1,148,243,1.00);
+	color: rgba(1,148,243,1.00);
+	border-radius: 20px;
+}
+.box-bill .box-footer .btn-bg{
+	padding: 0 20px;
+	height: 40px;
+	line-height: 40px;
+	background: rgba(1,148,243,1.00);
+	color: #fff;
+	border-radius: 20px;
 	
+}
+.box-bill .Paid,
+.box-bill .Live-In{
+	font-size: 14px;
+	padding: 2px 5px;
+	background: #009AF0;
+	color:#fff;
+}
+.box-bill .Completed{
+	font-size: 14px;
+	padding: 2px 5px;
+	background: #4fff00;
+	color:#fff;
+}
+.box-bill .Cancelled{
+	font-size: 14px;
+	padding: 2px 5px;
+	background: #fd0925;
+	color:#fff;
+}
+
 }

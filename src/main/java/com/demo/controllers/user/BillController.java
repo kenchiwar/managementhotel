@@ -1,4 +1,4 @@
-package com.demo.controllers.admin;
+package com.demo.controllers.user;
 
 
 import java.time.Duration;
@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.entities.Bill;
 import com.demo.entities.BillDetail;
+import com.demo.entities.Evaluate;
 import com.demo.services.AccountSelectService;
 import com.demo.services.BillDetailService;
 import com.demo.services.BillService;
@@ -35,8 +36,8 @@ import com.paypal.api.payments.Payment;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping ("admin/bill")
-public class BillAdminController {
+@RequestMapping ("bill")
+public class BillController {
 	
 	@Autowired
 	private BillService billService;
@@ -62,33 +63,34 @@ public class BillAdminController {
 	public static final String SUCCESS_URL = "success";
 	public static final String CANCEL_URL = "cancel";
 	
-
-	//Đây là bill của thằng admin hotel
-	@RequestMapping(value= {"","/"} ,method = RequestMethod.GET)
-	public String Index(ModelMap modelMap, Authentication authentication) {
-			var account = accountSelectService.getAccountLogin(authentication);
-			modelMap.put("bill_1", billDetailService.getBillDetails_hotel(account.getId()));
-				
-			modelMap.put("bill_2", billDetailService.getBillDetails_hotel_2(account.getId()));
-				
-			modelMap.put("bill_3_4", billDetailService.getBillDetails_hotel_3_4(account.getId()));
-			
-				
-			modelMap.put("bill_5", billDetailService.getBillDetails_hotel_5(account.getId()));
-		return "admin/bill/index";
-	}
-
-	//Đây là bill của supper admin vô hotel
-	@RequestMapping(value= {"hotel/{id}"} ,method = RequestMethod.GET)
-	public String Hotel(ModelMap modelMap, Authentication authentication, @PathVariable(value = "id") Integer idAccount) {
-			modelMap.put("bill_1", billDetailService.getBillDetails_hotel(idAccount));
-			modelMap.put("bill_2", billDetailService.getBillDetails_hotel_2(idAccount));
-			modelMap.put("bill_3_4", billDetailService.getBillDetails_hotel_3_4(idAccount));
-			
-			modelMap.put("bill_5", billDetailService.getBillDetails_hotel_5(idAccount));
-		return "admin/bill/index";
+	@RequestMapping(value= {"", "/","detail/{id}"} ,method = RequestMethod.GET)
+	public String Index(ModelMap modelMap, Authentication authentication, @PathVariable(value = "id", required = false) Integer id, Evaluate evaluate) {
+		var account = accountSelectService.getAccountLogin(authentication);
+		if(id == null){
+			var billDetails = billDetailService.getBillDetails(account.getId());
+			var billDetails_1 = billDetailService.getBillDetails_1(account.getId());
+			modelMap.put("billDetails_1", billDetailService.getBillDetails_1(account.getId()));
+			modelMap.put("billDetails_3_4", billDetailService.getBillDetails_3_4(account.getId()));
+			modelMap.put("billDetails_5", billDetailService.getBillDetails_5(account.getId()));
+			modelMap.put("billDetails", billDetails);
+			modelMap.put("account", accountSelectService.getAccountLogin(authentication));
+		}else {
+			var billDetail = billDetailService.getBill_User(accountSelectService.getAccountLogin(authentication).getId(), id);
+			modelMap.put("evaluate", evaluate);
+			modelMap.put("billDetail", billDetail);
+			modelMap.put("account", accountSelectService.getAccountLogin(authentication));
+		}
+		return "user/bill_evaluate/index";
 	}
 	
+	// @RequestMapping(value= {"detail/{id}"} ,method = RequestMethod.GET)
+	// public String Detail(@PathVariable("id") int id,ModelMap modelMap, Authentication authentication, Evaluate evaluate) {
+	// 	var billDetail = billDetailService.getBill_User(accountSelectService.getAccountLogin(authentication).getId(), id);
+	// 	modelMap.put("evaluate", evaluate);
+	// 	modelMap.put("billDetail", billDetail);
+	// 	return "user/bill_evaluate/detail";
+	// }
+
 	@RequestMapping(value= {"create"} ,method = RequestMethod.GET)
 	public String create(ModelMap modelMap, HttpSession session, Authentication authentication) {
 		Bill bill = new Bill();
@@ -179,12 +181,12 @@ public class BillAdminController {
 			return "success";
 	}
 
-	@RequestMapping(value= {"detail/{id}"} ,method = RequestMethod.GET)
-	public String detail(ModelMap modelMap, @PathVariable("id") int id) {
-			modelMap.put("billPaypal", billDetailService.find(id));
+	// @RequestMapping(value= {"detail/{id}"} ,method = RequestMethod.GET)
+	// public String detail(ModelMap modelMap, @PathVariable("id") int id) {
+	// 		modelMap.put("billPaypal", billDetailService.find(id));
 
-			return "admin/bill/detail";
-	}
+	// 		return "admin/bill/detail";
+	// }
 	@RequestMapping(value= {"edit"} ,method = RequestMethod.GET)
 	public String edit(ModelMap modelMap, HttpSession session) {
 			

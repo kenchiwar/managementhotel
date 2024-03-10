@@ -1,0 +1,53 @@
+<div class="box-bill box mb-4">
+	<div class="wrapper">
+		<div class="box-header">
+			<div class="title">
+				<h6>Code: <th:block th:text="${bill.id}"></th:block>
+				</h6>
+			</div>
+			<div th:class="'status '+${bill.bill.status == '1' ? 'Paid'
+			: bill.bill.status == '2' ? 'Live-In' 
+			: bill.bill.status == '3' ? 'Completed'
+			: bill.bill.status == '4' ? 'Completed' : 'Cancelled'
+		   }" th:text="${bill.bill.status == '1' ? 'Paid'
+			: bill.bill.status == '2' ? 'Live In' 
+			: bill.bill.status == '3' ? 'Completed'
+			: bill.bill.status == '4' ? 'Completed' : 'Cancelled'
+		   }"></div>
+		</div>
+		<div class="box-content">
+			<div class="row">
+				<div class="col-md-3">
+					<img th:src="@{'/assets/images/hotel/main/'+${bill.room.hotel.mainPhoto}}">
+				</div>
+				<div class="col-md-9">
+					<div class="info">
+						<h5 class="fs-20 fw-700">
+							<th:block th:text="${bill.room.hotel.name}"></th:block>
+						</h5>
+						<div class="check">
+							<div class="wrapper">
+								<div class="CheckIn">
+									<p>Check In From</p>
+									<strong class="color-black">
+										<th:block th:text="${bill.bill.checkInFrom}"></th:block>
+									</strong>
+								</div>
+								<div class="CheckOut">
+									<p>Check Out Until</p>
+									<strong class="color-black">
+										<th:block th:text="${bill.bill.checkOutUntil}"></th:block>
+									</strong>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="box-footer">
+			<a th:href="@{'#'}" class="btn-outline">Send Evaluate</a>
+			<a th:href="@{'/bill/detail/' + ${bill.id}}" class="btn-bg">Manage</a>
+		</div>
+	</div>
+</div>

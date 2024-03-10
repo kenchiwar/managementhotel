@@ -1,16 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/user :: mainContent('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/user :: mainContent('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
 
 <head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 </head>
 
 
 <body>
 	<div id="css">
+		<style>
+			/* Tab Links */
+			.tabs {
+				display: flex;
+				border-bottom: 1px solid rgb(107, 115, 136);
+			}
+
+			.tablinks {
+				border: unset !important;
+				outline: unset !important;
+				cursor: pointer;
+				width: 100%;
+				padding: 1rem;
+				font-size: 13px;
+				text-transform: uppercase;
+				font-weight: 600;
+				transition: 0.2s ease;
+			}
+
+			.tablinks:hover {
+				color: rgba(1,148,243,1.00);
+			}
+
+			/* Tab active */
+			.tablinks.active {
+				color: rgba(1,148,243,1.00);
+				border-bottom: 3px solid rgba(1,148,243,1.00) !important;
+				outline: unset !important;
+			}
+
+			/* tab content */
+			.tabcontent {
+				display: none;
+				padding: 20px 0;
+			}
+
+			/* Text*/
+			.tabcontent p {
+				color: #333;
+				font-size: 16px;
+			}
+
+			/* tab content active */
+			.tabcontent.active {
+				display: block;
+			}
+		</style>
 	</div>
-	<div id="main-content">	
+	<div id="main-content">
 		<div class="breadcrumb-area">
 			<!-- Top Breadcrumb Area -->
 			<div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
@@ -34,31 +83,108 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">
-					<th:block  th:insert="user/account/box :: .box-info"></th:block>
+					<th:block th:insert="user/account/box :: .box-info"></th:block>
 				</div>
 				<div class="col-md-8">
-					<th:block 	th:each="bill : ${billDetails}">
-						<th:block  th:insert="user/bill_evaluate/boxevaluate :: .box-bill"></th:block>
-					</th:block>
+					<!-- Tab links -->
+					<div class="tabs">
+						<button class="tablinks active" data-electronic="Upcoming">Upcoming</button>
+						<button class="tablinks" data-electronic="Completed">Completed</button>
+						<button class="tablinks" data-electronic="Cancelled">Cancelled</button>
+					</div>
+
+					<!-- Tab content -->
+					<div class="wrapper_tabcontent">
+						<th:block th:if="${billDetails != null}">
+							<div id="Upcoming" class="tabcontent active">
+								<th:block th:if="${billDetails_1.size > 0}">
+									<th:block th:each="bill : ${billDetails_1}">
+										<th:block th:insert="user/bill_evaluate/boxBill :: .box-bill"></th:block>
+									</th:block>
+								</th:block>
+								<th:block th:if="${billDetails_1.size == 0}">
+									<h4>No Data</h4>
+								</th:block>
+								
+							</div>
+
+							<div id="Completed" class="tabcontent">
+								<th:block th:if="${billDetails_3_4.size > 0}">
+									<th:block th:each="bill : ${billDetails_3_4}">
+										<th:block th:insert="user/bill_evaluate/boxBill :: .box-bill"></th:block>
+									</th:block>
+								</th:block>
+								<th:block th:if="${billDetails_3_4.size == 0}">
+									<h4>No Data</h4>
+								</th:block>
+							</div>
+							<div id="Cancelled" class="tabcontent">
+								<th:block th:if="${billDetails_5.size > 0}">
+									<th:block th:each="bill : ${billDetails_5}">
+										<th:block th:insert="user/bill_evaluate/boxBill :: .box-bill"></th:block>
+									</th:block>
+								</th:block>
+								<th:block th:if="${billDetails_5.size == 0}">
+									<h4>No Data</h4>
+								</th:block>
+							</div>
+						</th:block>
+
+						</th:block>
+							
+						<th:block th:if="${billDetail != null}">
+							<th:block  th:insert="user/bill_evaluate/boxBillDetail :: .box-bill"></th:block>
+						</th:block>
+
+					</div>
+					<div>
+
+					</div>
 				</div>
 			</div>
 		</div>
-	<div id="script">
-		<script>
-		document.addEventListener("DOMContentLoaded", function() {
-    	document.getElementById("cancelLink").addEventListener("click", function(event) {
-        event.preventDefault();
-        
-        var confirmed = confirm("Bạn có chắc chắn muốn hủy bỏ không?");
-        
-        if (confirmed) {
-            window.location.href = this.getAttribute("href");
-        }
-    });
-});
-			
-	   </script>
-	</div>
+		<div id="script">
+			<script>
+				document.addEventListener("DOMContentLoaded", function () {
+					document.getElementById("cancelLink").addEventListener("click", function (event) {
+						event.preventDefault();
+
+						var confirmed = confirm("Bạn có chắc chắn muốn hủy bỏ không?");
+
+						if (confirmed) {
+							window.location.href = this.getAttribute("href");
+						}
+					});
+				});
+
+			</script>
+			<script>
+				var tabLinks = document.querySelectorAll(".tablinks");
+				var tabContent = document.querySelectorAll(".tabcontent");
+
+				tabLinks.forEach(function (el) {
+					el.addEventListener("click", openTabs);
+				});
+
+
+				function openTabs(el) {
+					var btn = el.currentTarget; // lắng nghe sự kiện và hiển thị các element
+					var electronic = btn.dataset.electronic; // lấy giá trị trong data-electronic
+
+					tabContent.forEach(function (el) {
+						el.classList.remove("active");
+					});
+
+					tabLinks.forEach(function (el) {
+						el.classList.remove("active");
+					});
+
+					document.querySelector("#" + electronic).classList.add("active");
+
+					btn.classList.add("active");
+				}
+			</script>
+		</div>
 </body>
 
 </html>
