@@ -1,38 +1,150 @@
-<div class="box-bill box mb-20">
-	<div class="wrapper">
-		<div class="content">
-			<h6><tb:block th:text="${
+<div class="sec-bill-detail">
+	<div class="box-bill-detail-1 box  box-bill-detail mb-30">
+		<div class="wrapper">
+			<div class="header">
+				<h6 class="fs-20 fw-700 color-white">
+					<th:block th:text="${
 				billDetail.bill.status == '1' ? 'Paid' :
 				billDetail.bill.status == '2' ? 'Live In' :
 				billDetail.bill.status == '3' ? 'Completed' :
 				billDetail.bill.status == '4' ? 'Completed' : 'Cancelled'
-			}"></tb:block></h6>
-		<label>Code: </label> <tb:block th:text="${billDetail.id}"></tb:block><br>
-		<img th:src="@{'/assets/images/hotel/main/'+${billDetail.room.hotel.mainPhoto}}"><br>
-		<h5><a th:href="@{'/hotel/detail/' + ${billDetail.room.hotel.idAccount}}" th:text="${billDetail.room.hotel.name}"></a></h5>
-		<label>Room: </label> <tb:block th:text="${billDetail.room.name}"></tb:block><br>
-		<label>Start Date: </label> <tb:block th:text="${billDetail.bill.checkInUntil}"></tb:block><br>
-		<label>Number of nights: </label> <tb:block th:text="${billDetail.numberDay}"></tb:block><br>
-		<label>End Date: </label> <tb:block th:text="${billDetail.bill.checkOutUntil}"></tb:block><br>
-		<label>Khach chinh: </label> <tb:block th:text="${billDetail.bill.mainGuest}"></tb:block><br>
-		<label>Gia: </label> <tb:block th:text="${billDetail.price}"></tb:block><br>
-		<label>Gia giam: </label> <tb:block th:text="${billDetail.priceDiscount}"></tb:block><br>
-		<label>Tong gia: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
-		<label>Total: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
-		<th:block th:if="${billDetail.bill.status == '3'}">
-			<form method="post" th:action="@{/bill/evaluate/comment}">
-				numnber:<input type="number" max="5" th:field="${evaluate.number}"><br>
-				Comment: <input type="text" th:field="${evaluate.comment}"><br>
+			}"></th:block>
+				</h6>
+			</div>
+			<div class="content">
+				<p class="text-center mb-30 fs-18 fw-700 color-black">Code : <th:block th:text="${billDetail.id}">
+					</th:block>
+				</p>
+				<a th:href="@{'#'}" class="btn-outline mb-30">Send Evaluate</a>
+				<a href="#" class="btn-bg">Rebooking</a>
+			</div>
+		</div>
+	</div>
 
-				<input type="hidden" th:field="${billDetail.id}">
-				<input type="submit" value="Comment">
+	<div class="box-bill-detail-2 box  box-bill-detail mb-30">
+		<div class="wrapper">
+			<div class="image">
+				<img th:src="@{'/assets/images/hotel/main/'+${billDetail.room.hotel.mainPhoto}}">
+			</div>
+			<div class="content">
+				<h6 th:text="${billDetail.room.hotel.name}" class="fs-22 fw-700 color-black mb-2"></h6>
 
-			</form>
-		</th:block>
+				<p class="phone">Phone Hotel : <a th:href="@{'tel:'+${billDetail.room.hotel.account.phone}}"
+						th:text="${billDetail.room.hotel.account.phone}"></a></p>
 
-		<th:block th:if="${billDetail.bill.status == '1'}">
-			<a id="cancelLink" class="btn btn-danger" th:href="@{'/bill/cancel/' + ${billDetail.id}}">Cancel</a>
-		</th:block>
+			</div>
+			<div class="footer">
+				<div class="check">
+					<div class="wrapper">
+						<div class="CheckIn">
+							<p>Check In From</p>
+							<strong class="color-black">
+								<th:block th:text="${billDetail.bill.checkInFrom}"></th:block>
+							</strong>
+						</div>
+						<div class="CheckOut">
+							<p>Check Out Until</p>
+							<strong class="color-black">
+								<th:block th:text="${billDetail.bill.checkOutUntil}"></th:block>
+							</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="box-bill-detail-3 box  box-bill-detail mb-30">
+		<div class="wrapper">
+
+			<div class="content p-20">
+				<h6 th:text="'Cancellation policy'" class="fs-22 fw-700 color-black mb-2"></h6>
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+					industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+					and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+					leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+					with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+					publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+			</div>
+
+		</div>
+	</div>
+	<div class="box-bill-detail-4 box  box-bill-detail mb-30">
+		<div class="wrapper">
+
+			<div class="content p-20" style="border-bottom: 1px solid;">
+				<h6 th:text="'Information about leprosy'" class="fs-22 fw-700 color-black mb-2"></h6>
+				<div class="row">
+
+					<div class="col-md-3">
+						<img th:src="@{'/assets/images/hotel/main/'+${billDetail.room.hotel.mainPhoto}}">
+					</div>
+					<div class="col-md-9">
+						<p th:text="${billDetail.room.name}" class="fs-18 fw-600 color-black mb-2"></p>
+					</div>
+				</div>
+			</div>
+			<div class="footer p-20">
+				<p th:text="${billDetail.room.describes}"></p>
+			</div>
+		</div>
+	</div>
+	<div class="box-bill-detail-5 box  box-bill-detail mb-30">
+		<div class="wrapper">
+			<div class="header p-20" style="border-bottom: 1px solid;">
+				<h6 th:text="'Payment information'" class="fs-22 fw-700 color-black mb-2"></h6>
+				<div class="row">
+					<div class="col-12">
+						<p class="fs-18 fw-500 color-black">Main guest: </p>
+
+					</div>
+					<div class="col-12">
+						<p th:text="${billDetail.bill.mainGuest}" class="fs-16 color-black"></p>
+
+					</div>
+				</div>
+			</div>
+			<div class="content p-20" style="border-bottom: 1px solid;">
+				<div class="row">
+					<div class="col-6">
+						<p class="fs-16 color-black">Price</p>
+
+					</div>
+					<div class="col-6 " style="text-align: end;">
+						<p th:text="${billDetail.price}" class="fs-16 color-black"></p>
+					</div>
+					<div class="col-6">
+						<p class="fs-16 color-black">Price Discount</p>
+
+					</div>
+					<div class="col-6 " style="text-align: end;">
+						<p th:text="${billDetail.priceDiscount}" class="fs-16 color-black"></p>
+					</div>
+
+				</div>
+
+
+			</div>
+			<div class="footer p-20">
+				<div class="row">
+					<div class="col-6">
+						<p class="fs-22 fw-700 color-black">Total</p>
+
+					</div>
+					<div class="col-6 " style="text-align: end;">
+						<p th:text="${billDetail.total}" class="fs-22 fw-700 color-black"></p>
+					</div>
+					<th:block th:if="${billDetail.bill.status == '3'}">
+						<form method="post" th:action="@{/bill/evaluate/comment}">
+							numnber:<input type="number" max="5" th:field="${evaluate.number}"><br>
+							Comment: <input type="text" th:field="${evaluate.comment}"><br>
+
+							<input type="hidden" th:field="${billDetail.id}">
+							<input type="submit" value="Comment">
+
+						</form>
+					</th:block>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

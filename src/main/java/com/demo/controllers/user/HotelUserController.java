@@ -69,7 +69,11 @@ public class HotelUserController {
 		modelMap.put("hotels", hotels);
 		return "user/hotel/index";
 	}
-	
+	@RequestMapping(value = {"/booking/{id}"}, method = RequestMethod.GET)
+	public String Booking(ModelMap modelMap, HttpSession session,@PathVariable("id") Integer id) {
+		
+		return "user/hotel/booking";
+	}
 	@RequestMapping(value = "detail/{id}", method = RequestMethod.GET)
 	public String Single(ModelMap modelMap, HttpSession session,@PathVariable("id") int id,@ModelAttribute(name = "search") SelectHelperHotel search
 			,@RequestParam(name ="searchReset",required = false) boolean reset ) {

@@ -63,6 +63,29 @@
 			.s-button::after {
 				font-size: 18px;
 			}
+
+			.box-room-detailm .price {
+				color: #333;
+
+			}
+
+			.box-room-detail .price {
+
+				font-size: 20px;
+			}
+
+			.box-room-detail .price span {
+				color: #9e9e9e;
+				text-decoration-line: line-through;
+
+			}
+
+			.box-room-detail .price-sale span {
+				color: rgb(255, 94, 31);
+
+				font-size: 26px;
+				font-weight: 700;
+			}
 		</style>
 	</div>
 	<div class="main-content">
@@ -321,7 +344,7 @@
 
 										</div>
 										<div class="buttons">
-											<a th:href="'#'" class="btn btn-booknow">Book
+											<a th:href="@{'/hotel/booking/'+${room.id}}" class="btn btn-booknow">Book
 												now</a>
 										</div>
 									</div>
@@ -382,6 +405,8 @@
 			</div>
 
 		</div>
+
+
 	</div>
 
 	<div id="script">
