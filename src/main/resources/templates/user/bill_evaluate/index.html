@@ -31,13 +31,13 @@
 			}
 
 			.tablinks:hover {
-				color: rgba(1,148,243,1.00);
+				color: rgba(1, 148, 243, 1.00);
 			}
 
 			/* Tab active */
 			.tablinks.active {
-				color: rgba(1,148,243,1.00);
-				border-bottom: 3px solid rgba(1,148,243,1.00) !important;
+				color: rgba(1, 148, 243, 1.00);
+				border-bottom: 3px solid rgba(1, 148, 243, 1.00) !important;
 				outline: unset !important;
 			}
 
@@ -87,12 +87,13 @@
 				</div>
 				<div class="col-md-8">
 					<!-- Tab links -->
-					<div class="tabs">
-						<button class="tablinks active" data-electronic="Upcoming">Upcoming</button>
-						<button class="tablinks" data-electronic="Completed">Completed</button>
-						<button class="tablinks" data-electronic="Cancelled">Cancelled</button>
-					</div>
-
+					<th:block th:if="${billDetails != null}">
+						<div class="tabs">
+							<button class="tablinks active" data-electronic="Upcoming">Upcoming</button>
+							<button class="tablinks" data-electronic="Completed">Completed</button>
+							<button class="tablinks" data-electronic="Cancelled">Cancelled</button>
+						</div>
+					</th:block>
 					<!-- Tab content -->
 					<div class="wrapper_tabcontent">
 						<th:block th:if="${billDetails != null}">
@@ -105,7 +106,7 @@
 								<th:block th:if="${billDetails_1.size == 0}">
 									<h4>No Data</h4>
 								</th:block>
-								
+
 							</div>
 
 							<div id="Completed" class="tabcontent">
@@ -131,13 +132,9 @@
 						</th:block>
 
 						</th:block>
-						<th:block th:if="${evaluates != null}">
-							<th:block th:each="bill : ${evaluates}">
-									<th:block th:insert="user/bill_evaluate/boxEvaluate :: .box-bill"></th:block>										
-							</th:block>
-						</th:block>
+
 						<th:block th:if="${billDetail != null}">
-							<th:block  th:insert="user/bill_evaluate/boxBillDetail :: .box-bill"></th:block>
+							<th:block th:insert="user/bill_evaluate/boxBillDetail :: .sec-bill-detail"></th:block>
 						</th:block>
 
 					</div>
@@ -153,7 +150,7 @@
 					document.getElementById("cancelLink").addEventListener("click", function (event) {
 						event.preventDefault();
 
-						var confirmed = confirm("Are you sure?");
+						var confirmed = confirm("Bạn có chắc chắn muốn hủy bỏ không?");
 
 						if (confirmed) {
 							window.location.href = this.getAttribute("href");
@@ -188,7 +185,6 @@
 					btn.classList.add("active");
 				}
 			</script>
-			
 		</div>
 </body>
 
