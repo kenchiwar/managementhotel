@@ -85,6 +85,7 @@ public class BillController {
 		}else {
 			var billDetail = billDetailService.getBill_User(accountSelectService.getAccountLogin(authentication).getId(), id);
 			modelMap.put("evaluate", evaluate);
+			
 			modelMap.put("billDetail", billDetail);
 			modelMap.put("account", accountSelectService.getAccountLogin(authentication));
 		}

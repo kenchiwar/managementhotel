@@ -131,7 +131,11 @@
 						</th:block>
 
 						</th:block>
-							
+						<th:block th:if="${evaluates != null}">
+							<th:block th:each="bill : ${evaluates}">
+									<th:block th:insert="user/bill_evaluate/boxEvaluate :: .box-bill"></th:block>										
+							</th:block>
+						</th:block>
 						<th:block th:if="${billDetail != null}">
 							<th:block  th:insert="user/bill_evaluate/boxBillDetail :: .box-bill"></th:block>
 						</th:block>
@@ -149,7 +153,7 @@
 					document.getElementById("cancelLink").addEventListener("click", function (event) {
 						event.preventDefault();
 
-						var confirmed = confirm("Bạn có chắc chắn muốn hủy bỏ không?");
+						var confirmed = confirm("Are you sure?");
 
 						if (confirmed) {
 							window.location.href = this.getAttribute("href");
@@ -184,6 +188,7 @@
 					btn.classList.add("active");
 				}
 			</script>
+			
 		</div>
 </body>
 

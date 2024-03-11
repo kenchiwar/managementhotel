@@ -34,11 +34,7 @@ public class BillDetailController {
 	
 	@RequestMapping(value= {"/{id}"} ,method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, @PathVariable("id") int id) {
-		// BillDetail billDetail = new BillDetail();
-		// var rollBill = billDetailService.getBillDetails(id);
-		// for (BillDetail billDetail_ : rollBill) {
-		// 	billDetail = billDetailService.find(billDetail_.getId());
-		// }
+		
 		var billDetail = billDetailService.find(id);
 		modelMap.put("checkBill", billDetail);
 		switch (billDetail.getBill().getStatus()) {
@@ -61,66 +57,7 @@ public class BillDetailController {
 		return "admin/billdetail/index";
 	}
 	
-	@RequestMapping(value= {"create"} ,method = RequestMethod.GET)
-	public String create(ModelMap modelMap, HttpSession session) {
-			
-	return "admin/billdetail/create";
-	}
-	@RequestMapping(value= {"detail"} ,method = RequestMethod.GET)
-	public String detail(ModelMap modelMap, HttpSession session) {
-			
-	return "admin/billdetail/detail";
-	}
-	@RequestMapping(value= {"edit/{id}"} ,method = RequestMethod.GET)
-	public String edit(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
-		var bill_detail = billDetailService.find(id);
-		Bill bill = billService.find(bill_detail.getBill().getId());
-		Bill bill_ = new Bill();
-		switch (bill.getStatus()) {
-			case "1":
-				bill.setStatus("2");
-				break;
-			case "2":
-				bill.setStatus("3");
-				var room = roomServices.find(bill_detail.getRoom().getId());
-				room.setRoomNow(bill_detail.getRoom().getRoomNow() + bill_detail.getQuantity());
-				roomServices.save(room);
-				break;
-			default:
-				break;
-		}
-		if(billService.save(bill)){
-			redirectAttributes.addFlashAttribute("msg", "success");
-		}else{
-				redirectAttributes.addFlashAttribute("msg", "failed");
-		}
-		return "redirect:/admin/bill";
-	}
 
-	@RequestMapping(value= {"edit_reason/{id}"} ,method = RequestMethod.GET)
-	public String edit_reason(@PathVariable("id") int id, RedirectAttributes redirectAttributes, ModelMap modelMap, BillDetail billDetail) {
-		var bill_detail = billDetailService.find(id);
-		Bill bill_ = new Bill();
-		modelMap.put("billDetail", bill_detail);
-		modelMap.put("billDetail_form", billDetail);
-		return "admin/billdetail/edit";
-	}
-		
-	// Method 
-	@RequestMapping(value= {"add"} ,method = RequestMethod.POST)
-	public String Add(ModelMap modelMap, HttpSession session) {
-			
-	return "redirect:admin/billdetail";
-	}
-	
-	@RequestMapping(value= {"update"} ,method = RequestMethod.POST)
-	public String update(@ModelAttribute("billDetail") BillDetail billDetail, HttpSession session) {
-		var bill_detail = billDetailService.find(billDetail.getId());
-		bill_detail.setReasonDiscount(billDetail.getReasonDiscount());
-		
-		billDetailService.save(bill_detail);
-	return "redirect:/admin/bill";
-	}
 	@RequestMapping(value= {"cancel/{id}"} ,method = RequestMethod.GET)
 	public String delete(ModelMap modelMap, @PathVariable("id") int id, RedirectAttributes redirectAttributes) {
 		var bill_detail = billDetailService.find(id);

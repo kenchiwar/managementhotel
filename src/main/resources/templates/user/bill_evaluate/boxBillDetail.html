@@ -20,7 +20,7 @@
 		<label>Tong gia: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
 		<label>Total: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
 		<th:block th:if="${billDetail.bill.status == '3'}">
-			<form method="post" th:action="@{/bill/evaluate/comment}">
+			<form method="post" th:action="@{/evaluate/comment}">
 				numnber:<input type="number" max="5" th:field="${evaluate.number}"><br>
 				Comment: <input type="text" th:field="${evaluate.comment}"><br>
 

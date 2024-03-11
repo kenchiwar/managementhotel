@@ -28,7 +28,7 @@ import com.demo.services.RoomService;
 
 import jakarta.servlet.http.HttpSession;
 @Controller
-@RequestMapping ("bill/evaluate")
+@RequestMapping ("evaluate")
 public class EvaluateController {
 	@Autowired
 	private RoomService roomService;
@@ -51,8 +51,9 @@ public class EvaluateController {
 	@RequestMapping(value= {"", "/"} ,method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, Authentication authentication) {
 		var account = accountSelectService.getAccountLogin(authentication);
-		var billDetails = billDetailService.getBillDetails(account.getId());
-		modelMap.put("billDetails", billDetails);
+		var evaluates = evaluateService.getEvaluates_user(account.getId());
+		var billDetails = billDetailService.getBillDetails_3_4(account.getId());
+		modelMap.put("evaluates", billDetails);
 		modelMap.put("account", accountSelectService.getAccountLogin(authentication));
 		return "user/bill_evaluate/index";
 	}

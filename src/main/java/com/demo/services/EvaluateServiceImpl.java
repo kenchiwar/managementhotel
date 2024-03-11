@@ -56,6 +56,11 @@ public class EvaluateServiceImpl implements EvaluateService{
     }
 
     @Override
+    public List<Evaluate> getEvaluates_user(int idSender) {
+        return EvaluateRepository.getEvaluate_user(idSender);
+    }
+
+    @Override
     public Evaluate getEvaluate_bill(int idBill, int idAccount) {
         return EvaluateRepository.getEvaluate_bill(idBill, idAccount);
     }
