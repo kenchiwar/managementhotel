@@ -238,198 +238,244 @@
 						data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-						<li class="nav-item">
-							<a href="#" class="nav-link ">
-								<i class="fa-solid fa-envelope"></i>
-								<p>
-									Complain
+						<th:block sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN')">
+							<li class="nav-item">
+								<a href="#" class="nav-link ">
+									<i class="fa-solid fa-envelope"></i>
+									<p>
+										Complain
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a th:href="@{/admin/complain}" class="nav-link">
+											<i class="far fa-circle nav-icon"></i>
+											<p>All Complain</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a th:href="@{/admin/complain/create}" class="nav-link">
+											<i class="nav-icon fa-solid fa-plus"></i>
+											<p>Create</p>
+										</a>
+									</li>
 
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a th:href="@{/admin/complain}" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>All Complain</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a th:href="@{/admin/complain/create}" class="nav-link">
-										<i class="nav-icon fa-solid fa-plus"></i>
-										<p>Create</p>
-									</a>
-								</li>
+								</ul>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link ">
+									<i class="fa-solid fa-star"></i>
+									<p>
+										Evaluate
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a th:href="@{/admin/evaluate}" class="nav-link">
+											<i class="far fa-circle nav-icon"></i>
+											<p>All Complain</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a th:href="@{/admin/evaluate/create}" class="nav-link">
+											<i class="nav-icon fa-solid fa-plus"></i>
+											<p>Create</p>
+										</a>
+									</li>
 
-							</ul>
-						</li>
-						<li class="nav-item">
-							<a href="#" class="nav-link ">
-								<i class="fa-solid fa-star"></i>
-								<p>
-									Evaluate
-
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a th:href="@{/admin/evaluate}" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>All Complain</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a th:href="@{/admin/evaluate/create}" class="nav-link">
-										<i class="nav-icon fa-solid fa-plus"></i>
-										<p>Create</p>
-									</a>
-								</li>
-
-							</ul>
-						</li>
-						<li class="nav-item ">
-							<a href="#" class="nav-link ">
-								<i class="fa-solid fa-hotel"></i>
-								<p>
-									Hotel
-
-
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a th:href="@{/admin/hotel}" class="nav-link active">
-										<i class="far fa-circle nav-icon"></i>
-										<p>All Hotel</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a th:href="@{/admin/hotel/create}" class="nav-link">
-										<i class="nav-icon fa-solid fa-plus"></i>
-										<p>Create</p>
-									</a>
-								</li>
-
-							</ul>
-						</li>
-						<li class="nav-item ">
-							<a href="#" class="nav-link ">
-								<i class="fa-solid fa-user"></i>
-								<p>
-									Account
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a th:href="@{/admin/account}" class="nav-link active">
-										<i class="far fa-circle nav-icon"></i>
-										<p>All Account</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a th:href="@{/admin/account/create}" class="nav-link">
-										<i class="nav-icon fa-solid fa-plus"></i>
-										<p>Create</p>
-									</a>
-								</li>
-
-							</ul>
-						</li>
-						<li class="nav-item ">
-							<a href="#" class="nav-link ">
-								<i class="fa-solid fa-image"></i>
-								<p>
-									Caregory Images
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a th:href="@{/admin/category/image}" class="nav-link active">
-										<i class="far fa-circle nav-icon"></i>
-										<p>All Account</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a th:href="@{/admin/category/image/create}" class="nav-link">
-										<i class="nav-icon fa-solid fa-plus"></i>
-										<p>Create</p>
-									</a>
-								</li>
-
-							</ul>
-						</li>
-						<li class="nav-item ">
-							<a href="#" class="nav-link ">
-								<i class="fa-solid fa-money-bill"></i>
-								<p>
-									Bill
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a th:href="@{/admin/bill}" class="nav-link active">
-										<i class="far fa-circle nav-icon"></i>
-										<p>All Bill</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a th:href="@{/admin/bill/create}" class="nav-link">
-										<i class="nav-icon fa-solid fa-plus"></i>
-										<p>Create</p>
-									</a>
-								</li>
-
-							</ul>
-						</li>
-						<li class="nav-item ">
-							<a href="#" class="nav-link ">
-								<i class="fa-solid fa-money-bill"></i>
-								<p>
-									Bill Details
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a th:href="@{/admin/billdetail}" class="nav-link active">
-										<i class="far fa-circle nav-icon"></i>
-										<p>All Bill</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a th:href="@{/admin/billdetail/create}" class="nav-link">
-										<i class="nav-icon fa-solid fa-plus"></i>
-										<p>Create</p>
-									</a>
-								</li>
-
-							</ul>
-						</li>
-						<li class="nav-item ">
-							<a href="#" class="nav-link ">
-								<i class="fa-solid fa-house-chimney"></i>
-								<p>
-									Room
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a th:href="@{/admin/room}" class="nav-link active">
-										<i class="far fa-circle nav-icon"></i>
-										<p>All Bill</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a th:href="@{/admin/room/create}" class="nav-link">
-										<i class="nav-icon fa-solid fa-plus"></i>
-										<p>Create</p>
-									</a>
-								</li>
-
-							</ul>
-						</li>
+								</ul>
+							</li>
+							<li class="nav-item ">
+								<a href="#" class="nav-link ">
+									<i class="fa-solid fa-hotel"></i>
+									<p>
+										Hotel
 
 
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a th:href="@{/admin/hotel}" class="nav-link active">
+											<i class="far fa-circle nav-icon"></i>
+											<p>All Hotel</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a th:href="@{/admin/hotel/create}" class="nav-link">
+											<i class="nav-icon fa-solid fa-plus"></i>
+											<p>Create</p>
+										</a>
+									</li>
 
+								</ul>
+							</li>
+							<li class="nav-item ">
+								<a href="#" class="nav-link ">
+									<i class="fa-solid fa-user"></i>
+									<p>
+										Account
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a th:href="@{/admin/account}" class="nav-link active">
+											<i class="far fa-circle nav-icon"></i>
+											<p>All Account</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a th:href="@{/admin/account/create}" class="nav-link">
+											<i class="nav-icon fa-solid fa-plus"></i>
+											<p>Create</p>
+										</a>
+									</li>
 
+								</ul>
+							</li>
+							<li class="nav-item ">
+								<a href="#" class="nav-link ">
+									<i class="fa-solid fa-image"></i>
+									<p>
+										Caregory Images
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a th:href="@{/admin/category/image}" class="nav-link active">
+											<i class="far fa-circle nav-icon"></i>
+											<p>All Account</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a th:href="@{/admin/category/image/create}" class="nav-link">
+											<i class="nav-icon fa-solid fa-plus"></i>
+											<p>Create</p>
+										</a>
+									</li>
+
+								</ul>
+							</li>
+							<li class="nav-item ">
+								<a href="#" class="nav-link ">
+									<i class="fa-solid fa-money-bill"></i>
+									<p>
+										Bill
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a th:href="@{/admin/bill}" class="nav-link active">
+											<i class="far fa-circle nav-icon"></i>
+											<p>All Bill</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a th:href="@{/admin/bill/create}" class="nav-link">
+											<i class="nav-icon fa-solid fa-plus"></i>
+											<p>Create</p>
+										</a>
+									</li>
+
+								</ul>
+							</li>
+							<li class="nav-item ">
+								<a href="#" class="nav-link ">
+									<i class="fa-solid fa-money-bill"></i>
+									<p>
+										Bill Details
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a th:href="@{/admin/billdetail}" class="nav-link active">
+											<i class="far fa-circle nav-icon"></i>
+											<p>All Bill</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a th:href="@{/admin/billdetail/create}" class="nav-link">
+											<i class="nav-icon fa-solid fa-plus"></i>
+											<p>Create</p>
+										</a>
+									</li>
+
+								</ul>
+							</li>
+							<li class="nav-item ">
+								<a href="#" class="nav-link ">
+									<i class="fa-solid fa-house-chimney"></i>
+									<p>
+										Room
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a th:href="@{/admin/room}" class="nav-link active">
+											<i class="far fa-circle nav-icon"></i>
+											<p>All Bill</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a th:href="@{/admin/room/create}" class="nav-link">
+											<i class="nav-icon fa-solid fa-plus"></i>
+											<p>Create</p>
+										</a>
+									</li>
+
+								</ul>
+							</li>
+
+						</th:block>
+						<th:block sec:authorize="hasAnyRole('ROLE_BUSINESS')">
+							<li class="nav-item ">
+								<a href="#" class="nav-link ">
+									<i class="fa-solid fa-user"></i>
+									<p>
+										Hotel
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a th:href="@{/admin/hotel/detail}" class="nav-link active">
+											<i class="far fa-circle nav-icon"></i>
+											<p>Hotel Detail</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a th:href="@{/admin/hotel/edit}" class="nav-link">
+											<i class="nav-icon fa-solid fa-plus"></i>
+											<p>Hotel Edit</p>
+										</a>
+									</li>
+
+								</ul>
+							</li>
+							<li class="nav-item ">
+								<a href="#" class="nav-link ">
+									<i class="fa-solid fa-money-bill"></i>
+									<p>
+										Bill
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a th:href="@{/admin/billdetail}" class="nav-link active">
+											<i class="far fa-circle nav-icon"></i>
+											<p>ALL Bill</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a th:href="@{/admin/billdetail/create}" class="nav-link">
+											<i class="nav-icon fa-solid fa-plus"></i>
+											<p>Create</p>
+										</a>
+									</li>
+
+								</ul>
+							</li>
+
+						</th:block>
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
