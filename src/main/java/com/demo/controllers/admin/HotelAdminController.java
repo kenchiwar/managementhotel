@@ -89,10 +89,32 @@ public class HotelAdminController {
 			@PathVariable(name="id",required = false) Integer id) {
 		// tùy điều kiện lấy hotel
 		Account account =selectAccountService.getAccountLogin(authentication);
-		
+		if(id!=null) {
 			modelMap.put("biilCensua", 
 					serviceHotel.biilCensua(id));
-		if(account.getRole().getId()<=2 && !(id!=null)) modelMap.put("accountCensus", serviceHotel.accountCensus());
+			
+		}else {
+			modelMap.put("biilCensua", 
+					serviceHotel.biilCensua(account.getId()));
+		}
+		
+		
+		
+			
+		
+		
+		
+		return "admin/hotel/detail";
+	}
+	@RequestMapping(value = { "hotelcensus" }, method = RequestMethod.GET)
+	public String accountCensus(ModelMap modelMap, Authentication authentication,
+			@PathVariable(name="id",required = false) Integer id) {
+		// tùy điều kiện lấy hotel
+		Account account =selectAccountService.getAccountLogin(authentication);
+		
+			modelMap.put("biilCensua", 
+					serviceHotel.biilCensua(1));
+		modelMap.put("accountCensus", serviceHotel.accountCensus());
 		
 			
 		

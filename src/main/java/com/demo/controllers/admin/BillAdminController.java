@@ -79,15 +79,28 @@ public class BillAdminController {
 	}
 
 	//Đây là bill của supper admin vô hotel
-	@RequestMapping(value= {"hotel/{id}"} ,method = RequestMethod.GET)
-	public String Hotel(ModelMap modelMap, Authentication authentication, @PathVariable(value = "id") Integer idAccount) {
-			modelMap.put("bill_1", billDetailService.getBillDetails_hotel(idAccount));
-			modelMap.put("bill_2", billDetailService.getBillDetails_hotel_2(idAccount));
-			modelMap.put("bill_3_4", billDetailService.getBillDetails_hotel_3_4(idAccount));
+	@RequestMapping(value= {"hotel"} ,method = RequestMethod.GET)
+	public String Hotel(ModelMap modelMap, Authentication authentication) {
+		var account = accountSelectService.getAccountLogin(authentication);
+			modelMap.put("bill_1", billDetailService.getBillDetails_hotel(account.getId()));
+			modelMap.put("bill_2", billDetailService.getBillDetails_hotel_2(account.getId()));
+			modelMap.put("bill_3_4", billDetailService.getBillDetails_hotel_3_4(account.getId()));
 			
-			modelMap.put("bill_5", billDetailService.getBillDetails_hotel_5(idAccount));
+			modelMap.put("bill_5", billDetailService.getBillDetails_hotel_5(account.getId()));
 		return "admin/bill/index";
 	}
+	
+	@RequestMapping(value= {"hotel/{id}"} ,method = RequestMethod.GET)
+	public String Hotel(ModelMap modelMap, Authentication authentication, @PathVariable("id") int id) {
+		var account = accountSelectService.getAccountLogin(authentication);
+			modelMap.put("bill_1", billDetailService.getBillDetails_hotel(id));
+			modelMap.put("bill_2", billDetailService.getBillDetails_hotel_2(id));
+			modelMap.put("bill_3_4", billDetailService.getBillDetails_hotel_3_4(id));
+			
+			modelMap.put("bill_5", billDetailService.getBillDetails_hotel_5(id));
+		return "admin/bill/index";
+	}
+
 	
 	@RequestMapping(value= {"create"} ,method = RequestMethod.GET)
 	public String create(ModelMap modelMap, HttpSession session, Authentication authentication) {

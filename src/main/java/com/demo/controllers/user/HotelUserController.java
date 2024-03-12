@@ -121,7 +121,7 @@ public class HotelUserController {
 			bill_save.setCheckInUntil(bill.getCheckInUntil());
 			bill_save.setCheckOutFrom(bill.getCheckOutFrom());
 			bill_save.setCheckOutUntil(bill.getCheckOutFrom());
-			bill_save.setMainGuest(account.getFirstName() + " " + account.getLastName());
+			bill_save.setMainGuest(room.getHotel().getIdAccount().toString());
 			bill_save.setName(account.getFirstName() + " " + account.getLastName());
 			bill_save.setEmail(account.getEmail());
 			bill_save.setPhone(account.getPhone());

@@ -163,7 +163,7 @@
 
 					<div class="card-header">
 						<div class="row" style="align-items: center;">
-							<div class="col-md-6">
+							<div class="col-md-3">
 								<h3>Hotel </h3>
 							</div>
 							<div class="col-md-3">
@@ -180,8 +180,14 @@
 
 								</form>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<a th:href="@{'/admin/hotel/detail/'+${hotel.idAccount}}" class="btn-main">Detail</a>
+							</div>
+							<div class="col-md-2">
+								<a th:href="@{'/admin/evaluate/hotel/'+${hotel.idAccount}}" class="btn-main">Evaluate</a>
+							</div>
+							<div class="col-md-2">
+								<a th:href="@{'/admin/bill/hotel/'+${hotel.idAccount}}" class="btn-main">Bill</a>
 							</div>
 
 						</div>

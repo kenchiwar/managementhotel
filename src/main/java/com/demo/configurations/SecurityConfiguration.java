@@ -51,8 +51,8 @@ public class SecurityConfiguration {
 						public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 								Authentication authentication) throws IOException, ServletException {
 							Map<String, String> urls = new HashMap<String, String>();
-							urls.put("ROLE_SUPER_ADMIN", "/admin");
-							urls.put("ROLE_ADMIN", "/admin");
+							urls.put("ROLE_SUPER_ADMIN", "/admin/hotel/hotelcensus");
+							urls.put("ROLE_ADMIN", "/admin/hotel/hotelcensus");
 							urls.put("ROLE_BUSINESS", "/admin/hotel/detail");
 							urls.put("ROLE_USER", "/account");
 							String url = "";

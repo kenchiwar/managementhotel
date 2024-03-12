@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.entities.Account;
+import com.demo.entities.Hotel;
 import com.demo.entities.Role;
 import com.demo.services.AccountSelectService;
 import com.demo.services.AccountService;
+import com.demo.services.HotelService;
 import com.demo.services.RoleService;
 
 import jakarta.servlet.RequestDispatcher;
@@ -39,6 +41,8 @@ public class AccountUserController {
 	private AccountService accountService;
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private HotelService serviceHotel;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	// Template
@@ -135,8 +139,15 @@ public class AccountUserController {
 		account.setImage("user.png");
 		account.setRole(role);
 		account.setPassword(encoder.encode(account.getPassword()));
-
+		
 		if (accountService.save(account)) {
+			System.out.println("fffff");
+			var acc = accountService.findByEmail(account.getEmail());
+			var hotel = new Hotel();
+			hotel.setAccount(new Account(acc.getId()));
+			System.out.println("met moi"+acc.getId());
+			serviceHotel.save(hotel);
+			
 			redirectAttributes.addFlashAttribute("msg", "Success");
 			return "redirect:/account/login";
 		} else {
