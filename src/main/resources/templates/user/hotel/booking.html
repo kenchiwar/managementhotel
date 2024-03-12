@@ -28,93 +28,161 @@
 							</ol>
 						</nav>
 					</div>
+					<div class="col-12">
+						<div class="box box-booking mb-30">
+							<div class="row">
+								<div class="col-md-4">
+									<img th:src="@{'/assets/images/hotel/main/'+${room.hotel.mainPhoto}}">
+
+								</div>
+								<div class="col-md-8">
+									<div class="row">
+										<div class="col-md-6">
+											<h4 class="fs-20 color-black">
+												<th:block th:text="'Hotel : '+${room.hotel.name}"></th:block>
+											</h4>
+											<h4 class="fs-20 color-black">
+												<th:block th:text="'Room : '+${room.name}"></th:block>
+											</h4>
+											<h5 class="fs-18 color-black">People Max:<th:block
+													th:text="${room.peopleMax}">
+												</th:block>
+											</h5>
+
+											<h6 class="fs-18 color-black">Price per night: <th:block
+													th:text="${room.price}">
+												</th:block>
+											</h6>
+											<h6 class="fs-18 color-black">Price Discount: <th:block
+													th:text="${room.priceDiscount}"></th:block>
+											</h6>
+										</div>
+										<div class="col-md-6">
+											<form th:action="@{/hotel/create}" method="post">
+												<div class="row">
+													<div class="col-md-12 fs-18 color-black mb-2">
+														Quantity room: <input type="number" min="1"
+															th:max="${room.roomNow}" th:field="${billDetail.quantity}">/
+														<th:block th:text="${room.roomNow}">
+														</th:block>
+													</div>
+													<div class="col-md-12 mb-30">
+
+														<input type="text" th:field="${bill.checkInUntil}"><br>
+														To
+														<br>
+														<input type="text" th:field="${bill.checkOutFrom}">
+													</div>
+													<div class="col-md-6">
+														<input type="hidden" th:field="${room.id}">
+													</div>
+													<div class="col-md-12">
+														<button type="submit" class="btn btn-submit"
+															style="line-height: 0;">Booking</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
+			<!-- ##### Breadcrumb Area End ##### -->
+
+			<!-- ##### Shop Area Start ##### -->
+
 		</div>
-		<!-- ##### Breadcrumb Area End ##### -->
-
-		<!-- ##### Shop Area Start ##### -->
-		
-	</div>
-	<div id="script">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-		<script>
-			var citis = document.getElementById("city");
-			var districts = document.getElementById("district");
-			var wards = document.getElementById("ward");
-			var Parameter = {
-				url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-				method: "GET",
-				responseType: "application/json",
-			};
-			var promise = axios(Parameter);
-			promise.then(function (result) {
-				renderCity(result.data);
-			});
-
-			function renderCity(data) {
-
-
-				citis.onchange = function () {
-					district.length = 1;
-					ward.length = 1;
-					if (this.value != "") {
-						const result = data.filter(n => n.Id === this.value);
-
-						for (const k of result[0].Districts) {
-							district.options[district.options.length] = new Option(k.Name, k.Id);
-						}
-					}
-
+		<div id="script">
+			<script>
+				$(function () {
+					$("#checkInUntil").datepicker({ dateFormat: 'dd/mm/yy' });
+				});
+				$(function () {
+					$("#checkOutFrom").datepicker({ dateFormat: 'dd/mm/yy' });
+				});
+			</script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+			<script>
+				var citis = document.getElementById("city");
+				var districts = document.getElementById("district");
+				var wards = document.getElementById("ward");
+				var Parameter = {
+					url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+					method: "GET",
+					responseType: "application/json",
 				};
-				district.onchange = function () {
-					ward.length = 1;
-					const dataCity = data.filter((n) => n.Id === citis.value);
-					if (this.value != "") {
-						const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+				var promise = axios(Parameter);
+				promise.then(function (result) {
+					renderCity(result.data);
+				});
 
-						for (const w of dataWards) {
-							wards.options[wards.options.length] = new Option(w.Name, w.Id);
+				function renderCity(data) {
+
+
+					citis.onchange = function () {
+						district.length = 1;
+						ward.length = 1;
+						if (this.value != "") {
+							const result = data.filter(n => n.Id === this.value);
+
+							for (const k of result[0].Districts) {
+								district.options[district.options.length] = new Option(k.Name, k.Id);
+							}
 						}
-					}
-				};
-			}
-		</script>
+
+					};
+					district.onchange = function () {
+						ward.length = 1;
+						const dataCity = data.filter((n) => n.Id === citis.value);
+						if (this.value != "") {
+							const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+							for (const w of dataWards) {
+								wards.options[wards.options.length] = new Option(w.Name, w.Id);
+							}
+						}
+					};
+				}
+			</script>
 
 
-		<script>
-			$('#formSubmit').submit(function (e) {
+			<script>
+				$('#formSubmit').submit(function (e) {
 
-				var cityValue = $('#city option:selected').val();
-				var districtValue = $('#district option:selected').val();
-				var wardValue = $('#ward option:selected').val();
+					var cityValue = $('#city option:selected').val();
+					var districtValue = $('#district option:selected').val();
+					var wardValue = $('#ward option:selected').val();
 
-				var priceMin = $('#price-range').text().split('₫')[1].replace('-', '');
+					var priceMin = $('#price-range').text().split('₫')[1].replace('-', '');
 
-				var priceMax = $('#price-range').text().split('₫')[2].replace(' ', '');
-				$('#searchcity').val(cityValue);
-				$('#searchdistrict').val(districtValue);
-				$('#searchward').val(wardValue);
-				$('#searchcity').val(cityValue);
-				$('#searchpriceMin').val($.trim(priceMin));
-				$('#searchpriceMax').val($.trim(priceMax));
-				console.log(priceMin);
-
-
-				console.log(priceMax);
+					var priceMax = $('#price-range').text().split('₫')[2].replace(' ', '');
+					$('#searchcity').val(cityValue);
+					$('#searchdistrict').val(districtValue);
+					$('#searchward').val(wardValue);
+					$('#searchcity').val(cityValue);
+					$('#searchpriceMin').val($.trim(priceMin));
+					$('#searchpriceMax').val($.trim(priceMax));
+					console.log(priceMin);
 
 
-			});
-		</script>
-		<script>
-			$('#btnreset').click((e)=>{
-				$('#searchReset').val(true);
-				$('#formSubmit').submit();
-			})
-		</script>
-		
+					console.log(priceMax);
 
-	</div>
+
+				});
+			</script>
+			<script>
+				$('#btnreset').click((e) => {
+					$('#searchReset').val(true);
+					$('#formSubmit').submit();
+				})
+			</script>
+
+
+		</div>
 </body>
 
 </html>

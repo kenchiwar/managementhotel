@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/user :: mainContent('Home Page',  ~{this :: .main-content},~{this:: #css},~{this :: #script})">
+
+<head>
+
+</head>
+
+<body>
+	<div id="css">
+
+	</div>
+	<div class="main-content">
+		<div class="breadcrumb-area">
+			<!-- Top Breadcrumb Area -->
+			<div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
+				style="background-image: url(/assets/user/img/bg-img/footer-background.webp);">
+				<h2>Hotel</h2>
+			</div>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Hotel</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ##### Breadcrumb Area End ##### -->
+
+		<!-- ##### Shop Area Start ##### -->
+		<section class="shop-page section-padding-0-100">
+			<div class="container">
+				<div class="row">
+					<!-- Shop Sorting Data -->
+					<div class="col-12">
+						<div class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between">
+							<!-- Shop Page Count -->
+							<div class="shop-page-count">
+
+							</div>
+							<!-- Search by Terms -->
+							
+						</div>
+					</div>
+					<div class="col-12">
+						<div class="row">
+							<!-- Sidebar Area -->
+
+							
+
+							<!-- All Products Area -->
+							<div class="col-12 col-md-8 col-lg-9">
+								<div class="shop-products-area detai-hotels">
+									<div class="row">
+										<h1>Cart</h1>
+                                        <form th:action="@{'/cart/update'}" method="post">
+                                           
+                                                <th:block th:each="item , i : ${carts}">
+                                                    <div class="box-item box mb-4">
+                                                        <div class="wrapper">
+                                                            <div class="box-content">
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <img th:src="@{'/assets/images/hotel/main/'+${item.room.hotel.mainPhoto}}">
+                                                                    </div>
+                                                                    <div class="col-md-9">
+                                                                        <div class="info">
+                                                                            <h5 class="fs-20 fw-700">
+                                                                                <th:block th:text="${item.room.hotel.name}"></th:block>
+                                                                            </h5>
+                                                                            <h6 class="fs-20 fw-700">
+                                                                                <th:block th:text="${item.room.name}"></th:block>
+                                                                            </h6>
+                                                                            <div class="fs-20 fw-700">
+                                                                                Room now: <th:block th:text="${item.room.roomNow + '/' + item.room.roomMax} "></th:block>
+                                                                            </div>
+                                                                            <div class="fs-20 fw-700">
+                                                                                Guest: <th:block th:text="${item.room.peopleMax + ' Adults'} "></th:block>
+                                                                            </div>
+                                                                            <div class="fs-20 fw-700">
+                                                                                Quantity room: <input type="number" min="1" th:max="${item.room.roomNow}" name="quantities">
+                                                                            </div>
+                                                                            
+                                                                            <div class="fs-20 fw-700">
+                                                                                Price: <th:block th:text="${item.room.price} "></th:block>
+                                                                            </div>
+                                                                            <div class="fs-20 fw-700">
+                                                                                Price Discount: <th:block th:text="${item.room.priceDiscount} "></th:block>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                       
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </th:block>
+                                                <h6>Total: <th:block th:text="${total}"></th:block></h6>
+                                                <input type="submit" value="Update" class="btn btn-success">
+
+                                        </form>
+
+                                       
+									</div>
+
+									<!-- Pagination -->
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</section>
+	</div>
+	<div id="script">
+		
+
+	</div>
+</body>
+
+</html>

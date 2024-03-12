@@ -92,7 +92,7 @@ public class HotelAdminController {
 		
 			modelMap.put("biilCensua", 
 					serviceHotel.biilCensua(id));
-		if(account.getRole().getId()>2 && !(id!=null)) modelMap.put("accountCensus", serviceHotel.accountCensus());
+		if(account.getRole().getId()<=2 && !(id!=null)) modelMap.put("accountCensus", serviceHotel.accountCensus());
 		
 			
 		

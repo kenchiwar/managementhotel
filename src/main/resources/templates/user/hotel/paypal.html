@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/user :: mainContent('Home Page',  ~{this :: .main-content},~{this:: #css},~{this :: #script})">
+
+<head>
+
+</head>
+
+<body>
+	<div id="css">
+
+	</div>
+	<div class="main-content">
+		<div class="breadcrumb-area">
+			<!-- Top Breadcrumb Area -->
+			<div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
+				style="background-image: url(/assets/user/img/bg-img/footer-background.webp);">
+				<h2>Paypal</h2>
+			</div>
+
+			<div class="container">
+
+				<div class="row">
+					<div class="col-12">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Paypal</li>
+							</ol>
+						</nav>
+					</div>
+					<div class="col-12">
+						<div class="box box-payment mb-30">
+							<h4 class="fs-22 fw-700 text-center">Bill Confirm</h4>
+							<label>Code: </label>
+							<th:block th:text="${billDetail.id}"></th:block><br>
+							<label>Room: </label>
+							<th:block th:text="${billDetail.room.name}"></th:block><br>
+							<label>Date Check In: </label>
+							<th:block th:text="${billDetail.bill.checkInUntil}"></th:block><br>
+							<label>Date Check Out: </label>
+							<th:block th:text="${billDetail.bill.checkOutUntil}"></th:block><br>
+							<label>Main Guest: </label>
+							<th:block th:text="${billDetail.bill.mainGuest}"></th:block><br>
+							<label>Price: </label>
+							<th:block th:text="${billDetail.price}"></th:block><br>
+							<label>Price Discount: </label>
+							<th:block th:text="${billDetail.priceDiscount}"></th:block><br>
+							<label>Total: </label>
+							<th:block th:text="${billDetail.total}"></th:block><br>
+							<label>Payment Method: </label>
+							<th:block th:text="${payment.method}"></th:block><br>
+
+							<form th:action="@{/bill/paypal}" method="post">
+								<input type="hidden" name="total" th:value="${billDetail.total}">
+								<button type="submit" class="btn-submit">Paypal</button>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- ##### Breadcrumb Area End ##### -->
+
+		<!-- ##### Shop Area Start ##### -->
+
+	</div>
+	<div id="script">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+		<script>
+			var citis = document.getElementById("city");
+			var districts = document.getElementById("district");
+			var wards = document.getElementById("ward");
+			var Parameter = {
+				url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+				method: "GET",
+				responseType: "application/json",
+			};
+			var promise = axios(Parameter);
+			promise.then(function (result) {
+				renderCity(result.data);
+			});
+
+			function renderCity(data) {
+
+
+				citis.onchange = function () {
+					district.length = 1;
+					ward.length = 1;
+					if (this.value != "") {
+						const result = data.filter(n => n.Id === this.value);
+
+						for (const k of result[0].Districts) {
+							district.options[district.options.length] = new Option(k.Name, k.Id);
+						}
+					}
+
+				};
+				district.onchange = function () {
+					ward.length = 1;
+					const dataCity = data.filter((n) => n.Id === citis.value);
+					if (this.value != "") {
+						const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+						for (const w of dataWards) {
+							wards.options[wards.options.length] = new Option(w.Name, w.Id);
+						}
+					}
+				};
+			}
+		</script>
+
+
+		<script>
+			$('#formSubmit').submit(function (e) {
+
+				var cityValue = $('#city option:selected').val();
+				var districtValue = $('#district option:selected').val();
+				var wardValue = $('#ward option:selected').val();
+
+				var priceMin = $('#price-range').text().split('₫')[1].replace('-', '');
+
+				var priceMax = $('#price-range').text().split('₫')[2].replace(' ', '');
+				$('#searchcity').val(cityValue);
+				$('#searchdistrict').val(districtValue);
+				$('#searchward').val(wardValue);
+				$('#searchcity').val(cityValue);
+				$('#searchpriceMin').val($.trim(priceMin));
+				$('#searchpriceMax').val($.trim(priceMax));
+				console.log(priceMin);
+
+
+				console.log(priceMax);
+
+
+			});
+		</script>
+		<script>
+			$('#btnreset').click((e) => {
+				$('#searchReset').val(true);
+				$('#formSubmit').submit();
+			})
+		</script>
+
+
+	</div>
+</body>
+
+</html>

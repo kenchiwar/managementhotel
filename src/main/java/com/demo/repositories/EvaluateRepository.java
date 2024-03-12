@@ -18,4 +18,7 @@ public interface EvaluateRepository extends CrudRepository<Evaluate, Integer>{
 
     @Query("from Evaluate where idBill =:idBill and idAccount =:idAccount")
     public Evaluate getEvaluate_bill(@Param("idBill") int idBill, @Param("idAccount") int idAccount);
+
+    @Query("from Evaluate where idAccount =:idSender")
+    public List<Evaluate> getEvaluate_user(@Param("idSender") int idSender);
 }
