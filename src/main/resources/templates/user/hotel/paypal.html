@@ -15,7 +15,7 @@
 			<!-- Top Breadcrumb Area -->
 			<div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 				style="background-image: url(/assets/user/img/bg-img/footer-background.webp);">
-				<h2>Booking</h2>
+				<h2>Paypal</h2>
 			</div>
 			
 			<div class="container">
@@ -24,23 +24,25 @@
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Booking</li>
+								<li class="breadcrumb-item active" aria-current="page">Paypal</li>
 							</ol>
 						</nav>
 					</div>
 					<div class="col-12">
-						<img th:src="@{'/assets/images/hotel/main/'+${room.hotel.mainPhoto}}">
-						<h4><th:block th:text="${room.hotel.name}"></th:block><div th:text="${room.hotel.rating}"></div></h4>
-						<h5>People:<th:block th:text="${room.peopleMax}"></th:block></h5>
-						
-						<h6>Price per night: <th:block th:text="${room.price}"></th:block></h6>
-						<h6>Price Discount: <th:block th:text="${room.priceDiscount}"></th:block></h6>
+						<h4>Bill Confirm</h4>
+						<label>Code: </label> <tb:block th:text="${billDetail.id}"></tb:block><br>
+						<label>Room: </label> <tb:block th:text="${billDetail.room.name}"></tb:block><br>
+						<label>Date Check In: </label> <tb:block th:text="${billDetail.bill.checkInUntil}"></tb:block><br>
+						<label>Date Check Out: </label> <tb:block th:text="${billDetail.bill.checkOutUntil}"></tb:block><br>
+						<label>Main Guest: </label> <tb:block th:text="${billDetail.bill.mainGuest}"></tb:block><br>
+						<label>Price: </label> <tb:block th:text="${billDetail.price}"></tb:block><br>
+						<label>Price Discount: </label> <tb:block th:text="${billDetail.priceDiscount}"></tb:block><br>
+						<label>Total: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
+						<label>Payment Method: </label> <tb:block th:text="${payment.method}"></tb:block><br>
 
-						<form th:action="@{/hotel/create}" method="post">
-							Quantity room: <input type="number" min="1" th:max="${room.roomNow}" th:field="${billDetail.quantity}">/<th:block th:text="${room.roomNow}"></th:block> <br>
-							<input type="text" th:field="${bill.checkInUntil}"> To <input type="text" th:field="${bill.checkOutFrom}">
-							<input type="hidden" th:field="${room.id}">
-							<input type="submit" value="Booking">
+						<form th:action="@{/bill/paypal}" method="post">
+							<input type="hidden" name="total" th:value="${billDetail.total}">
+							<button type="submit">Paypal</button>
 						</form>
 						
 					</div>

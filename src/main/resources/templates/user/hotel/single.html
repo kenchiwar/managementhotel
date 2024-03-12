@@ -299,10 +299,23 @@
 		<section id="room">
 			<div class="container">
 				<div class="row">
+					<form th:action="@{/hotel/setDate}" method="post">
+						<th:block th:if="${bill_date != null}">
+							<input type="text"  th:value="${checkInUntil}">
+							To <input type="text"  th:value="${checkOutFrom}">
+						</th:block>
+						<th:block th:if="${bill_date == null}">
+							<input type="text" th:field="${bill.checkInUntil}" th:value="${checkInUntil}"> 
+							To <input type="text" th:field="${bill.checkOutFrom}" th:value="${checkOutFrom}">
+						</th:block>
+						
+						<input type="submit" value="Update">
+					</form>
+					
 					<div class="col-12">
 						<h2>Room</h2>
 					</div>
-
+					
 					<th:block th:each="room : ${hotel.rooms}">
 						<div class="col-md-6">
 
@@ -346,6 +359,7 @@
 										<div class="buttons">
 											<a th:href="@{'/hotel/booking/'+${room.id}}" class="btn btn-booknow">Book
 												now</a>
+												<a th:href="@{'/cart/addtocart/' + ${room.id}}">Add to cart</a>
 										</div>
 									</div>
 								</div>
