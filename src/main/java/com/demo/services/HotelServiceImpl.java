@@ -10,11 +10,12 @@ import java.util.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import com.demo.dtos.HotelDTO;
 import com.demo.entities.Account;
 import com.demo.entities.AccountCensus;
 import com.demo.entities.Evaluate;
@@ -48,6 +49,8 @@ import jakarta.validation.constraints.Null;
 public class HotelServiceImpl implements HotelService {
 	@Autowired
 	private HotelRepository HotelRepository;
+	@Autowired
+	private ModelMapper modelMapper;
 	@Autowired
 	EntityManager entityManager;
 	@Autowired
@@ -411,6 +414,12 @@ public class HotelServiceImpl implements HotelService {
 		System.out.println(result.toString());
 		// TODO Auto-generated method stub
 		return result;
+	}
+	
+	@Override
+	public HotelDTO findDTO(int id) {
+		// TODO Auto-generated method stub
+		return modelMapper.map(HotelRepository.findById(id).get(),HotelDTO.class);
 	}
 
 }

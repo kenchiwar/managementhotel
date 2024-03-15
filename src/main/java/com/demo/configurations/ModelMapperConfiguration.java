@@ -210,8 +210,8 @@ public class ModelMapperConfiguration {
 	        });
 
 	       
-	      
-
+//	      
+//	       
 
 	        mapper.typeMap(Hotel.class, HotelDTO.class).addMappings(m -> {
 	            m.map(Hotel::getIdAccount, HotelDTO::setIdAccount);

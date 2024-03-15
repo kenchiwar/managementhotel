@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.demo.dtos.HotelDTO;
 import com.demo.entities.Account;
 import com.demo.entities.AccountCensus;
 import com.demo.entities.Categoryimage;
@@ -31,5 +32,6 @@ public interface HotelService {
     public List<HotelDetail> hotelDetail(SelectHelperHotel selectHelper, Integer findByid) ;
     public AccountCensus accountCensus() ;
     public List<Double> biilCensua(Integer id) ;
+    public HotelDTO findDTO(int id);
    
 }
