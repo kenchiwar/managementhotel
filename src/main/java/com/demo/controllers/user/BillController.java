@@ -17,17 +17,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.entities.Bill;
 import com.demo.entities.BillDetail;
 import com.demo.entities.Evaluate;
+import com.demo.entities.Order;
 import com.demo.services.AccountSelectService;
 import com.demo.services.BillDetailService;
 import com.demo.services.BillService;
 import com.demo.services.EvaluateService;
 import com.demo.services.HotelService;
+import com.demo.services.MailService;
 import com.demo.services.PaymentService;
 import com.demo.services.PaypalService;
 import com.demo.services.RoomService;
@@ -59,11 +61,8 @@ public class BillController {
 	@Autowired
     private Environment environment;
 
-    @Autowired
-    private PaymentService paymentService;
-
 	@Autowired
-	private EvaluateService evaluateService;
+	private MailService mailService;
 
 	@Autowired
 	PaypalService service;
@@ -108,23 +107,42 @@ public class BillController {
 	@RequestMapping(value= {"paypal/{id}"} ,method = RequestMethod.GET)
 	public String home(ModelMap modelMap, @PathVariable("id") int id) {
         modelMap.put("billDetail", billDetailService.find(id));
-        modelMap.put("payment", paymentService.find(1));
 		return "user/hotel/paypal";
 	}
     @RequestMapping(value= {"paypal"} ,method = RequestMethod.POST)
-	public String payment(@ModelAttribute("billDetail") BillDetail billDetail) {
+	public String payment(@ModelAttribute("billDetail") BillDetail billDetail, @ModelAttribute("order") Order order, Authentication authentication) {
+		var account = accountSelectService.getAccountLogin(authentication);
+		var bill_detail = billDetailService.find(billDetail.getId());
+		var bill = billService.find(bill_detail.getBill().getId());
+
 		try {
-            var payment_ = paymentService.find(2);
-            var total = billDetail.getTotal() / 24.695;
-			Payment payment = service.createPayment(100.0, "USD", "paypal",
-					"sale", "paypal bill", "http://localhost:8085/bill/" + CANCEL_URL,
-					"http://localhost:8085/bill/");
+            // var order = paymentService.find(2);
+            var total = billDetail.getTotal() / 24695;
+			Payment payment = service.createPayment(100.0, order.getCurrency(), order.getMethod(),
+					order.getIntent(), order.getDescription(), "http://localhost:8085/bill/" + CANCEL_URL,
+					"http://localhost:8085/bill/success");
 			for(Links link:payment.getLinks()) {
 				if(link.getRel().equals("approval_url")) {
+					String content = "";
+content += "<div style='margin: auto; background: rgba(1,148,243,1); max-width: 500px; border-radius: 20px; overflow: hidden; padding: 20px 40px;color: #fff;'>";
+content += "<h5 style='text-align: center; font-size: 30px; margin: 0;'>Wellcome To " + bill_detail.getRoom().getHotel().getName() + "</h5> ";
+content += "<h6 style='text-align: center; font-size: 20px; margin: 0;'>Information Bill</h6> ";
+content += "<div>";
+content += "<p class='hotel-name' style='margin: 0; font-size: 18px;'>Hotel "+bill_detail.getRoom().getHotel().getName()+"</p>";
+content += "<p class='room-name' style='margin: 0; font-size: 18px;'>Room "+bill_detail.getRoom().getName()+"</p>";
+content += "<p class='date' style='margin: 0; font-size: 16px;'>From "+bill_detail.getBill().getCheckInUntil()+" To "+ bill_detail.getBill().getCheckOutFrom()+ "</p>";
+content += "<p class='main-guest' style='margin: 0; font-size: 16px;'>Main Guest: "+bill.getMainGuest()+ "</p>";
+content += "<p class='price-total' style='margin: 0; font-size: 16px;'>Price Total: "+bill.getTotal()+ "</p>";
+content += "<h5 class='thanks' style='text-align: center; font-size: 20px; margin: 20px 0;'>Thanks!</h5>";
+content += "</div>";
+content += "</div>";
+					String email = environment.getProperty("spring.mail.username");
+			
+					mailService.sendMail(email,email,bill_detail.getRoom().getHotel().getName(), content);
 					return "redirect:"+link.getHref();
 				}
 			}
-			
+		
 		} catch (PayPalRESTException e) {
 		
 			e.printStackTrace();
@@ -138,9 +156,18 @@ public class BillController {
 	    }
 
 	@RequestMapping(value= {"success"} ,method = RequestMethod.GET)
-	public String success() {
-			
-			return "success";
-	}
+	 public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
+	        try {
+	            Payment payment = service.executePayment(paymentId, payerId);
+	            System.out.println(payment.toJSON());
+	            if (payment.getState().equals("approved")) {
+	                return "redirect:/bill";
+	            }
+	        } catch (PayPalRESTException e) {
+	         System.out.println(e.getMessage());
+	        }
+	        return "redirect:/bill";
+	    }
+
 
 }

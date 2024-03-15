@@ -38,10 +38,15 @@
 						<label>Price: </label> <tb:block th:text="${billDetail.price}"></tb:block><br>
 						<label>Price Discount: </label> <tb:block th:text="${billDetail.priceDiscount}"></tb:block><br>
 						<label>Total: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
-						<label>Payment Method: </label> <tb:block th:text="${payment.method}"></tb:block><br>
+						<label>Payment Method: </label> Paypal<br>
 
 						<form th:action="@{/bill/paypal}" method="post">
-							<input type="hidden" name="total" th:value="${billDetail.total}">
+							<input type="hidden" name="currency" value="USD">
+							<input type="hidden" name="method" value="paypal">
+							<input type="hidden" name="intent" value="sale">
+							<input type="hidden" name="description" value="description paypal">
+							<input type="hidden" th:field="${billDetail.total}">
+							<input type="hidden" th:field="${billDetail.id}">
 							<button type="submit">Paypal</button>
 						</form>
 						
