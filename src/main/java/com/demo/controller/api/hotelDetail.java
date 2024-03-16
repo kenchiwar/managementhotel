@@ -40,7 +40,7 @@ public class hotelDetail {
 	HotelService serviceHotel;
 	@Autowired ModelMapper modelMapper;
 	@Autowired EvaluateService serviceEvaluate;
-	@Autowired BillService serviceBill;
+	@Autowired BillService serviceBil;
 	@Autowired AccountService serviceAccount;
 	
 	@GetMapping(value = {"{id}"},produces = MimeTypeUtils.APPLICATION_JSON_VALUE+"; charset=utf-8")

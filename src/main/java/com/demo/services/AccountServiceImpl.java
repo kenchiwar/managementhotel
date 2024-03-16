@@ -77,4 +77,11 @@ public class AccountServiceImpl implements AccountService {
 		}
 	}
 
+	@Override
+	public List<Account> FindlikeEmail(String email) {
+		// TODO Auto-generated method stub
+		return accountRepository.findAccountEmail(email);
+	}
+
+	
 }

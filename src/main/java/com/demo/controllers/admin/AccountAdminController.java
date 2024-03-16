@@ -38,13 +38,13 @@ public class AccountAdminController {
 	private BCryptPasswordEncoder encoder;
 	// Template
 
-	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"index", "", "/" }, method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, HttpSession session) {
-		modelMap.put("accounts", accountService.findAll());
 		
+		modelMap.put("accounts", accountService.findAll());
 		return "admin/account/index";
 	}
-
+	
 	@RequestMapping(value = { "create" }, method = RequestMethod.GET)
 	public String create(ModelMap modelMap, HttpSession session) {
 		Account account = new Account();

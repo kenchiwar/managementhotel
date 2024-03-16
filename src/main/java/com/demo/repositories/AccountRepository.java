@@ -12,4 +12,6 @@ import java.util.List;
 public interface AccountRepository extends CrudRepository<Account, Integer>{
     @Query("from Account where email =:email")
     public Account findByEmail(String email);
+    @Query("from Account where email like %:email%")
+    public List<Account> findAccountEmail(String email);
 }

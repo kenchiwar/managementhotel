@@ -1,5 +1,5 @@
 
-<div class="box-info ">
+<div class="box-info " th:name="${account.email}">
 	<div th:class="'wrapper status-'+${account.status}">
 		
 		<div class="b-head">
@@ -7,7 +7,7 @@
 				<img th:src="@{'/assets/images/' + ${account.image}}">
 			</div>
 			<div class="info">
-				<a  th:href="@{'/admin/account/detail/'+${account.id}}" class="title"><strong th:text="${account.email}"></strong></a>
+				<a  th:href="@{'/admin/account/detail/'+${account.id}}" class="title fs-18 fw-700"><th:block th:text="${account.email}"></th:block></a>
 				<p class="fs-18 fw-600" th:text="${account.phone}"></p>
 				<th:block th:if="${account.status} == true">
 					<p class="fs-18 fw-600" style="color:#0092ff" th:text="${account.role.name}">/p>

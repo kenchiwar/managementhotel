@@ -12,6 +12,16 @@
 	</div>
 	<div id="main-content">
 		<div class="container">
+			<div class="search">
+				<form method="get">
+					<div class="form-group">
+						<label for="exampleInputEmail1">Email</label>
+						<input type="text" class="form-control" name="email" id="searchByEmail"
+							aria-describedby="emailHelp">
+
+					</div>
+				</form>
+			</div>
 			<div class="list-account">
 
 				<th:block th:each="account , i : ${accounts}">
@@ -19,7 +29,7 @@
 				</th:block>
 			</div>
 		</div>
-		
+
 	</div>
 	<div id="script">
 		<script>
@@ -43,6 +53,21 @@
 			span.onclick = function () {
 				modal.style.display = "none";
 			}
+		</script>
+		<script>
+
+			document.getElementById('searchByEmail').addEventListener('keyup', (e) => {
+				var email = document.getElementById('searchByEmail').value.trim().toLowerCase();
+				var accounts = document.querySelectorAll('.list-account .box-info');
+
+				accounts.forEach((account) => {
+					account.style.display = 'block';
+					var nameEmail = account.getAttribute('name').toString().toLowerCase();
+					if (email.length > 0 && !nameEmail.includes(email)) {
+						account.style.display = 'none';
+					}
+				});
+			});
 		</script>
 	</div>
 </body>

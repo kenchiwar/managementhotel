@@ -103,9 +103,8 @@ function activeImage() {
     var img = document.querySelector(".popup-gallery .single-img img");
 	
     images.forEach((element) => {
-        if (element.currentSrc === img.currentSrc) {
-			console.log(element.currentSrc.split("/")[7])
-			console.log(img.currentSrc.split("/")[7])
+        if (element.getAttribute("src") == img.getAttribute("src")) {
+			
             element.classList.add("active");
         } else {
             element.classList.remove("active");
