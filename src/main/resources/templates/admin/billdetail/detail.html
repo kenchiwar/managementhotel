@@ -1,19 +1,145 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
 
 <head>
-	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 </head>
+
 
 <body>
 	<div id="css">
-		
+
 	</div>
 	<div id="main-content">
-		<h4>Content</h4>
+		<div class="container">
+			<th:block th:if="${billDetail.bill.status == '1'}">
+				<h2>Booking</h2>
+			</th:block>
+			<th:block th:if="${billDetail.bill.status == '2'}">
+				<h2>Live In</h2>
+			</th:block>
+			<th:block th:if="${billDetail.bill.status == '3' or billDetail.bill.status == '4'}">
+				<h2>Completed</h2>
+			</th:block>
+			<th:block th:if="${billDetail.bill.status == '5'}">
+				<h2>Canceled</h2>
+			</th:block>
+			<div style="width: 100%;overflow-y: scroll; ">
+				<table class="table table-bordered table-hover dataTable dtr-inline mb-5 " id="table1">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>ID sender</th>
+							<th>Hotel</th>
+							<th>Sender Name</th>
+							<th>Service</th>
+							<th>Room</th>
+							<th>Main Guest</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Check In Date</th>
+							<th>Check Out Date</th>
+							<th>Day Number</th>
+							<th>Pice</th>
+							<th>Price Discount</th>
+							<th>Reason Discount</th>
+							<th>Total</th>
+							<th>Status</th>
+							<th:block th:if="${billDetail.bill.status == '1' or billDetail.bill.status == '2'}">
+								<th>Confirm</th>
+							</th:block>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td th:text="${billDetail.id}"></td>
+							<td th:text="${billDetail.bill.account.id}"></td>
+							<td th:text="${billDetail.room.hotel.name}"></td>
+							<td th:text="${billDetail.bill.account.email}"></td>
+							<td th:text="${billDetail.bill.service}"></td>
+							<td th:text="${billDetail.room.name}"></td>
+							<td th:text="${billDetail.bill.mainGuest}"></td>
+
+							<td th:text="${billDetail.bill.name}"></td>
+							<td th:text="${billDetail.bill.email}"></td>
+							<td th:text="${billDetail.bill.phone}"></td>
+							<td th:text="${billDetail.bill.checkInUntil}"></td>
+							<td th:text="${billDetail.bill.checkOutUntil}"></td>
+							<td th:text="${billDetail.numberDay}"></td>
+							<td th:text="${billDetail.price}"></td>
+							<td th:text="${billDetail.priceDiscount}"></td>
+							<td th:text="${billDetail.reasonDiscount}"></td>
+
+							<td th:text="${billDetail.total}"></td>
+							<td
+							th:text="${billDetail.bill.status == '1' ? 'Paid' : billDetail.bill.status == '2' ?  'Live In' : billDetail.bill.status == '3' ? 'Completed' : billDetail.bill.status == '4' ? 'Completed And Evaluated' : 'Canceled'}">
+						</td>
+							<td>
+								<th:block th:if="${billDetail.bill.status == '1'}">
+									<a th:href="@{'/admin/billdetail/edit/' + ${billDetail.id}}">Check In</a>
+								</th:block>
+								<th:block th:if="${billDetail.bill.status == '2'}">
+									<a th:href="@{'/admin/billdetail/edit/' + ${billDetail.id}}">Check Out</a>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:if="${billDetail.bill.status == '1'}">
+									<a th:href="@{'/admin/billdetail/edit_reason/' + ${billDetail.id}}">Edit</a> 
+									<a id="cancelLink" class="btn btn-primary"
+										th:href="@{'/admin/billdetail/cancel/' + ${billDetail.id}}">Cancel</a>
+								</th:block>
+								<th:block th:if="${billDetail.bill.status == '2'}">
+
+									<a th:href="@{'/admin/billdetail/edit_reason/' + ${billDetail.id}}">Edit</a> 
+								</th:block>
+								<th:block th:if="${billDetail.bill.status == '3' or billDetail.bill.status == '4'}">
+									<a th:href="@{'/admin/billdetail/edit_reason/' + ${billDetail.id}}">Edit</a> 
+								</th:block>
+								<th:block th:if="${billDetail.bill.status == '5'}">
+									<a th:href="@{'/admin/billdetail/edit_reason/' + ${billDetail.id}}">Edit</a> 
+								</th:block>
+							</td>
+
+						</tr>
+					</tbody>
+				</table>
+
+				<th:block th:if="${billDetail.bill.status == '4'}">
+					Evaluate: <div th:text="${evaluate.number}"></div>
+					Comment: <div th:text="${evaluate.comment}"></div>
+				</th:block>
+
+			</div>
+		</div>
 	</div>
 	<div id="script">
-		
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				document.getElementById("cancelLink").addEventListener("click", function (event) {
+					event.preventDefault();
+
+					var confirmed = confirm("Are you sure?");
+
+					if (confirmed) {
+						window.location.href = this.getAttribute("href");
+					}
+				});
+			});
+
+		</script>
+		<script>
+			$(function () {
+				$("#table1").DataTable({
+					"buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+				}).buttons().container().appendTo('#table1_wrapper .col-md-6:eq(0)');
+
+			});
+		</script>
 	</div>
 </body>
 

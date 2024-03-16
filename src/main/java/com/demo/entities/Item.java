@@ -2,6 +2,15 @@ package com.demo.entities;
 
 public class Item {
     private Room room;
+    private BillDetail billDetail;
+    public BillDetail getBillDetail() {
+        return billDetail;
+    }
+
+    public void setBillDetail(BillDetail billDetail) {
+        this.billDetail = billDetail;
+    }
+
     private int quantity_item;
 
     public Room getRoom() {
@@ -22,8 +31,9 @@ public class Item {
 
     public Item(){}
     
-    public Item(Room room, int quantity_item) {
+    public Item(Room room, BillDetail billDetail,int quantity_item) {
         this.room = room;
+        this.billDetail = billDetail;
         this.quantity_item = quantity_item;
     }
     

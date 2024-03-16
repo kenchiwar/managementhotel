@@ -18,6 +18,7 @@ import com.demo.entities.Bill;
 import com.demo.entities.BillDetail;
 import com.demo.services.BillDetailService;
 import com.demo.services.BillService;
+import com.demo.services.EvaluateService;
 import com.demo.services.RoomService;
 
 import jakarta.servlet.http.HttpSession;
@@ -32,6 +33,9 @@ public class BillDetailAdminController {
 	private BillService billService;
 	@Autowired RoomService roomServices;
 	
+	@Autowired
+	private EvaluateService evaluateService;
+
 	@RequestMapping(value= {"/{id}"} ,method = RequestMethod.GET)
 	public String Index(ModelMap modelMap, @PathVariable("id") int id) {
 		// BillDetail billDetail = new BillDetail();
@@ -43,34 +47,34 @@ public class BillDetailAdminController {
 		modelMap.put("checkBill", billDetail);
 		switch (billDetail.getBill().getStatus()) {
 			case "1":
-				modelMap.put("billDetails", billDetailService.getBillDetails_1(billDetail.getBill().getAccount().getId()));
+				modelMap.put("billDetails", billDetailService.getBillDetails_1(billDetail.getBill().getAccount().getId(), billDetail.getRoom().getHotel().getIdAccount()));
 				break;
 			case "2":
-				modelMap.put("billDetails", billDetailService.getBillDetails_2(billDetail.getBill().getAccount().getId()));
+				modelMap.put("billDetails", billDetailService.getBillDetails_2(billDetail.getBill().getAccount().getId(), billDetail.getRoom().getHotel().getIdAccount()));
 				break;
 			case "3":
-				modelMap.put("billDetails", billDetailService.getBillDetails_3_4(billDetail.getBill().getAccount().getId()));
+				modelMap.put("billDetails", billDetailService.getBillDetails_3_4(billDetail.getBill().getAccount().getId(), billDetail.getRoom().getHotel().getIdAccount()));
 				break;
 			case "4":
-				modelMap.put("billDetails", billDetailService.getBillDetails_3_4(billDetail.getBill().getAccount().getId()));
+				modelMap.put("billDetails", billDetailService.getBillDetails_3_4(billDetail.getBill().getAccount().getId(), billDetail.getRoom().getHotel().getIdAccount()));
 				break;
 			default:
-				modelMap.put("billDetails", billDetailService.getBillDetails_5(billDetail.getBill().getAccount().getId()));
+				modelMap.put("billDetails", billDetailService.getBillDetails_5(billDetail.getBill().getAccount().getId(), billDetail.getRoom().getHotel().getIdAccount()));
 				break;
 		}
 		return "admin/billdetail/index";
 	}
 	
-	@RequestMapping(value= {"create"} ,method = RequestMethod.GET)
-	public String create(ModelMap modelMap, HttpSession session) {
-			
-	return "admin/billdetail/create";
-	}
-	@RequestMapping(value= {"detail"} ,method = RequestMethod.GET)
-	public String detail(ModelMap modelMap, HttpSession session) {
-			
+
+	@RequestMapping(value= {"bill/{id}"} ,method = RequestMethod.GET)
+	public String detail(ModelMap modelMap, HttpSession session, @PathVariable("id") int id) {
+		var billDetail = billDetailService.find(id);
+		var evaluate = evaluateService.getEvaluate_bill(billDetail.getBill().getId(), billDetail.getBill().getAccount().getId());
+	modelMap.put("billDetail", billDetailService.find(id));
+	modelMap.put("evaluate", evaluate);
 	return "admin/billdetail/detail";
 	}
+
 	@RequestMapping(value= {"edit/{id}"} ,method = RequestMethod.GET)
 	public String edit(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
 		var bill_detail = billDetailService.find(id);
@@ -94,7 +98,7 @@ public class BillDetailAdminController {
 		}else{
 				redirectAttributes.addFlashAttribute("msg", "failed");
 		}
-		return "redirect:/admin/bill";
+		return "redirect:/admin/bill/hotel/" + bill_detail.getRoom().getHotel().getIdAccount();
 	}
 
 	@RequestMapping(value= {"edit_reason/{id}"} ,method = RequestMethod.GET)

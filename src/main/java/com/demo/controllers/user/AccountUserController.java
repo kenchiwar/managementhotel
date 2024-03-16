@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.entities.Account;
+import com.demo.entities.Hotel;
 import com.demo.entities.Role;
 import com.demo.services.AccountSelectService;
 import com.demo.services.AccountService;
+import com.demo.services.HotelService;
 import com.demo.services.RoleService;
 
 import jakarta.servlet.RequestDispatcher;
@@ -39,6 +41,8 @@ public class AccountUserController {
 	private AccountService accountService;
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private HotelService serviceHotel;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	// Template
@@ -138,6 +142,9 @@ public class AccountUserController {
 
 		if (accountService.save(account)) {
 			redirectAttributes.addFlashAttribute("msg", "Success");
+			var data =accountService.findByEmail(account.getEmail());
+			var hotel = new Hotel();
+			serviceHotel.save(hotel,null,null,data.getId());
 			return "redirect:/account/login";
 		} else {
 			redirectAttributes.addFlashAttribute("msg", "Failed");
@@ -145,6 +152,7 @@ public class AccountUserController {
 		}
 
 	}
+
 	@RequestMapping(value = { "update" }, method = RequestMethod.POST)
 	public String update(ModelMap modelMap, HttpSession session,@ModelAttribute("account")Account account,Authentication authentication,RedirectAttributes redirectAttributes) {
 		Account accountU= accountSelectService.getAccountLogin(authentication);

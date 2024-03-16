@@ -37,12 +37,32 @@ public class CartController {
 
      @RequestMapping(value = {"index", "", "/"}, method = RequestMethod.GET)
         public String index(HttpSession session, ModelMap modelMap, @ModelAttribute("bill") Bill bill) {
-            if (session.getAttribute("cart") != null) {
-                List<Item> cart = (List<Item>)session.getAttribute("cart");
+            if(session.getAttribute("cart") == null){
+            
+                List<Item> cart = null;
+                
+                // session.setAttribute("cart_item", cart);
                 modelMap.put("carts", cart);
-                modelMap.put("total", cartService.total(cart));
-                modelMap.put("bill", bill);
+            }else{
+                Item item = (Item) session.getAttribute("cart");
+                List<Item> cart = (List<Item>) session.getAttribute("cart");
+
+                // cart.add(item);
+                int index = cartService.exists(item.getRoom().getId(), cart);
+                if(index == -1){
+                    cart.add(item);
+                    modelMap.put("carts", cart);
+
+                }
+                else{
+
+                    // int quantity = cart.get(index).getQuantity_item() + 1;
+                    // cart.get(index).setQuantity_item(quantity);
+                    modelMap.put("cart_item", item);
+                }
+                // session.setAttribute("cart_item", cart);
             }
+    
         return "user/cart/index";
     }
 
@@ -56,29 +76,40 @@ public class CartController {
         return "redirect:/cart/index";
     }
 
-    @RequestMapping(value = {"addtocart/{id}"}, method = RequestMethod.GET)
-    public String addToCart(@PathVariable("id") int id, HttpSession session, ModelMap modelMap){
-        Room room = roomService.find(id);
+    @RequestMapping(value = {"bills"}, method = RequestMethod.GET)
+    public String addToCart( HttpSession session, ModelMap modelMap){
+        // Room room = roomService.find(id);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
             
  	        if(session.getAttribute("cart") == null){
-            List<Item> cart = new ArrayList<Item>();
-            cart.add(new Item(room, 1));
-            session.setAttribute("cart", cart);
+            
+            List<Item> cart = null;
+            
+            session.setAttribute("cart_item", cart);
         }else{
-            List<Item> cart = (List<Item>)session.getAttribute("cart");
-            int index = cartService.exists(id, cart);
-            if(index == -1){
-                cart.add(new Item(room, 1));
-            }else{
-                int quantity = cart.get(index).getQuantity_item() + 1;
-                cart.get(index).setQuantity_item(quantity);
-            }
-            session.setAttribute("cart", cart);
+            Item item = (Item) session.getAttribute("cart");
+            List<Item> cart = (List<Item>) session.getAttribute("cart");
+            cart.add(item);
+            // int index = cartService.exists(item.getRoom().getId(), cart);
+            // if(index == -1){
+            //     cart.add(item);
+            // }else{
+            //     int quantity = cart.get(index).getQuantity_item() + 1;
+            //     cart.get(index).setQuantity_item(quantity);
+            // }
+            session.setAttribute("cart_item", cart);
         }
 
         
+        return "redirect:/cart/index";
+    }
+
+    @RequestMapping(value = {"remove/{index}"}, method = RequestMethod.GET)
+    public String remove(@PathVariable("index") int index, HttpSession session){
+         List<Item> cart = (List<Item>)session.getAttribute("cart");
+         cart.remove(index);
+         session.setAttribute("cart_item", cart);
         return "redirect:/cart/index";
     }
 

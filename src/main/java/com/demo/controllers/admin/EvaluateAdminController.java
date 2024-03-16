@@ -45,15 +45,23 @@ public class EvaluateAdminController {
 	modelMap.put("rooms", roomService.findAll());
 	return "admin/evaluate/create";
 	}
+	@RequestMapping(value= {"hotel"} ,method = RequestMethod.GET)
+	public String evaluate_hotel(ModelMap modelMap, Authentication authentication) {
+		var account = accountSelectService.getAccountLogin(authentication);
+		modelMap.put("evaluates", evaluateService.getEvaluates(account.getId()));
+		return "admin/evaluate/hotel";
+	}
+	
 	@RequestMapping(value= {"hotel/{id}"} ,method = RequestMethod.GET)
-	public String evaluate_hotel(@PathVariable("id") int id,ModelMap modelMap, Authentication authentication) {
+	public String evaluate_hotel(ModelMap modelMap, Authentication authentication, @PathVariable("id") int id){
 		var account = accountSelectService.getAccountLogin(authentication);
 		modelMap.put("evaluates", evaluateService.getEvaluates(id));
 		return "admin/evaluate/hotel";
 	}
 
 	@RequestMapping(value= {"unactive/{id}"} ,method = RequestMethod.GET)
-	public String unactive(@PathVariable("id") int id,RedirectAttributes redirectAttributes) {
+	public String unactive(@PathVariable("id") int id,RedirectAttributes redirectAttributes, Authentication authentication) {
+			
 			Evaluate evaluate = evaluateService.find(id);
 			if (evaluate.isStatus()) {
 				evaluate.setStatus(false);
@@ -66,8 +74,15 @@ public class EvaluateAdminController {
 			// }else{
 			// 	redirectAttributes.addFlashAttribute("msg", "Failed!");
 			// }
+			var account = accountSelectService.getAccountLogin(authentication);
+			if(account.getRole().getId()== 1) {
+				return "redirect:/admin/evaluate/hotel/" + evaluate.getHotel().getIdAccount();
+
+			}else {
+				return "redirect:/admin/evaluate/hotel";
+
+			}
 			
-		return "redirect:/admin/evaluate/hotel/" + evaluate.getHotel().getIdAccount();
 	}
 	
 	///

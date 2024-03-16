@@ -515,6 +515,9 @@ button.btn-submit {
 .box-form .buttons{
 	text-align: center;
 }
+#main-content{
+	overflow:hidden;
+}
 @media (max-width: 480px) {
 	.list-account .box-info {
 		flex: 0 0 100%;
@@ -527,5 +530,9 @@ button.btn-submit {
 		padding: 0 20px;
 		margin-bottom: 20px;
 	}
+	.card .card-body{
+		overflow-x: scroll;
+	}
 
 }
+
