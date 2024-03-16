@@ -54,23 +54,23 @@ public class BillDetailServiceImpl implements BillDetailService{
     }
 
      @Override
-    public List<BillDetail> getBills() {
-        return BillDetailRepository.getBills();
+    public List<BillDetail> getBills(int id_sender) {
+        return BillDetailRepository.getBills(id_sender);
     }
 
     @Override
-    public List<BillDetail> getBills_2() {
-        return BillDetailRepository.getBills_2();
+    public List<BillDetail> getBills_2(int id_sender) {
+        return BillDetailRepository.getBills_2(id_sender);
     }
 
     @Override
-    public List<BillDetail> getBills_3_4() {
-        return BillDetailRepository.getBills_3_4();
+    public List<BillDetail> getBills_3_4(int id_sender) {
+        return BillDetailRepository.getBills_3_4(id_sender);
     }
 
     @Override
-    public List<BillDetail> getBills_5() {
-        return BillDetailRepository.getBills_5();
+    public List<BillDetail> getBills_5(int id_sender) {
+        return BillDetailRepository.getBills_5(id_sender);
     }
 
     @Override
@@ -83,12 +83,12 @@ public class BillDetailServiceImpl implements BillDetailService{
         return BillDetailRepository.getBillDetails(id);
     }
     @Override
-    public List<BillDetail> getBillDetails_1(int id) {
-        return BillDetailRepository.getBillDetails_1(id);
+    public List<BillDetail> getBillDetails_1(int id, int idAccount) {
+        return BillDetailRepository.getBillDetails_1(id, idAccount);
     }
     @Override
-    public List<BillDetail> getBillDetails_2(int id) {
-        return BillDetailRepository.getBillDetails_2(id);
+    public List<BillDetail> getBillDetails_2(int id, int idAccount) {
+        return BillDetailRepository.getBillDetails_2(id, idAccount);
     }
 
     @Override
@@ -97,12 +97,12 @@ public class BillDetailServiceImpl implements BillDetailService{
     }
     
     @Override
-    public List<BillDetail> getBillDetails_3_4(int id) {
-        return BillDetailRepository.getBillDetails_3_4(id);
+    public List<BillDetail> getBillDetails_3_4(int id, int idAccount) {
+        return BillDetailRepository.getBillDetails_3_4(id, idAccount);
     }
     @Override
-    public List<BillDetail> getBillDetails_5(int id) {
-        return BillDetailRepository.getBillDetails_5(id);
+    public List<BillDetail> getBillDetails_5(int id, int idAccount) {
+        return BillDetailRepository.getBillDetails_5(id, idAccount);
     }
 
     @Override

@@ -15,8 +15,16 @@
 				<p class="text-center mb-30 fs-18 fw-700 color-black">Code : <th:block th:text="${billDetail.id}">
 					</th:block>
 				</p>
-				<a th:href="@{'#'}" class="btn-outline mb-30">Send Evaluate</a>
-				<a href="#" class="btn-bg">Rebooking</a>
+				<th:block th:if="${billDetail.bill.status == '3'}">
+					<button type="button" class="btn-outline mb-30" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><Strong>Send Evaluate</Strong></button>
+					<!-- <a class="btn-outline mb-30" data-target="#exampleModal" data-whatever="@mdo">Send Evaluate</a> -->
+				</th:block>
+				<th:block th:if="${billDetail.bill.status == '4'}">
+					<a th:href="@{'/hotel/booking/' + ${billDetail.room.id}}" class="btn-bg">Rebooking</a>
+				</th:block>
+				<th:block th:if="${billDetail.bill.status == '1'}">
+				<a id="cancelLink" class="btn btn-danger" th:href="@{'/bill/cancel/' + ${billDetail.id}}">Cancel</a>
+			</th:block>
 			</div>
 		</div>
 	</div>
@@ -133,8 +141,50 @@
 					<div class="col-6 " style="text-align: end;">
 						<p th:text="${billDetail.total}" class="fs-22 fw-700 color-black"></p>
 					</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog submit_a_review_area">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send Evaluete</h5>
+        
+      </div>
+	  <form method="post" th:action="@{/evaluate/comment}">
+		<div class="modal-body">
+			<div class="container">
+				<div class="stars">
+					<input type="radio"  class="star-1" id="star-1" th:field="${evaluate.number}" value="1">
+					<label class="star-1" for="star-1">1</label>
+					<input type="radio"  class="star-2" id="star-2" th:field="${evaluate.number}" value="2">
+					<label class="star-2" for="star-2">2</label>
+					<input type="radio"  class="star-3" id="star-3" th:field="${evaluate.number}" value="3">
+					<label class="star-3" for="star-3">3</label>
+					<input type="radio" class="star-4" id="star-4" th:field="${evaluate.number}" value="4">
+					<label class="star-4" for="star-4">4</label>
+					<input type="radio" class="star-5" id="star-5" th:field="${evaluate.number}" value="5">
+					<label class="star-5" for="star-5">5</label>
+					<span></span>
+				</div>
+		  </div>	
+			<div class="form-group">
+				<label for="message-text" class="col-form-label">Comment:</label>
+				<textarea class="form-control"  th:field="${evaluate.comment}"></textarea>
+			</div>
+			
+		</div>
+		<div class="modal-footer">
+			<!-- <input type="hidden" th:field="${billDetail.id}"> -->
+
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<input type="submit" class="btn btn-primary" value="Send">
+
+		</div>
+	</form>
+    </div>
+  </div>
+</div>
 					<th:block th:if="${billDetail.bill.status == '3'}">
-						<form method="post" th:action="@{/bill/evaluate/comment}">
+						<form method="post" th:action="@{/evaluate/comment}">
 							numnber:<input type="number" max="5" th:field="${evaluate.number}"><br>
 							Comment: <input type="text" th:field="${evaluate.comment}"><br>
 

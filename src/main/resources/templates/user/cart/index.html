@@ -59,7 +59,9 @@
 								<div class="shop-products-area detai-hotels">
 									<div class="row">
 										<h1>Cart</h1>
-                                        <form th:action="@{'/cart/update'}" method="post">
+
+										<th:block th:if="${carts != null}">
+											<form th:action="@{'/cart/update'}" method="post">
                                            
                                                 <th:block th:each="item , i : ${carts}">
                                                     <div class="box-item box mb-4">
@@ -71,6 +73,9 @@
                                                                     </div>
                                                                     <div class="col-md-9">
                                                                         <div class="info">
+																			<div>					
+																				<a th:href="@{'/cart/remove/'+${i.index}}">Remove</a>
+																			</div>
                                                                             <h5 class="fs-20 fw-700">
                                                                                 <th:block th:text="${item.room.hotel.name}"></th:block>
                                                                             </h5>
@@ -81,10 +86,16 @@
                                                                                 Room now: <th:block th:text="${item.room.roomNow + '/' + item.room.roomMax} "></th:block>
                                                                             </div>
                                                                             <div class="fs-20 fw-700">
+                                                                                <th:block th:text="${item.billDetail.bill.checkInUntil + ' - ' + item.billDetail.bill.checkOutFrom} "></th:block>
+                                                                            </div>
+																			<div class="fs-20 fw-700">
+                                                                                Number of Night: <th:block th:text="${item.billDetail.numberDay} "></th:block>
+                                                                            </div>
+                                                                            <div class="fs-20 fw-700">
                                                                                 Guest: <th:block th:text="${item.room.peopleMax + ' Adults'} "></th:block>
                                                                             </div>
                                                                             <div class="fs-20 fw-700">
-                                                                                Quantity room: <input type="number" min="1" th:max="${item.room.roomNow}" name="quantities">
+                                                                                Quantity room: <th:block th:text="${item.billDetail.quantity} "></th:block>
                                                                             </div>
                                                                             
                                                                             <div class="fs-20 fw-700">
@@ -92,6 +103,9 @@
                                                                             </div>
                                                                             <div class="fs-20 fw-700">
                                                                                 Price Discount: <th:block th:text="${item.room.priceDiscount} "></th:block>
+                                                                            </div>
+                                                                            <div class="fs-20 fw-700">
+                                                                                Total: <th:block th:text="${item.billDetail.total} "></th:block>
                                                                             </div>
                                                                             
                                                                         </div>
@@ -106,8 +120,10 @@
                                                 <input type="submit" value="Update" class="btn btn-success">
 
                                         </form>
-
-                                       
+										</th:block>
+                                        <th:block th:if="${carts == null}">
+											<h4>No Bill</h4>
+										</th:block>
 									</div>
 
 									<!-- Pagination -->

@@ -32,29 +32,43 @@
 					<div class="col-12">
 						<div class="box box-payment mb-30">
 							<h4 class="fs-22 fw-700 text-center">Bill Confirm</h4>
-							<label>Code: </label>
-							<th:block th:text="${billDetail.id}"></th:block><br>
-							<label>Room: </label>
-							<th:block th:text="${billDetail.room.name}"></th:block><br>
-							<label>Date Check In: </label>
-							<th:block th:text="${billDetail.bill.checkInUntil}"></th:block><br>
-							<label>Date Check Out: </label>
-							<th:block th:text="${billDetail.bill.checkOutUntil}"></th:block><br>
-							<label>Main Guest: </label>
-							<th:block th:text="${billDetail.bill.mainGuest}"></th:block><br>
-							<label>Price: </label>
-							<th:block th:text="${billDetail.price}"></th:block><br>
-							<label>Price Discount: </label>
-							<th:block th:text="${billDetail.priceDiscount}"></th:block><br>
-							<label>Total: </label>
-							<th:block th:text="${billDetail.total}"></th:block><br>
-							<label>Payment Method: </label>
-							<th:block th:text="${payment.method}"></th:block><br>
-
-							<form th:action="@{/bill/paypal}" method="post">
-								<input type="hidden" name="total" th:value="${billDetail.total}">
-								<button type="submit" class="btn-submit">Paypal</button>
-							</form>
+							<th:block th:if="${cart == null}">
+								<h4>No Bill</h4>
+							</th:block>
+							<th:block th:if="${cart != null}">
+								<label>Hotel: </label>
+								<strong > <a th:href="@{'/hotel/detail/'+${cart.room.hotel.idAccount}}" th:text="${cart.room.hotel.name}"></a></strong><br>
+								<label>Room: </label>
+								<th:block th:text="${cart.room.name}"></th:block><br>
+								<label>Date Check In: </label>
+								<th:block th:with="checkInDate=${cart.billDetail.bill.checkInUntil}">
+									<span th:text="${#dates.format(checkInDate, 'dd/MM/yyyy')}"></span><br>
+								</th:block>
+								<label>Date Check Out: </label>
+								<th:block th:with="checkInDate=${cart.billDetail.bill.checkOutFrom}">
+									<span th:text="${#dates.format(checkInDate, 'dd/MM/yyyy')}"></span><br>
+								</th:block>
+								<label>Quantity Room: </label>
+								<th:block th:text="${cart.billDetail.quantity}"></th:block><br>
+								<label>Number of Night: </label>
+								<th:block th:text="${cart.billDetail.numberDay}"></th:block><br>
+								<label>Main Guest: </label>
+								<th:block th:text="${cart.billDetail.bill.mainGuest}"></th:block><br>
+								<label>Price: </label>
+								<th:block th:text="${cart.billDetail.price}"></th:block><br>
+								<label>Price Discount: </label>
+								<th:block th:text="${cart.billDetail.priceDiscount}"></th:block><br>
+								<label>Total: </label>
+								<th:block th:text="${cart.billDetail.total + ' (' + usd + ' USD)'}"></th:block><br>
+								<label>Payment Method: </label> Paypal
+								<!-- <th:block th:text="${payment.method}"></th:block><br> -->
+	
+								<form th:action="@{/bill/paypal}" method="post">
+									<input type="hidden" name="total" th:value="${cart.billDetail.total}">
+									<button type="submit" class="btn-submit">Paypal</button>
+								</form>
+							</th:block>
+							
 
 						</div>
 					</div>

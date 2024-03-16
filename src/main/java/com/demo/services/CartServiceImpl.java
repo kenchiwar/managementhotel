@@ -19,13 +19,13 @@ public class CartServiceImpl implements CartService{
         return -1;
     }
 
-    @Override
-    public double total(List<Item> cart) {
-        double s = 0;
-        for(Item i : cart){
-            s += i.getRoom().getPriceDiscount() * i.getQuantity_item();
-        }
-        return s;
-    }
+    // @Override
+    // public double total(List<Item> cart) {
+    //     double s = 0;
+    //     for(Item i : cart){
+    //         s += i.getRoom().getPriceDiscount() * i.getQuantity_item();
+    //     }
+    //     return s;
+    // }
    
 }

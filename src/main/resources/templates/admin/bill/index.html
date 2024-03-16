@@ -64,7 +64,7 @@
 								<td th:text="${bill_.numberDay}"></td>
 								<td th:text="${bill_.bill.total}"></td>
 								<td
-									th:text="${bill_.bill.status == '1' ? 'Paid' : bill_.bill.status == '2' ?  'Live In' : bill_.bill.status == '3' || bill_.bill.status == '4' ? 'Completed And Evaluated' : 'Canceled'}">
+									th:text="${bill_.bill.status == '1' ? 'Paid' : bill_.bill.status == '2' ?  'Live In' : bill_.bill.status == '3' ? 'Completed' : bill_.bill.status == '4' ? 'Completed And Evaluated' : 'Canceled'}">
 								</td>
 								<td>
 									<a th:href="@{'/admin/billdetail/edit/' + ${bill_.id}}"
@@ -112,7 +112,7 @@
 								<td th:text="${bill_.numberDay}"></td>
 								<td th:text="${bill_.bill.total}"></td>
 								<td
-									th:text="${bill_.bill.status == '1' ? 'Paid' : bill_.bill.status == '2' ?  'Live In' : bill_.bill.status == '3' || bill_.bill.status == '4' ? 'Completed And Evaluated' : 'Canceled'}">
+									th:text="${bill_.bill.status == '1' ? 'Paid' : bill_.bill.status == '2' ?  'Live In' : bill_.bill.status == '3' ? 'Completed' : bill_.bill.status == '4' ? 'Completed And Evaluated' : 'Canceled'}">
 								</td>
 								<td>
 									<a th:href="@{'/admin/billdetail/edit/' + ${bill_.id}}"
@@ -155,7 +155,7 @@
 								<td th:text="${bill_.numberDay}"></td>
 								<td th:text="${bill_.bill.total}"></td>
 								<td
-									th:text="${bill_.bill.status == '1' ? 'Paid' : bill_.bill.status == '2' ?  'Live In' : bill_.bill.status == '3' || bill_.bill.status == '4' ? 'Completed And Evaluated' : 'Canceled'}">
+									th:text="${bill_.bill.status == '1' ? 'Paid' : bill_.bill.status == '2' ?  'Live In' : bill_.bill.status == '3' ? 'Completed' : bill_.bill.status == '4' ? 'Completed And Evaluated' : 'Canceled'}">
 								</td>
 		
 								<td>
@@ -193,7 +193,7 @@
 								<td th:text="${bill_.numberDay}"></td>
 								<td th:text="${bill_.bill.total}"></td>
 								<td
-									th:text="${bill_.bill.status == '1' ? 'Paid' : bill_.bill.status == '2' ?  'Live In' : bill_.bill.status == '3' || bill_.bill.status == '4' ? 'Completed And Evaluated' : 'Canceled'}">
+									th:text="${bill_.bill.status == '1' ? 'Paid' : bill_.bill.status == '2' ?  'Live In' : bill_.bill.status == '3' ? 'Completed' : bill_.bill.status == '4' ? 'Completed And Evaluated' : 'Canceled'}">
 								</td>
 		
 								<td>

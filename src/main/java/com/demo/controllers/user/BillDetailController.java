@@ -39,19 +39,19 @@ public class BillDetailController {
 		modelMap.put("checkBill", billDetail);
 		switch (billDetail.getBill().getStatus()) {
 			case "1":
-				modelMap.put("billDetails", billDetailService.getBillDetails_1(billDetail.getBill().getAccount().getId()));
+				modelMap.put("billDetails", billDetailService.getBillDetails_1(billDetail.getBill().getAccount().getId(), billDetail.getRoom().getHotel().getIdAccount()));
 				break;
 			case "2":
-				modelMap.put("billDetails", billDetailService.getBillDetails_2(billDetail.getBill().getAccount().getId()));
+				modelMap.put("billDetails", billDetailService.getBillDetails_2(billDetail.getBill().getAccount().getId(), billDetail.getRoom().getHotel().getIdAccount()));
 				break;
 			case "3":
-				modelMap.put("billDetails", billDetailService.getBillDetails_3_4(billDetail.getBill().getAccount().getId()));
+				modelMap.put("billDetails", billDetailService.getBillDetails_3_4(billDetail.getBill().getAccount().getId(), billDetail.getRoom().getHotel().getIdAccount()));
 				break;
 			case "4":
-				modelMap.put("billDetails", billDetailService.getBillDetails_3_4(billDetail.getBill().getAccount().getId()));
+				modelMap.put("billDetails", billDetailService.getBillDetails_3_4(billDetail.getBill().getAccount().getId(), billDetail.getRoom().getHotel().getIdAccount()));
 				break;
 			default:
-				modelMap.put("billDetails", billDetailService.getBillDetails_5(billDetail.getBill().getAccount().getId()));
+				modelMap.put("billDetails", billDetailService.getBillDetails_5(billDetail.getBill().getAccount().getId(), billDetail.getRoom().getHotel().getIdAccount()));
 				break;
 		}
 		return "admin/billdetail/index";

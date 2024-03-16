@@ -189,100 +189,100 @@
 
 
 				<!-- /.Met moi -->
-				<div class="row">
-					<div class="col-12">
-						<div class="card">
-							<div class="card-header">
-								<h3 class="card-title">Hotel note active</h3>
-							</div>
-							<!-- /.card-header -->
-							<div class="card-body">
-
-								<table id="example2" class="table table-bordered table-hover">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Address</th>
-											<th>Rating</th>
-											<th>Status</th>
-											<th>Main Photo</th>
-											<th>Secondary Photo</th>
-
-											<th>Description</th>
-											<th>Option</th>
-										</tr>
-									</thead>
-									<tbody>
-										<th:block th:each="hotel :${hotels}">
-											<th:block th:if="${hotel.status==null && hotel.idHandler!=null}">
-
-												<tr th:class="${hotel.status==true?'status-t':'status-f'}">
-													<td th:text="${hotel.name}"></td>
-
-													<td th:text="${#strings.substringBefore(hotel.address, ';')}"></td>
-													<td th:text="${hotel.rating}"></td>
-													<td
-														th:text="${hotel.status==true?'Operating company':'Dormant company'}">
-													</td>
-													<td>
-														<img class="img-fluid h-100"
-															th:src="${urlImagesHotelMain}+'/'+${hotel.mainPhoto}">
-													</td>
-													<td>
-														<img class="img-fluid h-100"
-															th:src="${urlImagesHotelMain}+'/'+${hotel.secondaryPhoto}">
-													</td>
-
-													<td th:text="${hotel.description}"></td>
-													<td>
-														<a th:href="@{${adminHotel+'/edit/'+hotel.idAccount}}">
-															<button class="btn-main mb-5">
-																Edit
-															</button>
-														</a>
-
-
-														<button class="buttonHandler btn-main">
-															Hanlder
-															<th:block th:if="${checkHandler==true}">
-																<input type="hidden" class="handlerAccountId"
-																	th:value="${hotel.idAccount}">
-
-															</th:block>
-														</button>
-
-
-													</td>
-
-												</tr>
-											</th:block>
-
-										</th:block>
-									</tbody>
-									<tfoot>
-										<tr>
-											<th>Name</th>
-											<th>Address</th>
-											<th>Rating</th>
-											<th>Status</th>
-											<th>Secondary Photo</th>
-											<th>Main Photo</th>
-											<th>Description</th>
-
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-							<!-- /.card-body -->
-						</div>
-						<!-- /.card -->
-					</div>
-					<!-- /.col -->
-				</div>
+				
 
 		</th:block>
 
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">Hotel note active</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
 
+						<table id="example2" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Address</th>
+									<th>Rating</th>
+									<th>Status</th>
+									<th>Main Photo</th>
+									<th>Secondary Photo</th>
+
+									<th>Description</th>
+									<th>Option</th>
+								</tr>
+							</thead>
+							<tbody>
+								<th:block th:each="hotel :${hotels}">
+									<th:block th:if="${hotel.status==null && hotel.idHandler!=null}">
+
+										<tr th:class="${hotel.status==true?'status-t':'status-f'}">
+											<td th:text="${hotel.name}"></td>
+
+											<td th:text="${#strings.substringBefore(hotel.address, ';')}"></td>
+											<td th:text="${hotel.rating}"></td>
+											<td
+												th:text="${hotel.status==true?'Operating company':'Dormant company'}">
+											</td>
+											<td>
+												<img class="img-fluid h-100"
+													th:src="${urlImagesHotelMain}+'/'+${hotel.mainPhoto}">
+											</td>
+											<td>
+												<img class="img-fluid h-100"
+													th:src="${urlImagesHotelMain}+'/'+${hotel.secondaryPhoto}">
+											</td>
+
+											<td th:text="${hotel.description}"></td>
+											<td>
+												<a th:href="@{${adminHotel+'/edit/'+hotel.idAccount}}">
+													<button class="btn-main mb-5">
+														Edit
+													</button>
+												</a>
+
+
+												<button class="buttonHandler btn-main">
+													Hanlder
+													<th:block th:if="${checkHandler==true}">
+														<input type="hidden" class="handlerAccountId"
+															th:value="${hotel.idAccount}">
+
+													</th:block>
+												</button>
+
+
+											</td>
+
+										</tr>
+									</th:block>
+
+								</th:block>
+							</tbody>
+							<tfoot>
+								<tr>
+									<th>Name</th>
+									<th>Address</th>
+									<th>Rating</th>
+									<th>Status</th>
+									<th>Secondary Photo</th>
+									<th>Main Photo</th>
+									<th>Description</th>
+
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+			</div>
+			<!-- /.col -->
+		</div>
 
 
 

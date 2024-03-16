@@ -52,7 +52,7 @@ public class EvaluateController {
 	public String Index(ModelMap modelMap, Authentication authentication) {
 		var account = accountSelectService.getAccountLogin(authentication);
 		var evaluates = evaluateService.getEvaluates_user(account.getId());
-		var billDetails = billDetailService.getBillDetails_3_4(account.getId());
+		var billDetails = billDetailService.getBills_3_4(account.getId());
 		modelMap.put("evaluates", billDetails);
 		modelMap.put("account", accountSelectService.getAccountLogin(authentication));
 		return "user/bill_evaluate/index";

@@ -139,16 +139,12 @@ public class AccountUserController {
 		account.setImage("user.png");
 		account.setRole(role);
 		account.setPassword(encoder.encode(account.getPassword()));
-		
+
 		if (accountService.save(account)) {
-			System.out.println("fffff");
-			var acc = accountService.findByEmail(account.getEmail());
-			var hotel = new Hotel();
-			hotel.setAccount(new Account(acc.getId()));
-			System.out.println("met moi"+acc.getId());
-			serviceHotel.save(hotel);
-			
 			redirectAttributes.addFlashAttribute("msg", "Success");
+			var data =accountService.findByEmail(account.getEmail());
+			var hotel = new Hotel();
+			serviceHotel.save(hotel,null,null,data.getId());
 			return "redirect:/account/login";
 		} else {
 			redirectAttributes.addFlashAttribute("msg", "Failed");
@@ -156,6 +152,7 @@ public class AccountUserController {
 		}
 
 	}
+
 	@RequestMapping(value = { "update" }, method = RequestMethod.POST)
 	public String update(ModelMap modelMap, HttpSession session,@ModelAttribute("account")Account account,Authentication authentication,RedirectAttributes redirectAttributes) {
 		Account accountU= accountSelectService.getAccountLogin(authentication);

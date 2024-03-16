@@ -77,7 +77,7 @@ public class HotelServiceImpl implements HotelService {
 			Integer idAccount) {
 
 		try {
-			if (!fileMain.isEmpty() || !fileSecondaryPhoto.isEmpty()) {
+			if (fileMain !=null || fileSecondaryPhoto !=null) {
 
 				File folderImage = new File(new ClassPathResource(".").getFile().getPath() + AttributeHelper.staticUrl
 						+ AttributeHelper.urlImagesHotelMain);
@@ -100,7 +100,7 @@ public class HotelServiceImpl implements HotelService {
 						// TODO: handle exception
 					}
 				}
-				if (!fileSecondaryPhoto.isEmpty()) {
+				if (fileSecondaryPhoto!=null) {
 					try {
 
 						String fileName = FileHelper.generateFileName(fileSecondaryPhoto.getOriginalFilename());

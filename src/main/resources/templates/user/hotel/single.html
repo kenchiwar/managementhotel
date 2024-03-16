@@ -232,7 +232,61 @@
 										</ul>
 									</div>
 
-									
+									<div class="submit_a_review_area mt-50">
+										<h4>Submit A Review</h4>
+										<form action="#" method="post">
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group d-flex align-items-center">
+														<span class="mr-15">Your Ratings:</span>
+														<div class="stars">
+															<input type="radio" name="star" class="star-1" id="star-1">
+															<label class="star-1" for="star-1">1</label>
+															<input type="radio" name="star" class="star-2" id="star-2">
+															<label class="star-2" for="star-2">2</label>
+															<input type="radio" name="star" class="star-3" id="star-3">
+															<label class="star-3" for="star-3">3</label>
+															<input type="radio" name="star" class="star-4" id="star-4">
+															<label class="star-4" for="star-4">4</label>
+															<input type="radio" name="star" class="star-5" id="star-5">
+															<label class="star-5" for="star-5">5</label>
+															<span></span>
+														</div>
+													</div>
+												</div>
+												<div class="col-12 col-md-6">
+													<div class="form-group">
+														<label for="name">Nickname</label>
+														<input type="email" class="form-control" id="name"
+															placeholder="Nazrul">
+													</div>
+												</div>
+												<div class="col-12 col-md-6">
+													<div class="form-group">
+														<label for="options">Reason for your rating</label>
+														<select class="form-control" id="options">
+															<option>Quality</option>
+															<option>Value</option>
+															<option>Design</option>
+															<option>Price</option>
+															<option>Others</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-12">
+													<div class="form-group">
+														<label for="comments">Comments</label>
+														<textarea class="form-control" id="comments" rows="5"
+															data-max-length="150"></textarea>
+													</div>
+												</div>
+												<div class="col-12">
+													<button type="submit" class="btn alazea-btn">Submit Your
+														Review</button>
+												</div>
+											</div>
+										</form>
+									</div>
 								</div>
 
 							</div>
@@ -245,14 +299,14 @@
 		<section id="room">
 			<div class="container">
 				<div class="row">
-
-
+					
+					
 					<div class="col-12">
 						<h2>Room</h2>
 					</div>
-
+					
 					<th:block th:each="room : ${hotel.rooms}">
-						<div class="col-md-4">
+						<div class="col-md-6">
 
 							<div class="box-room-detail box mb-30" data-aos="fade-up" data-aos-duration="2000">
 								<div class="wrapper">
@@ -294,7 +348,6 @@
 										<div class="buttons">
 											<a th:href="@{'/hotel/booking/'+${room.id}}" class="btn btn-booknow">Book
 												now</a>
-
 										</div>
 									</div>
 								</div>
@@ -439,7 +492,6 @@
 				});
 			}
 		</script>
-		
 		</divc>
 </body>
 

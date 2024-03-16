@@ -35,6 +35,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity.cors(cor -> cor.disable()).csrf(csf -> csf.disable()).authorizeHttpRequests(auth -> {
 					auth
+					 .requestMatchers("/admin/account/**").hasAnyRole("SUPER_ADMIN")
 //					 .requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN","ADMIN")
 //					 .requestMatchers("/admin/hotel/**").hasAnyRole("BUSINESS")
 //					 .requestMatchers("/assets/**", "/account/login").permitAll()
