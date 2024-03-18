@@ -87,17 +87,18 @@ public class HotelUserController {
 		}else {
 			hotels = serviceHotel.hotelShowIndexs(null, null);
 			
-			hotels.forEach(x -> {
-				if (x.getTotalrating() > 0) {
-					x.setHaha(x.getHaha() * 100 / (x.getTotalrating() * 5));
-				} else {
-					x.setHaha(0l);
-				}
-			});
 			modelMap.put("search", new SelectHelperHotel());
 			
 		}
-		
+		hotels.forEach(x ->{
+			if (x.getTotalrating() > 0) {
+				x.setHaha(x.getHaha() * 100 / (x.getTotalrating() * 5));
+			} else {
+				x.setHaha(0l);
+			}
+			
+		});
+	
 		modelMap.put("hotels", hotels);
 		return "user/hotel/index";
 	}

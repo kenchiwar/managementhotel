@@ -144,6 +144,7 @@ public class AccountUserController {
 			redirectAttributes.addFlashAttribute("msg", "Success");
 			var data =accountService.findByEmail(account.getEmail());
 			var hotel = new Hotel();
+			hotel.setRating(1);
 			serviceHotel.save(hotel,null,null,data.getId());
 			return "redirect:/account/login";
 		} else {

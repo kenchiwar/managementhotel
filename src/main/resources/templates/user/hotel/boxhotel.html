@@ -18,19 +18,22 @@
 			</div>
 			<div class="content">
 				<div class="wrapper-content">
-					
+
 					<div class="title">
 
 						<h2 class="fz-24 color-black">
 							<th:block th:text="${room.name}"></th:block>
 						</h2>
+						<div class="raiting-hotel">
+							<th:block th:each="i : ${#numbers.sequence(1, room.rating)}">
+								<i class="fa fa-star" aria-hidden="true" style="color:rgb(255, 220, 0);"></i>
+							</th:block>
+						</div>
 						<p th:text="${room.cancellationPolicy}" class="description"></p>
 						<p class="sub-title" th:text="${#strings.substringBefore(room.address, '-')}"></p>
 					</div>
 
 
-
-					
 					<div class="b-price">
 						<th:block th:if="${room.priceDiscount} > 0 and ${room.priceDiscount < room.price} ">
 

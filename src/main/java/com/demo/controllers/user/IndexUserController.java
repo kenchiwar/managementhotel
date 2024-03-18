@@ -42,37 +42,18 @@ public class IndexUserController {
 		SelectHelperHotel select = new SelectHelperHotel();
 		select.setCity("01");
 		var hotels = serviceHotel.hotelShowIndexs(select, null);
-		hotels.forEach(x -> {
-			
-			if (x.getTotalrating() > 0) {
-				x.setHaha(x.getHaha() * 100 / (x.getTotalrating() * 5));
-			} else {
-				x.setHaha(0l);
-			}
-		});
+		
 		
 		
 		//HCM
 		select.setCity("79");
 		var hotel = serviceHotel.hotelShowIndexs(select, null);
-		hotels.forEach(x -> {
-			if (x.getTotalrating() > 0) {
-				x.setHaha(x.getHaha() * 100 / (x.getTotalrating() * 5));
-			} else {
-				x.setHaha(0l);
-			}
-		});
+		
 		hotels.addAll(hotel);
 		//DA NANG
 		select.setCity("48");
 		 hotel = serviceHotel.hotelShowIndexs(select, null);
-		hotel.forEach(x -> {
-			if (x.getTotalrating() > 0) {
-				x.setHaha(x.getHaha() * 100 / (x.getTotalrating() * 5));
-			} else {
-				x.setHaha(0l);
-			}
-		});
+		
 		hotels.addAll(hotel);
 		hotels.forEach(x ->{
 			if (x.getTotalrating() > 0) {
@@ -81,6 +62,7 @@ public class IndexUserController {
 				x.setHaha(0l);
 			}
 		});
+		
 		modelMap.put("hotels", hotels);
 
 		
