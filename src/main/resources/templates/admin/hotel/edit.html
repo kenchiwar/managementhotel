@@ -164,8 +164,10 @@
 					<div class="card-header">
 						<div class="row" style="align-items: center;">
 							<div class="col-md-3">
-								<h3>Hotel </h3>
+								<h3 class="fs-22 fw-700">My Hotel</h3>
 							</div>
+								<th:block sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN')">
+
 							<div class="col-md-3">
 								<form th:if="${hotel.status==true}" method="post" th:action="@{${urlForm+'/status'}}">
 									<input name="status" style="display: none;" type="text" value="false">
@@ -180,9 +182,13 @@
 
 								</form>
 							</div>
+							</th:block>
+								<th:block sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN')">
+
 							<div class="col-md-2">
 								<a th:href="@{'/admin/account/detail/'+${hotel.idAccount}}" class="btn-main">Account</a>
 							</div>
+							</th:block>
 							<div class="col-md-2">
 								<a th:href="@{'/admin/hotel/detail/'+${hotel.idAccount}}" class="btn-main">Detail</a>
 							</div>

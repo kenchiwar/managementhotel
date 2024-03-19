@@ -20,10 +20,11 @@
 				<div class="wrapper-content">
 
 					<div class="title">
-
-						<h2 class="fz-24 color-black">
-							<th:block th:text="${room.name}"></th:block>
-						</h2>
+						<a th:href="@{'/hotel/detail/'+${room.idAccount}}">
+							<h2 class="fz-24 color-black">
+								<th:block th:text="${room.name}"></th:block>
+							</h2>
+						</a>
 						<div class="raiting-hotel">
 							<th:block th:each="i : ${#numbers.sequence(1, room.rating)}">
 								<i class="fa fa-star" aria-hidden="true" style="color:rgb(255, 220, 0);"></i>

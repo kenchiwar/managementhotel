@@ -354,12 +354,12 @@ public class HotelServiceImpl implements HotelService {
 		Predicate whereClause = cb.and();
 		if (selectHelper != null) {
 			if (selectHelper.getRoleMax() != null)
-				whereClause = cb.and(whereClause, cb.lessThanOrEqualTo(root.get("role.id"), selectHelper.getRoleMax()))
+				whereClause = cb.and(whereClause, cb.lessThanOrEqualTo(root.get("role").get("id"), selectHelper.getRoleMax()))
 
 				;
 			if (selectHelper.getRoleMin() != null)
 				whereClause = cb.and(whereClause,
-						cb.greaterThanOrEqualTo(root.get("role.id"), selectHelper.getRoleMin()))
+						cb.greaterThanOrEqualTo(root.get("role").get("id"), selectHelper.getRoleMin()))
 
 				;
 		}

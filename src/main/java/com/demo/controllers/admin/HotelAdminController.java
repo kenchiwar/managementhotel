@@ -79,8 +79,9 @@ public class HotelAdminController {
 		modelMap.put(AttributeHelper.checkEdit, false);
 		// admin đủ quyền mới thấy
 		
-		modelMap.put("admins", serviceHotel.selectAccount(null, null));
-		
+		var selectAccont = new SelectAccountHelper();
+		selectAccont.setRoleMax(2);
+		modelMap.put("admins", serviceHotel.selectAccount(selectAccont, null));		
 		return "admin/hotel/index";
 	}
 

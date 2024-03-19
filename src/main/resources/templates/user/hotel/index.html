@@ -8,7 +8,17 @@
 
 <body>
 	<div id="css">
-
+	<style>
+		#formSubmit button{
+			padding: 5px 10px;
+			border: none;
+			border-radius: 20px;
+			background: rgba(1,148,243,1.00);
+			color:#fff;
+			font-size:18px;
+			cursor: pointer;
+		}
+	</style>
 	</div>
 	<div class="main-content">
 		<div class="breadcrumb-area">
@@ -78,10 +88,10 @@
 						</div>
 					</div>
 					<div class="col-12">
-						<div class="row">
+						<div class="row ">
 							<!-- Sidebar Area -->
 
-							<div class="col-12 col-md-4 col-lg-3">
+							<div class="col-12 col-md-4 col-lg-3 mb-30">
 
 								<div class="shop-sidebar-area">
 									<form method="get" id="formSubmit">
@@ -98,9 +108,9 @@
 											<h4 class="widget-title">Prices</h4>
 											<div class="widget-desc">
 												<div class="slider-range">
-													<div data-min="0" data-max="1000000" data-unit="₫"
+													<div data-min="0" data-max="5000000" data-unit="₫"
 														class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
-														data-value-min="0" data-value-max="1000000"
+														data-value-min="0" data-value-max="5000000"
 														data-label-result="Price:">
 														<div class="ui-slider-range ui-widget-header ui-corner-all">
 														</div>
@@ -110,7 +120,7 @@
 														<span class="ui-slider-handle ui-state-default ui-corner-all"
 															tabindex="0"></span>
 													</div>
-													<div class="range-price" id="price-range">Price: ₫0 - ₫1000000
+													<div class="range-price" id="price-range">Price: ₫0 - ₫5000000
 													</div>
 												</div>
 											</div>

@@ -53,14 +53,14 @@
 								<div class="hero-slides-content text-center">
 									<h2>You are looking for a hotel in Hanoi
 
-</h2>
+									</h2>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque
 										ante nec ipsum iaculis, ac iaculis ipsum porttitor. Vivamus cursus nisl lectus,
 										id mattis nisl lobortis eu. Duis diam augue, dapibus ut dolor at, mattis maximus
 										dolor.</p>
 									<div class="welcome-btn-group">
 										<a href="/hotel?city=01" class="btn alazea-btn mr-30">Book Now</a>
-										
+
 									</div>
 								</div>
 							</div>
@@ -72,7 +72,7 @@
 		</section>
 		<!-- ##### Hero Area End ##### -->
 
-<!-- ##### Portfolio Area Start ##### -->
+		<!-- ##### Portfolio Area Start ##### -->
 		<section class="alazea-portfolio-area section-padding-100-0">
 			<div class="container">
 				<div class="row">
@@ -105,8 +105,8 @@
 				<div class="row alazea-portfolio">
 
 					<!-- Single Portfolio Area -->
-					<th:block th:each="room , index : ${hotels}">
-						<div th:if="${room.address != null} and ${room.status} == true"
+					<th:block th:each="room , i : ${hotels}">
+						<div th:if="${room.address != null} and ${room.status} == true and ${i.index <=7} "
 							th:class="'col-12 col-sm-6 col-lg-3 single_portfolio_item wow fadeInUp ' +${#strings.substringBefore(room.address, '-').replace(' ', '')}"
 							data-wow-delay="100ms">
 							<!-- Portfolio Thumbnail -->
@@ -135,51 +135,7 @@
 							Nulla sit amet varius nunc. Maecenas dui, tempeu ullam corper in.</p>
 
 						<!-- Progress Bar Content Area -->
-						<div class="alazea-progress-bar mb-50">
-							<!-- Single Progress Bar -->
-							<div class="single_progress_bar">
-								<p>Office plants</p>
-								<div id="bar1" class="barfiller">
-									<div class="tipWrap">
-										<span class="tip"></span>
-									</div>
-									<span class="fill" data-percentage="80"></span>
-								</div>
-							</div>
 
-							<!-- Single Progress Bar -->
-							<div class="single_progress_bar">
-								<p>Field manager</p>
-								<div id="bar2" class="barfiller">
-									<div class="tipWrap">
-										<span class="tip"></span>
-									</div>
-									<span class="fill" data-percentage="70"></span>
-								</div>
-							</div>
-
-							<!-- Single Progress Bar -->
-							<div class="single_progress_bar">
-								<p>Landscape design</p>
-								<div id="bar3" class="barfiller">
-									<div class="tipWrap">
-										<span class="tip"></span>
-									</div>
-									<span class="fill" data-percentage="85"></span>
-								</div>
-							</div>
-
-							<!-- Single Progress Bar -->
-							<div class="single_progress_bar">
-								<p>Garden Care</p>
-								<div id="bar4" class="barfiller">
-									<div class="tipWrap">
-										<span class="tip"></span>
-									</div>
-									<span class="fill" data-percentage="65"></span>
-								</div>
-							</div>
-						</div>
 					</div>
 
 					<div class="col-12 col-lg-6">
@@ -188,8 +144,8 @@
 								<!-- Single Benefits Area -->
 								<div class="col-12 col-sm-6">
 									<div class="single-benefits-area">
-										<img src="/assets/user/img/core-img/b1.png" alt="">
-										<h5>Quality Products</h5>
+
+										<h5>Flexible search</h5>
 										<p>Intiam eu sagittis est, at commodo lacini libero. Praesent dignissim sed odio
 											vel aliquam manta lagorn.</p>
 									</div>
@@ -198,8 +154,8 @@
 								<!-- Single Benefits Area -->
 								<div class="col-12 col-sm-6">
 									<div class="single-benefits-area">
-										<img src="/assets/user/img/core-img/b2.png" alt="">
-										<h5>Perfect Service</h5>
+
+										<h5>Ratings and comments</h5>
 										<p>Intiam eu sagittis est, at commodo lacini libero. Praesent dignissim sed odio
 											vel aliquam manta lagorn.</p>
 									</div>
@@ -208,8 +164,8 @@
 								<!-- Single Benefits Area -->
 								<div class="col-12 col-sm-6">
 									<div class="single-benefits-area">
-										<img src="/assets/user/img/core-img/b3.png" alt="">
-										<h5>100% Natural</h5>
+
+										<h5>Special offer</h5>
 										<p>Intiam eu sagittis est, at commodo lacini libero. Praesent dignissim sed odio
 											vel aliquam manta lagorn.</p>
 									</div>
@@ -218,8 +174,8 @@
 								<!-- Single Benefits Area -->
 								<div class="col-12 col-sm-6">
 									<div class="single-benefits-area">
-										<img src="/assets/user/img/core-img/b4.png" alt="">
-										<h5>Environmentally friendly</h5>
+
+										<h5>Manage reservations easily</h5>
 										<p>Intiam eu sagittis est, at commodo lacini libero. Praesent dignissim sed odio
 											vel aliquam manta lagorn.</p>
 									</div>
@@ -240,7 +196,7 @@
 		</section>
 		<!-- ##### About Area End ##### -->
 
-		
+
 		<!-- ##### Portfolio Area End ##### -->
 
 		<!-- ##### Testimonial Area Start ##### -->
@@ -263,12 +219,17 @@
 											<!-- Section Heading -->
 											<div class="section-heading">
 												<h2>TESTIMONIAL</h2>
-												<p>Some kind words from clients about Alazea</p>
+												<p>Some kind words from clients about Booking</p>
 											</div>
-											<p>“Alazea is a pleasure to work with. Their ideas are creative, they came
-												up with imaginative solutions to some tricky issues, their landscaping
-												and planting contacts are equally excellent we have a beautiful but also
-												manageable garden as a result. Thank you!”</p>
+											<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+												tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+												veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+												commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+												velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+												occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+												mollit anim id est laborum."
+
+											</p>
 											<div class="testimonial-author-info">
 												<h6>Mr. Nick Jonas</h6>
 												<p>CEO of NAVATECH</p>
@@ -291,12 +252,17 @@
 											<!-- Section Heading -->
 											<div class="section-heading">
 												<h2>TESTIMONIAL</h2>
-												<p>Some kind words from clients about Alazea</p>
+												<p>Some kind words from clients about Booking</p>
 											</div>
-											<p>“Alazea is a pleasure to work with. Their ideas are creative, they came
-												up with imaginative solutions to some tricky issues, their landscaping
-												and planting contacts are equally excellent we have a beautiful but also
-												manageable garden as a result. Thank you!”</p>
+											<p>“"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+												tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+												veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+												commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+												velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+												occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+												mollit anim id est laborum."
+
+												”</p>
 											<div class="testimonial-author-info">
 												<h6>Mr. Nazrul Islam</h6>
 												<p>CEO of NAVATECH</p>
@@ -319,12 +285,17 @@
 											<!-- Section Heading -->
 											<div class="section-heading">
 												<h2>TESTIMONIAL</h2>
-												<p>Some kind words from clients about Alazea</p>
+												<p>Some kind words from clients about Booking</p>
 											</div>
-											<p>“Alazea is a pleasure to work with. Their ideas are creative, they came
-												up with imaginative solutions to some tricky issues, their landscaping
-												and planting contacts are equally excellent we have a beautiful but also
-												manageable garden as a result. Thank you!”</p>
+											<p>“"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+												tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+												veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+												commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+												velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+												occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+												mollit anim id est laborum."
+
+												”</p>
 											<div class="testimonial-author-info">
 												<h6>Mr. Jonas Nick</h6>
 												<p>CEO of NAVATECH</p>
@@ -342,11 +313,11 @@
 		<!-- ##### Testimonial Area End ##### -->
 
 		<!-- ##### Product Area Start ##### -->
-		
+
 		<!-- ##### Product Area End ##### -->
 
 		<!-- ##### Blog Area Start ##### -->
-		
+
 
 		<!-- ##### Contact Area Start ##### -->
 		<section class="contact-area section-padding-100-0">
