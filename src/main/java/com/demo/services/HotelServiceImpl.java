@@ -285,7 +285,7 @@ public class HotelServiceImpl implements HotelService {
 			}
 			if (selectHelper.getServices() != null) {
 				for (var x : selectHelper.getServices()) {
-					whereClause = cb.and(whereClause, cb.like(root.get("description"), "%" + x + "%"));
+					whereClause = cb.and(whereClause, cb.like(root.get("regulation"), "%" + x + "%"));
 				}
 			}
 
