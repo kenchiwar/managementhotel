@@ -53,13 +53,13 @@
 								<label>Number of Night: </label>
 								<th:block th:text="${cart.billDetail.numberDay}"></th:block><br>
 								<label>Main Guest: </label>
-								<th:block th:text="${cart.billDetail.bill.mainGuest}"></th:block><br>
+								<th:block th:text="${cart.billDetail.bill.name}"></th:block><br>
 								<label>Price: </label>
 								<th:block th:text="${cart.billDetail.price}"></th:block><br>
 								<label>Price Discount: </label>
 								<th:block th:text="${cart.billDetail.priceDiscount}"></th:block><br>
 								<label>Total: </label>
-								<th:block th:text="${cart.billDetail.total + ' (' + usd + ' USD)'}"></th:block><br>
+								<th:block th:text="${#numbers.formatDecimal(cart.billDetail.total, 0, 3) + ' (' + usd + ' USD)'}"></th:block><br>
 								<label>Payment Method: </label> Paypal
 								<!-- <th:block th:text="${payment.method}"></th:block><br> -->
 	

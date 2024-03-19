@@ -1,0 +1,23 @@
+<div class="sec-evaluate">
+	<div class="box-bill-detail-2 box  box-bill-detail mb-30">
+		<div class="wrapper">
+			<div class="image">
+				<img th:src="@{'/assets/images/hotel/main/'+${eva.room.hotel.mainPhoto}}">
+			</div>
+			<div class="content">
+				<h6 th:text="${eva.room.hotel.name}" class="fs-22 fw-700 color-black mb-2"></h6>
+
+				<p class="phone">Phone Hotel : <a th:href="@{'tel:'+${eva.id}}"
+						th:text="${eva.room.hotel.account.phone}"></a></p>
+            <th:block th:if="${eva.bill.status == '3'}">
+				<a th:href="@{'/evaluate/' + ${eva.id}}" class="btn-outline">Send Evaluate</a>
+			</th:block>
+			<th:block th:href="${eva.bill.status == '4'}">
+                <a th:href="@{'/evaluate/' + ${eva.id}}" class="btn-bg">Manage</a>
+            </th:block>
+			
+
+			</div>
+		</div>
+	</div>
+</div>

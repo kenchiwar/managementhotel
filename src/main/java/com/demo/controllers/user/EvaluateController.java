@@ -62,14 +62,26 @@ public class EvaluateController {
 	public String detail(@PathVariable("id") int id,ModelMap modelMap, Authentication authentication, Evaluate evaluate) {
 		var account = accountSelectService.getAccountLogin(authentication);
 		var billDetail = billDetailService.find(id);
+		var evaluate_bill = evaluateService.getEvaluate_bill(billDetail.getBill().getId(), account.getId());
         modelMap.put("evaluate", evaluate);
-		modelMap.put("billDetail", billDetail);
+        modelMap.put("eva", evaluate_bill);
+		modelMap.put("billDetail_evaluate", billDetail);
 		modelMap.put("account", accountSelectService.getAccountLogin(authentication));
-		return "user/bill_evaluate/detail";
+		return "user/bill_evaluate/index";
 	}
 	public static Date localDateToDate(LocalDate localDate) {
         return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
+
+	// @RequestMapping(value= {"e/{id}"} ,method = RequestMethod.GET)
+	// public String detail(@PathVariable("id") int id,ModelMap modelMap, Authentication authentication, Evaluate evaluate) {
+	// 	var account = accountSelectService.getAccountLogin(authentication);
+	// 	var billDetail = billDetailService.find(id);
+    //     modelMap.put("evaluate", evaluate);
+	// 	modelMap.put("billDetail", billDetail);
+	// 	modelMap.put("account", accountSelectService.getAccountLogin(authentication));
+	// 	return "user/bill_evaluate/detail";
+	// }
 
 	@RequestMapping(value = {"comment"}, method = RequestMethod.POST)
 	public String create(@ModelAttribute("evaluate") Evaluate evaluate, @ModelAttribute("billDetail") BillDetail billDetail_,Authentication authentication, RedirectAttributes redirectAttributes) {

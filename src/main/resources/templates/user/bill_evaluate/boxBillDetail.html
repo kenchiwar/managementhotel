@@ -11,20 +11,29 @@
 			}"></th:block>
 				</h6>
 			</div>
-			<div class="content">
+			<div class="content product_details_tab">
 				<p class="text-center mb-30 fs-18 fw-700 color-black">Code : <th:block th:text="${billDetail.id}">
 					</th:block>
 				</p>
 				<th:block th:if="${billDetail.bill.status == '3'}">
-					<button type="button" class="btn-outline mb-30" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><Strong>Send Evaluate</Strong></button>
+					<a th:href="@{'/hotel/booking/' + ${billDetail.room.id}}" class="btn-bg">Rebooking</a>
+					<button type="button" class="btn-outline mb-30" data-toggle="modal" data-target="#exampleModal" ><Strong>Send Evaluate</Strong></button>
 					<!-- <a class="btn-outline mb-30" data-target="#exampleModal" data-whatever="@mdo">Send Evaluate</a> -->
 				</th:block>
 				<th:block th:if="${billDetail.bill.status == '4'}">
+						<div class="review-rating">
+
+						<th:block th:each="i : ${#numbers.sequence(1, eva.number)}"> 
+							<i class="fa fa-star" aria-hidden="true"></i>
+						</th:block><br>
+						<label for="">Coment: <th:block th:text="${eva.comment}"></th:block></label>
+					</div>
 					<a th:href="@{'/hotel/booking/' + ${billDetail.room.id}}" class="btn-bg">Rebooking</a>
 				</th:block>
+				
 				<th:block th:if="${billDetail.bill.status == '1'}">
 				<a id="cancelLink" class="btn btn-danger" th:href="@{'/bill/cancel/' + ${billDetail.id}}">Cancel</a>
-			</th:block>
+				</th:block>
 			</div>
 		</div>
 	</div>
@@ -50,6 +59,7 @@
 								<th:block th:text="${billDetail.bill.checkInFrom}"></th:block>
 							</strong>
 						</div>
+						<div><strong th:text="${billDetail.numberDay + ' Number of Night'}"></strong></div>
 						<div class="CheckOut">
 							<p>Check Out Until</p>
 							<strong class="color-black">
@@ -106,7 +116,7 @@
 
 					</div>
 					<div class="col-12">
-						<p th:text="${billDetail.bill.mainGuest}" class="fs-16 color-black"></p>
+						<p th:text="${billDetail.bill.name}" class="fs-16 color-black"></p>
 
 					</div>
 				</div>
@@ -173,7 +183,7 @@
 			
 		</div>
 		<div class="modal-footer">
-			<!-- <input type="hidden" th:field="${billDetail.id}"> -->
+			<input type="hidden" th:field="${billDetail.id}">
 
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			<input type="submit" class="btn btn-primary" value="Send">
@@ -183,7 +193,7 @@
     </div>
   </div>
 </div>
-					<th:block th:if="${billDetail.bill.status == '3'}">
+					<!-- <th:block th:if="${billDetail.bill.status == '3'}">
 						<form method="post" th:action="@{/evaluate/comment}">
 							numnber:<input type="number" max="5" th:field="${evaluate.number}"><br>
 							Comment: <input type="text" th:field="${evaluate.comment}"><br>
@@ -192,7 +202,7 @@
 							<input type="submit" value="Comment">
 
 						</form>
-					</th:block>
+					</th:block> -->
 				</div>
 			</div>
 		</div>

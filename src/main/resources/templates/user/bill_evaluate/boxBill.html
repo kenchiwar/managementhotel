@@ -46,20 +46,13 @@
 			</div>
 		</div>
 		<div class="box-footer">
-			<th:block th:if="${bill.bill.status == '4'}">
-				<th:block th:each="evaluate : ${bill.room.hotel.evaluates}">
-					<th:block th:if="evaluate.idBill == bill.bill.id">
-						<h5 th:text="${evaluate.number}"></h5>
-					</th:block>
-				</th:block>
-			</th:block>
 
 			<th:block th:if="${bill.bill.status == '1'}">
 				<a id="cancelLink" class="btn btn-danger" th:href="@{'/bill/cancel/' + ${bill.id}}">Cancel</a>
 			</th:block>
 			
 			<th:block th:if="${bill.bill.status == '3'}">
-				<a th:href="@{'#'}" class="btn-outline">Send Evaluate</a>
+				<a th:href="@{'/evaluate/' + ${eva.id}}" class="btn-outline">Send Evaluate</a>
 			</th:block>
 			
 			<a th:href="@{'/bill/detail/' + ${bill.id}}" class="btn-bg">Manage</a>

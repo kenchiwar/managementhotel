@@ -1,63 +1,63 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/admin :: mainContentAdmin('INDEX HOTEL', ~{this :: #main-content},~{this:: #css},~{this :: #script})">
+<div class="sec-evaluate">
+	<div class="box-bill-detail-2 box  box-bill-detail mb-30">
+		<div class="wrapper">
+			<div class="image">
+				<img th:src="@{'/assets/images/hotel/main/'+${billDetail_evaluate.room.hotel.mainPhoto}}">
+			</div>
+			<div class="content">
+				<h6 th:text="${billDetail_evaluate.room.hotel.name}" class="fs-22 fw-700 color-black mb-2"></h6>
 
-<head>
-	
-</head>
+				<p class="phone">Phone Hotel : <a th:href="@{'tel:'+${billDetail_evaluate.id}}"
+						th:text="${billDetail_evaluate.room.hotel.account.phone}"></a></p>
 
-<body>
-	<div id="css">
-		
-	</div>
-	<div id="main-content">
-		<h4>Bill Confirm</h4>
-		<label>Id: </label> <tb:block th:text="${billDetail.id}"></tb:block><br>
-		<label>Phong: </label> <tb:block th:text="${billDetail.room.name}"></tb:block><br>
-		<label>Ngay dat: </label> <tb:block th:text="${billDetail.bill.checkInUntil}"></tb:block><br>
-		<label>Ngay tra phong: </label> <tb:block th:text="${billDetail.bill.checkOutUntil}"></tb:block><br>
-		<label>Khach chinh: </label> <tb:block th:text="${billDetail.bill.mainGuest}"></tb:block><br>
-		<label>Gia: </label> <tb:block th:text="${billDetail.price}"></tb:block><br>
-		<label>Gia giam: </label> <tb:block th:text="${billDetail.priceDiscount}"></tb:block><br>
-		<label>Tong gia: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
-		<label>Total: </label> <tb:block th:text="${billDetail.total}"></tb:block><br>
-		<label>Trang thai</label><tb:block th:text="${
-			billDetail.bill.status == '1' ? 'Thanh Toan Roi' :
-			billDetail.bill.status == '2' ? 'Dang O' :
-			billDetail.bill.status == '3' ? 'Da hoan thanh' :
-			billDetail.bill.status == '4' ? 'Da hoan thanh' : 'Da Huy'
-		}"></tb:block><br>
-		<th:block th:if="${billDetail.bill.status == '3'}">
-			<form method="post" th:action="@{/bill/evaluate/comment}">
-				numnber:<input type="number" max="5" th:field="${evaluate.number}"><br>
-				Comment: <input type="text" th:field="${evaluate.comment}"><br>
-
-				<input type="hidden" th:field="${billDetail.id}">
-				<input type="submit" value="Comment">
-
-			</form>
-		</th:block>
-
-		<th:block th:if="${billDetail.bill.status == '1'}">
-			<a id="cancelLink" class="btn btn-primary" th:href="@{'/admin/billdetail/cancel/' + ${billDetail.id}}">Cancel</a>
-		</th:block>
-		
-	</div>
-	<div id="script">
-		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-			document.getElementById("cancelLink").addEventListener("click", function(event) {
-			event.preventDefault();
+				<th:block th:if="${billDetail_evaluate.bill.status == '3'}">
+					<div>
+						<div class="modal-dialog submit_a_review_area">
+						  <div class="modal-content">
+							<form method="post" th:action="@{/evaluate/comment}">
+							  <div class="modal-body">
+								  <div class="container">
+									  <div class="stars">
+										  <input type="radio"  class="star-1" id="star-1" th:field="${evaluate.number}" value="1">
+										  <label class="star-1" for="star-1">1</label>
+										  <input type="radio"  class="star-2" id="star-2" th:field="${evaluate.number}" value="2">
+										  <label class="star-2" for="star-2">2</label>
+										  <input type="radio"  class="star-3" id="star-3" th:field="${evaluate.number}" value="3">
+										  <label class="star-3" for="star-3">3</label>
+										  <input type="radio" class="star-4" id="star-4" th:field="${evaluate.number}" value="4">
+										  <label class="star-4" for="star-4">4</label>
+										  <input type="radio" class="star-5" id="star-5" th:field="${evaluate.number}" value="5">
+										  <label class="star-5" for="star-5">5</label>
+										  <span></span>
+									  </div>
+								</div>	
+								  <div class="form-group">
+									  <label for="message-text" class="col-form-label">Comment:</label>
+									  <textarea class="form-control"  th:field="${evaluate.comment}"></textarea>
+								  </div>
+								  
+							  </div>
+							  <div class="modal-footer">
+								  <input type="hidden" th:field="${billDetail_evaluate.id}">
+								  <input type="submit" class="btn btn-primary" value="Send">
+					  
+							  </div>
+						  </form>
+						  </div>
+						</div>
+					  </div>
+				</th:block>
 			
-			var confirmed = confirm("Bạn có chắc chắn muốn hủy bỏ không?");
-			
-			if (confirmed) {
-				window.location.href = this.getAttribute("href");
-			}
-		});
-	});
-				
-		   </script>
-	</div>
-</body>
+				<th:block th:if="${billDetail_evaluate.bill.status == '4'}">
+					<div class="review-rating">
 
-</html>
+					<th:block th:each="i : ${#numbers.sequence(1, eva.number)}"> 
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</th:block><br>
+					<label for="">Coment: <th:block th:text="${eva.comment}"></th:block></label>
+				</div>
+			</th:block>
+			</div>
+		</div>
+	</div>
+</div>

@@ -139,6 +139,16 @@
 							<th:block th:insert="user/bill_evaluate/boxBillDetail :: .sec-bill-detail"></th:block>
 						</th:block>
 
+						<th:block th:if="${evaluates != null}">
+							<th:block th:each="eva : ${evaluates}">
+								<th:block th:insert="user/bill_evaluate/boxEvaluate_Index :: .sec-evaluate"></th:block>
+							</th:block>
+							
+						</th:block>
+						<th:block th:if="${billDetail_evaluate != null}">
+								<th:block th:insert="user/bill_evaluate/detail :: .sec-evaluate"></th:block>							
+						</th:block>
+
 					</div>
 					<div>
 
