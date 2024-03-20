@@ -39,7 +39,7 @@
 							  </div>
 							  <div class="modal-footer">
 								  <input type="hidden" th:field="${billDetail_evaluate.id}">
-								  <input type="submit" class="btn btn-primary" value="Send">
+								  <input type="submit" class="btn btn-primary" value="Send" style="background: #007bff;">
 					  
 							  </div>
 						  </form>
@@ -52,7 +52,7 @@
 					<div class="review-rating">
 
 					<th:block th:each="i : ${#numbers.sequence(1, eva.number)}"> 
-						<i class="fa fa-star" aria-hidden="true"></i>
+						<i class="fa fa-star" aria-hidden="true" style="color:#ffff00"></i>
 					</th:block><br>
 					<label for="">Coment: <th:block th:text="${eva.comment}"></th:block></label>
 				</div>

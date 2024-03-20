@@ -150,8 +150,11 @@ public class BillController {
 			Item item = (Item) session.getAttribute("cart");
 			
 			var bill = item.getBillDetail().getBill();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			bill.setCheckOutUntil(new Date());
 			if (billService.save(bill)) {
 				var bill_Detail  = item.getBillDetail();
+				bill_Detail.setReasonDiscount(item.getRoom().getReasonDiscount());
 				billDetailService.save(bill_Detail);
 				var room_ = item.getRoom();
 				roomService.save(room_);

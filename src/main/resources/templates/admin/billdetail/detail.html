@@ -43,6 +43,7 @@
 							<th>Phone</th>
 							<th>Check In Date</th>
 							<th>Check Out Date</th>
+							<th>Payment date success</th>
 							<th>Day Number</th>
 							<th>Pice</th>
 							<th>Price Discount</th>
@@ -69,6 +70,7 @@
 							<td th:text="${billDetail.bill.email}"></td>
 							<td th:text="${billDetail.bill.phone}"></td>
 							<td th:text="${billDetail.bill.checkInUntil}"></td>
+							<td th:text="${billDetail.bill.checkOutFrom}"></td>
 							<td th:text="${billDetail.bill.checkOutUntil}"></td>
 							<td th:text="${billDetail.numberDay}"></td>
 							<td th:text="${billDetail.price}"></td>
@@ -89,20 +91,11 @@
 							</td>
 							<td>
 								<th:block th:if="${billDetail.bill.status == '1'}">
-									<a th:href="@{'/admin/billdetail/edit_reason/' + ${billDetail.id}}">Edit</a> 
+									
 									<a id="cancelLink" class="btn btn-primary"
 										th:href="@{'/admin/billdetail/cancel/' + ${billDetail.id}}">Cancel</a>
 								</th:block>
-								<th:block th:if="${billDetail.bill.status == '2'}">
-
-									<a th:href="@{'/admin/billdetail/edit_reason/' + ${billDetail.id}}">Edit</a> 
-								</th:block>
-								<th:block th:if="${billDetail.bill.status == '3' or billDetail.bill.status == '4'}">
-									<a th:href="@{'/admin/billdetail/edit_reason/' + ${billDetail.id}}">Edit</a> 
-								</th:block>
-								<th:block th:if="${billDetail.bill.status == '5'}">
-									<a th:href="@{'/admin/billdetail/edit_reason/' + ${billDetail.id}}">Edit</a> 
-								</th:block>
+								
 							</td>
 
 						</tr>

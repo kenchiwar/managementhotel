@@ -60,11 +60,11 @@
 				<li class="nav-item">
 					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
 				</li>
-				
+
 			</ul>
 
 			<!-- Right navbar links -->
-			
+
 		</nav>
 		<!-- /.navbar -->
 
@@ -72,7 +72,7 @@
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="/" class="brand-link">
-				
+
 				<span class="brand-text font-weight-light">Home</span>
 			</a>
 
@@ -85,7 +85,9 @@
 							alt="User Image">
 					</div>
 					<div class="info">
-						<a href="/account" class="d-block"><th:block sec:authentication="name"></th:block></a>
+						<a href="/account" class="d-block">
+							<th:block sec:authentication="name"></th:block>
+						</a>
 					</div>
 				</div>
 
@@ -109,7 +111,7 @@
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 						<th:block sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN')">
-							
+
 							<li class="nav-item ">
 								<a href="#" class="nav-link ">
 									<i class="fa-solid fa-hotel"></i>
@@ -163,11 +165,11 @@
 
 								</ul>
 							</li>
-							
-						
+
+
 						</th:block>
 						<th:block sec:authorize="hasAnyRole('ROLE_ADMIN')">
-							
+
 							<li class="nav-item ">
 								<a href="#" class="nav-link ">
 									<i class="fa-solid fa-hotel"></i>
@@ -198,9 +200,9 @@
 									</li>
 								</ul>
 							</li>
-							
-							
-						
+
+
+
 						</th:block>
 						<th:block sec:authorize="hasAnyRole('ROLE_BUSINESS')">
 							<li class="nav-item ">
@@ -294,10 +296,11 @@
 			</div>
 		</div>
 		<!-- /.content-wrapper -->
+		<!--
 		<footer class="main-footer">
 			<strong> &copy; 2024 </strong>
 		</footer>
-
+-->
 		<!-- Control Sidebar -->
 		<aside class="control-sidebar control-sidebar-dark">
 			<!-- Control sidebar content goes here -->

@@ -28,15 +28,15 @@
 						<div class="check">
 							<div class="wrapper">
 								<div class="CheckIn">
-									<p>Check In From</p>
+									<p>Check In Date</p>
 									<strong class="color-black">
 										<th:block th:text="${bill.bill.checkInFrom}"></th:block>
 									</strong>
 								</div>
 								<div class="CheckOut">
-									<p>Check Out Until</p>
+									<p>Check Out Date</p>
 									<strong class="color-black">
-										<th:block th:text="${bill.bill.checkOutUntil}"></th:block>
+										<th:block th:text="${bill.bill.checkOutFrom}"></th:block>
 									</strong>
 								</div>
 							</div>
@@ -52,7 +52,7 @@
 			</th:block>
 			
 			<th:block th:if="${bill.bill.status == '3'}">
-				<a th:href="@{'/evaluate/' + ${eva.id}}" class="btn-outline">Send Evaluate</a>
+				<a th:href="@{'/evaluate/' + ${bill.id}}" class="btn-outline">Send Evaluate</a>
 			</th:block>
 			
 			<a th:href="@{'/bill/detail/' + ${bill.id}}" class="btn-bg">Manage</a>

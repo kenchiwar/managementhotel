@@ -43,6 +43,7 @@
 							<th>Phone</th>
 							<th>Check In Date</th>
 							<th>Check Out Date</th>
+							<th>Payment date sucess</th>
 							<th>Day Number</th>
 							<th>Pice</th>
 							<th>Price Discount</th>
@@ -70,6 +71,7 @@
 							<td th:text="${bill_.bill.email}"></td>
 							<td th:text="${bill_.bill.phone}"></td>
 							<td th:text="${bill_.bill.checkInUntil}"></td>
+							<td th:text="${bill_.bill.checkOutFrom}"></td>
 							<td th:text="${bill_.bill.checkOutUntil}"></td>
 							<td th:text="${bill_.numberDay}"></td>
 							<td th:text="${bill_.price}"></td>
@@ -78,8 +80,8 @@
 
 							<td th:text="${bill_.total}"></td>
 							<td
-							th:text="${bill_.bill.status == '1' ? 'Paid' : bill_.bill.status == '2' ?  'Live In' : bill_.bill.status == '3' ? 'Completed' : bill_.bill.status == '4' ? 'Completed And Evaluated' : 'Canceled'}">
-						</td>
+								th:text="${bill_.bill.status == '1' ? 'Paid' : bill_.bill.status == '2' ?  'Live In' : bill_.bill.status == '3' ? 'Completed' : bill_.bill.status == '4' ? 'Completed And Evaluated' : 'Canceled'}">
+							</td>
 							<td>
 								<th:block th:if="${checkBill.bill.status == '1'}">
 									<a th:href="@{'/admin/billdetail/edit/' + ${bill_.id}}">Check In</a>
@@ -90,23 +92,21 @@
 							</td>
 							<td>
 								<th:block th:if="${checkBill.bill.status == '1'}">
-									<a th:href="@{'/admin/billdetail/edit_reason/' + ${bill_.id}}">Edit</a> |
-									<a th:href="@{'/admin/billdetail/bill/' + ${bill_.id}}">Detail</a> |
+								
+									<a th:href="@{'/admin/billdetail/bill/' + ${bill_.id}}">Detail</a> 
 									<a id="cancelLink" class="btn btn-primary"
 										th:href="@{'/admin/billdetail/cancel/' + ${bill_.id}}">Cancel</a>
 								</th:block>
 								<th:block th:if="${checkBill.bill.status == '2'}">
 
-									<a th:href="@{'/admin/billdetail/edit_reason/' + ${bill_.id}}">Edit</a> |
-									<a th:href="@{'/admin/billdetail/bill/' + ${bill_.id}}">Detail</a> |
+								
+									<a th:href="@{'/admin/billdetail/bill/' + ${bill_.id}}">Detail</a> 
 								</th:block>
 								<th:block th:if="${checkBill.bill.status == '3' or checkBill.bill.status == '4'}">
-									<a th:href="@{'/admin/billdetail/edit_reason/' + ${bill_.id}}">Edit</a> |
-									<a th:href="@{'/admin/billdetail/bill/' + ${bill_.id}}">Detail</a> |
+									<a th:href="@{'/admin/billdetail/bill/' + ${bill_.id}}">Detail</a> 
 								</th:block>
 								<th:block th:if="${checkBill.bill.status == '5'}">
-									<a th:href="@{'/admin/billdetail/edit_reason/' + ${bill_.id}}">Edit</a> |
-									<a th:href="@{'/admin/billdetail/bill/' + ${bill_.id}}">Detail</a> |
+									<a th:href="@{'/admin/billdetail/bill/' + ${bill_.id}}">Detail</a> 
 								</th:block>
 							</td>
 

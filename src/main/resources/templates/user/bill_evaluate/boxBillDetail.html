@@ -54,16 +54,16 @@
 				<div class="check">
 					<div class="wrapper">
 						<div class="CheckIn">
-							<p>Check In From</p>
+							<p>Check In Date</p>
 							<strong class="color-black">
 								<th:block th:text="${billDetail.bill.checkInFrom}"></th:block>
 							</strong>
 						</div>
 						<div><strong th:text="${billDetail.numberDay + ' Number of Night'}"></strong></div>
 						<div class="CheckOut">
-							<p>Check Out Until</p>
+							<p>Check Out Date</p>
 							<strong class="color-black">
-								<th:block th:text="${billDetail.bill.checkOutUntil}"></th:block>
+								<th:block th:text="${billDetail.bill.checkOutFrom}"></th:block>
 							</strong>
 						</div>
 					</div>

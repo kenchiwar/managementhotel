@@ -124,7 +124,6 @@ public class HotelUserController {
 			bill_save.setCheckInFrom(bill.getCheckInUntil());
 			bill_save.setCheckInUntil(bill.getCheckInUntil());
 			bill_save.setCheckOutFrom(bill.getCheckOutFrom());
-			bill_save.setCheckOutUntil(bill.getCheckOutFrom());
 			bill_save.setMainGuest(room_.getHotel().getIdAccount().toString());
 			bill_save.setName(account.getFirstName() + " " + account.getLastName());
 			bill_save.setEmail(account.getEmail());
@@ -137,12 +136,12 @@ public class HotelUserController {
 
 				// //dem so ngay da o
 				long dateBeforeInMs = bill_save.getCheckInUntil().getTime();
-				long dateAfterInMs = bill_save.getCheckOutUntil().getTime();
+				long dateAfterInMs = bill_save.getCheckOutFrom().getTime();
 				long timeDiff = Math.abs(dateAfterInMs - dateBeforeInMs);
 				long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
 
  				Date date = bill_save.getCheckInFrom();
-				Date date_2 = bill_save.getCheckOutUntil();  // Đối tượng Date của bạn
+				Date date_2 = bill_save.getCheckOutFrom();  // Đối tượng Date của bạn
         		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				LocalDate localDate_2 = date_2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         		int year = localDate.getYear();
