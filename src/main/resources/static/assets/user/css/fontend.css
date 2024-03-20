@@ -711,6 +711,15 @@ button.btn-submit {
 .header-area .sticky-wrapper.is-sticky .nav-brand.logo-white{
 	display: block;
 }
+.btn-main-1{
+	padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    background: rgba(1, 148, 243, 1.00);
+    color: #fff;
+    border-radius: 20px;
+        display: inline-block;
+}
 @media (max-width:700px){
 	.detai-hotels .box-room .wrapper{
 		flex-direction: column;

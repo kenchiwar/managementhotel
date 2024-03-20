@@ -10,10 +10,10 @@
 				<p class="phone">Phone Hotel : <a th:href="@{'tel:'+${eva.id}}"
 						th:text="${eva.room.hotel.account.phone}"></a></p>
             <th:block th:if="${eva.bill.status == '3'}">
-				<a th:href="@{'/evaluate/' + ${eva.id}}" class="btn-outline">Send Evaluate</a>
+				<a th:href="@{'/evaluate/' + ${eva.id}}" class="btn-outline btn-main-1">Send Evaluate</a>
 			</th:block>
 			<th:block th:href="${eva.bill.status == '4'}">
-                <a th:href="@{'/evaluate/' + ${eva.id}}" class="btn-bg">Manage</a>
+                <a th:href="@{'/evaluate/' + ${eva.id}}" class="btn-bg btn-main-1">Manage</a>
             </th:block>
 			
 
